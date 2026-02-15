@@ -31,25 +31,15 @@ function WorkItem({
       }}
       onClick={() => onOpen(index)}
     >
-      <motion.div className="w-full h-full" whileHover={{ scale: 1.06 }}>
+      <div className="w-full h-full transition-transform duration-[800ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]">
         <Image
           src={project.image}
           alt={project.title}
           fill
           sizes="(max-width: 900px) 100vw, 50vw"
-          className="object-cover transition-[filter] duration-600"
-          style={{
-            filter: "saturate(0.85)",
-            transitionTimingFunction: "cubic-bezier(0.23,1,0.32,1)",
-          }}
-          onMouseEnter={(e) => {
-            (e.target as HTMLImageElement).style.filter = "saturate(1.1)";
-          }}
-          onMouseLeave={(e) => {
-            (e.target as HTMLImageElement).style.filter = "saturate(0.85)";
-          }}
+          className="object-cover saturate-[0.85] group-hover:saturate-[1.1] transition-[filter] duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)]"
         />
-      </motion.div>
+      </div>
       <div
         className="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100"
         style={{

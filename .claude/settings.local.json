@@ -8,7 +8,8 @@
       "WebSearch",
       "WebFetch(domain:unsplash.com)",
       "WebFetch(domain:images.unsplash.com)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npx next build:*)"
     ]
   }
 }
