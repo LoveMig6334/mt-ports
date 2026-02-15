@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLenis } from "lenis/react";
 import { ease } from "@/lib/animations";
 
 const links = [
@@ -10,10 +11,11 @@ const links = [
 ];
 
 export default function Navbar() {
+  const lenis = useLenis();
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) target.scrollIntoView({ behavior: "smooth" });
+    lenis?.scrollTo(href);
   };
 
   return (
