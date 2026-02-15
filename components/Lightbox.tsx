@@ -106,7 +106,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
               className="absolute -top-[50px] right-0 w-10 h-10 rounded-full flex items-center justify-center text-[1.2rem] text-[var(--fg)] cursor-pointer bg-transparent"
               style={{ border: "1.5px solid rgba(240,236,228,0.3)" }}
               whileHover={{
-                borderColor: "var(--coral)",
+                borderColor: "#ff6b4a",
                 rotate: 90,
                 transition: { duration: 0.3 },
               }}
@@ -124,9 +124,9 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
                 border: "1px solid rgba(240,236,228,0.15)",
               }}
               whileHover={{
-                backgroundColor: "var(--accent)",
-                borderColor: "var(--accent)",
-                color: "var(--bg)",
+                backgroundColor: "#e8ff47",
+                borderColor: "#e8ff47",
+                color: "#0a0a0a",
                 transition: { duration: 0.3, ease },
               }}
               onClick={() => navigate(-1)}
@@ -143,9 +143,9 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
                 border: "1px solid rgba(240,236,228,0.15)",
               }}
               whileHover={{
-                backgroundColor: "var(--accent)",
-                borderColor: "var(--accent)",
-                color: "var(--bg)",
+                backgroundColor: "#e8ff47",
+                borderColor: "#e8ff47",
+                color: "#0a0a0a",
                 transition: { duration: 0.3, ease },
               }}
               onClick={() => navigate(1)}

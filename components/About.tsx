@@ -100,11 +100,12 @@ function Bio() {
         {skills.map((skill) => (
           <motion.div
             key={skill}
-            className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.7rem] uppercase tracking-[0.1em] font-body border border-fg/10"
+            className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.7rem] uppercase tracking-[0.1em] font-body"
+            style={{ border: "1px solid rgba(240,236,228,0.1)" }}
             whileHover={{
-              borderColor: "var(--accent)",
-              backgroundColor: "var(--accent)",
-              color: "var(--bg)",
+              borderColor: "#e8ff47",
+              backgroundColor: "#e8ff47",
+              color: "#0a0a0a",
               transition: { duration: 0.4, ease },
             }}
           >

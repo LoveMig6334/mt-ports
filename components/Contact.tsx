@@ -73,11 +73,15 @@ export default function Contact() {
               key={link.title}
               href="#"
               title={link.title}
-              className="social-link w-[50px] h-[50px] rounded-full flex items-center justify-center no-underline text-[0.75rem] uppercase tracking-[0.05em] text-fg font-body border border-fg/15"
+              className="social-link w-[50px] h-[50px] rounded-full flex items-center justify-center no-underline text-[0.75rem] uppercase tracking-[0.05em] font-body"
+              style={{
+                color: "#f0ece4",
+                border: "1px solid rgba(240,236,228,0.15)",
+              }}
               whileHover={{
-                backgroundColor: "var(--fg)",
-                color: "var(--bg)",
-                borderColor: "var(--fg)",
+                backgroundColor: "#f0ece4",
+                color: "#0a0a0a",
+                borderColor: "#f0ece4",
                 y: -3,
                 transition: { duration: 0.4, ease },
               }}

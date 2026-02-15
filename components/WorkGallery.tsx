@@ -52,11 +52,15 @@ function WorkItem({
           {project.title}
         </h3>
         <motion.div
-          className="absolute top-8 right-8 w-12 h-12 rounded-full flex items-center justify-center text-[1.3rem] text-fg border-[1.5px] border-fg"
+          className="absolute top-8 right-8 w-12 h-12 rounded-full flex items-center justify-center text-[1.3rem]"
+          style={{
+            color: "#f0ece4",
+            border: "1.5px solid #f0ece4",
+          }}
           whileHover={{
-            backgroundColor: "var(--accent)",
-            borderColor: "var(--accent)",
-            color: "var(--bg)",
+            backgroundColor: "#e8ff47",
+            borderColor: "#e8ff47",
+            color: "#0a0a0a",
             transition: { duration: 0.3, ease },
           }}
         >
