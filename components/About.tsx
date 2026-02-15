@@ -58,7 +58,7 @@ function Portrait() {
           <span
             className="block mt-2 text-[var(--accent)]"
             style={{
-              fontFamily: "'Instrument Serif', serif",
+              fontFamily: "var(--font-serif)",
               fontStyle: "italic",
               fontWeight: 400,
               fontSize: "1.2rem",
@@ -87,7 +87,7 @@ function Bio() {
       <p
         className="mb-8"
         style={{
-          fontFamily: "'Instrument Serif', serif",
+          fontFamily: "var(--font-serif)",
           fontStyle: "italic",
           fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
           lineHeight: 1.35,

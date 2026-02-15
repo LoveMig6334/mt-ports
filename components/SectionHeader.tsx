@@ -37,7 +37,7 @@ export default function SectionHeader({ number, title, serifWord }: SectionHeade
         }}
       >
         {title}{" "}
-        <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400 }}>
+        <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400 }}>
           {serifWord}
         </span>
       </h2>

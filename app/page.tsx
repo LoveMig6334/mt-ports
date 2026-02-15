@@ -1,17 +1,15 @@
-"use client";
-
 import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import SectionHeader from "@/components/SectionHeader";
-import WorkGallery from "@/components/WorkGallery";
-import StatsBar from "@/components/StatsBar";
-import About from "@/components/About";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 
+const Marquee = dynamic(() => import("@/components/Marquee"));
+const SectionHeader = dynamic(() => import("@/components/SectionHeader"));
+const WorkGallery = dynamic(() => import("@/components/WorkGallery"));
+const StatsBar = dynamic(() => import("@/components/StatsBar"));
+const About = dynamic(() => import("@/components/About"));
+const Contact = dynamic(() => import("@/components/Contact"));
+const Footer = dynamic(() => import("@/components/Footer"));
 const CustomCursor = dynamic(() => import("@/components/CustomCursor"), {
   ssr: false,
 });

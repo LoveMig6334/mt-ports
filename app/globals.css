@@ -9,7 +9,7 @@
   --color-cyan: #47f0ff;
   --font-display: var(--font-syne);
   --font-body: var(--font-space-mono);
-  --font-serif: "Instrument Serif", serif;
+  --font-serif: var(--font-instrument-serif);
 }
 
 :root {

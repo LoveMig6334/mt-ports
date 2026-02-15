@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Space_Mono } from "next/font/google";
+import { Syne, Space_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const syne = Syne({
@@ -17,10 +17,34 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nova.design"),
   title: "NOVA — Graphic & UI Designer",
   description:
     "Portfolio of NOVA, a freelance graphic and UI designer creating bold visual experiences.",
+  openGraph: {
+    title: "NOVA — Graphic & UI Designer",
+    description:
+      "Portfolio of NOVA, a freelance graphic and UI designer creating bold visual experiences.",
+    images: ["/og-image.png"],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -30,13 +54,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={`${syne.variable} ${spaceMono.variable}`}>
+      <body
+        className={`${syne.variable} ${spaceMono.variable} ${instrumentSerif.variable}`}
+      >
         {children}
       </body>
     </html>

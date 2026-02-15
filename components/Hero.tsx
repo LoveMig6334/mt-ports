@@ -5,7 +5,7 @@ import { staggerContainer, heroLineVariants, fadeUpVariants, ease } from "@/lib/
 
 const heroLines = [
   <>
-    Creating <em className="not-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400, color: "var(--coral)" }}>visual</em>
+    Creating <em className="not-italic" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400, color: "var(--coral)" }}>visual</em>
   </>,
   <>experiences that</>,
   <>
