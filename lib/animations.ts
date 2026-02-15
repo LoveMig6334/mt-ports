@@ -1,4 +1,4 @@
-import type { Variants, Transition } from "framer-motion";
+import type { Transition, Variants } from "framer-motion";
 
 export const ease: [number, number, number, number] = [0.23, 1, 0.32, 1];
 
