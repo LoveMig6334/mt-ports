@@ -20,8 +20,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 flex justify-between items-center px-12 py-6 z-[1000] mix-blend-difference max-[900px]:px-6 max-[900px]:py-5">
       <a
         href="#"
-        className="font-[var(--font-display)] font-extrabold text-[1.4rem] tracking-tight text-[var(--fg)] no-underline"
-        style={{ fontFamily: "var(--font-display)" }}
+        className="font-display font-extrabold text-[1.4rem] tracking-tight text-fg no-underline"
       >
         NOVA&copy;
       </a>
@@ -31,13 +30,12 @@ export default function Navbar() {
             <motion.a
               href={link.href}
               onClick={(e) => handleClick(e, link.href)}
-              className="relative pb-1 text-[0.72rem] uppercase tracking-[0.15em] text-[var(--fg)] no-underline"
-              style={{ fontFamily: "var(--font-body)" }}
+              className="relative pb-1 text-[0.72rem] uppercase tracking-[0.15em] text-fg no-underline font-body"
               whileHover="hover"
             >
               {link.label}
               <motion.span
-                className="absolute bottom-0 left-0 h-[1.5px] bg-[var(--accent)]"
+                className="absolute bottom-0 left-0 h-[1.5px] bg-accent"
                 initial={{ width: "0%" }}
                 variants={{
                   hover: {

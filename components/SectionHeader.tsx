@@ -21,23 +21,18 @@ export default function SectionHeader({ number, title, serifWord }: SectionHeade
       animate={isInView ? "visible" : "hidden"}
       className="flex items-baseline gap-8 pt-24 pb-12 px-12 max-[900px]:px-6"
     >
-      <span
-        className="text-[0.7rem] tracking-[0.1em] text-[var(--accent)]"
-        style={{ fontFamily: "var(--font-body)" }}
-      >
+      <span className="text-[0.7rem] tracking-[0.1em] text-accent font-body">
         {number}
       </span>
       <h2
-        className="leading-none tracking-tight"
+        className="leading-none tracking-tight font-display font-extrabold"
         style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 800,
           fontSize: "clamp(2.5rem, 6vw, 5rem)",
           letterSpacing: "-0.04em",
         }}
       >
         {title}{" "}
-        <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400 }}>
+        <span className="font-serif italic font-normal">
           {serifWord}
         </span>
       </h2>

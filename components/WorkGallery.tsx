@@ -24,11 +24,8 @@ function WorkItem({
       variants={fadeUpVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="work-item relative rounded-xl overflow-hidden cursor-pointer group"
-      style={{
-        aspectRatio: project.aspectRatio || "4/3",
-        backgroundColor: "#151515",
-      }}
+      className="work-item relative rounded-xl overflow-hidden cursor-pointer group bg-[#151515]"
+      style={{ aspectRatio: project.aspectRatio || "4/3" }}
       onClick={() => onOpen(index)}
     >
       <div className="relative w-full h-full transition-transform duration-[800ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]">
@@ -48,21 +45,14 @@ function WorkItem({
           transition: "opacity 0.5s cubic-bezier(0.23,1,0.32,1)",
         }}
       >
-        <span
-          className="text-[0.65rem] uppercase tracking-[0.15em] text-[var(--accent)]"
-          style={{ fontFamily: "var(--font-body)" }}
-        >
+        <span className="text-[0.65rem] uppercase tracking-[0.15em] text-accent font-body">
           {project.category}
         </span>
-        <h3
-          className="text-[1.6rem] tracking-tight mb-0"
-          style={{ fontFamily: "var(--font-display)", fontWeight: 700, letterSpacing: "-0.02em" }}
-        >
+        <h3 className="text-[1.6rem] tracking-tight mb-0 font-display font-bold" style={{ letterSpacing: "-0.02em" }}>
           {project.title}
         </h3>
         <motion.div
-          className="absolute top-8 right-8 w-12 h-12 rounded-full flex items-center justify-center text-[1.3rem] text-[var(--fg)]"
-          style={{ border: "1.5px solid var(--fg)" }}
+          className="absolute top-8 right-8 w-12 h-12 rounded-full flex items-center justify-center text-[1.3rem] text-fg border-[1.5px] border-fg"
           whileHover={{
             backgroundColor: "var(--accent)",
             borderColor: "var(--accent)",

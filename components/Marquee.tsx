@@ -10,26 +10,17 @@ export default function Marquee({ items, direction = "left", speed = 25 }: Marqu
   const content = items.map((item, i) => (
     <span key={i}>
       {item}{" "}
-      <span
-        className="inline-block w-2 h-2 rounded-full mx-8 align-middle"
-        style={{ backgroundColor: "var(--accent)" }}
-      />
+      <span className="inline-block w-2 h-2 rounded-full mx-8 align-middle bg-accent" />
     </span>
   ));
 
   return (
-    <div
-      className="py-8 overflow-hidden"
-      style={{ borderTop: "1px solid rgba(240,236,228,0.08)", borderBottom: "1px solid rgba(240,236,228,0.08)" }}
-    >
+    <div className="py-8 overflow-hidden border-y border-fg/8">
       <div
-        className="flex w-max"
+        className="flex w-max font-display font-bold uppercase"
         style={{
           animation: `${direction === "left" ? "marquee" : "marquee-reverse"} ${speed}s linear infinite`,
-          fontFamily: "var(--font-display)",
-          fontWeight: 700,
           fontSize: "clamp(1.4rem, 3vw, 2.2rem)",
-          textTransform: "uppercase",
           letterSpacing: "0.05em",
           color: "rgba(240,236,228,0.12)",
         }}

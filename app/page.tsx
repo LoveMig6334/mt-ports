@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import CustomCursorLoader from "@/components/CustomCursorLoader";
 
 const Marquee = dynamic(() => import("@/components/Marquee"));
 const SectionHeader = dynamic(() => import("@/components/SectionHeader"));
@@ -10,9 +11,6 @@ const StatsBar = dynamic(() => import("@/components/StatsBar"));
 const About = dynamic(() => import("@/components/About"));
 const Contact = dynamic(() => import("@/components/Contact"));
 const Footer = dynamic(() => import("@/components/Footer"));
-const CustomCursor = dynamic(() => import("@/components/CustomCursor"), {
-  ssr: false,
-});
 
 const servicesMarquee = [
   "Branding",
@@ -33,7 +31,7 @@ const ctaMarquee = [
 export default function Home() {
   return (
     <SmoothScroll>
-      <CustomCursor />
+      <CustomCursorLoader />
       <Navbar />
       <Hero />
       <Marquee items={servicesMarquee} direction="left" speed={25} />

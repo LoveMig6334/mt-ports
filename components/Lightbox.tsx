@@ -176,16 +176,10 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
 
             {/* Info */}
             <div className="flex justify-between items-center mt-5">
-              <h3
-                className="text-[1.2rem]"
-                style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}
-              >
+              <h3 className="text-[1.2rem] font-display font-bold">
                 {project.title}
               </h3>
-              <span
-                className="text-[0.65rem] uppercase tracking-[0.15em] text-[var(--accent)]"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
+              <span className="text-[0.65rem] uppercase tracking-[0.15em] text-accent font-body">
                 {project.category}
               </span>
             </div>

@@ -25,7 +25,7 @@ export default function Contact() {
       >
         {/* Spinning star */}
         <motion.div
-          className="text-[1.5rem] text-[var(--accent)] mb-12"
+          className="text-[1.5rem] text-accent mb-12"
           animate={{ rotate: 360 }}
           transition={{ duration: 10, ease: "linear", repeat: Infinity }}
         >
@@ -33,10 +33,8 @@ export default function Contact() {
         </motion.div>
 
         <h2
-          className="mb-8"
+          className="mb-8 font-display font-extrabold"
           style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
             fontSize: "clamp(3rem, 7vw, 6.5rem)",
             letterSpacing: "-0.04em",
             lineHeight: 0.95,
@@ -44,46 +42,27 @@ export default function Contact() {
         >
           Have a project
           <br />
-          <span
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontWeight: 400,
-              color: "var(--violet)",
-            }}
-          >
+          <span className="font-serif italic font-normal text-violet">
             in mind?
           </span>
         </h2>
 
-        <p
-          className="mx-auto mb-12 max-w-[440px] text-[0.82rem] leading-[1.7]"
-          style={{ fontFamily: "var(--font-body)", color: "rgba(240,236,228,0.45)" }}
-        >
+        <p className="mx-auto mb-12 max-w-[440px] text-[0.82rem] leading-[1.7] font-body text-fg/45">
           I&apos;m always open to discussing new projects, creative ideas, or
           opportunities to be part of your visions.
         </p>
 
         <a
           href="mailto:hello@nova.design"
-          className="relative inline-block pb-1.5 no-underline group"
+          className="relative inline-block pb-1.5 no-underline group font-display font-bold text-fg hover:text-accent"
           style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
             fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)",
-            color: "var(--fg)",
             transition: "color 0.3s",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.color = "var(--accent)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.color = "var(--fg)";
           }}
         >
           hello@nova.design
           <span
-            className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent)] origin-right group-hover:origin-left scale-x-0 group-hover:scale-x-100"
+            className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-right group-hover:origin-left scale-x-0 group-hover:scale-x-100"
             style={{ transition: "transform 0.5s cubic-bezier(0.23,1,0.32,1)" }}
           />
         </a>
@@ -94,11 +73,7 @@ export default function Contact() {
               key={link.title}
               href="#"
               title={link.title}
-              className="social-link w-[50px] h-[50px] rounded-full flex items-center justify-center no-underline text-[0.75rem] uppercase tracking-[0.05em] text-[var(--fg)]"
-              style={{
-                border: "1px solid rgba(240,236,228,0.15)",
-                fontFamily: "var(--font-body)",
-              }}
+              className="social-link w-[50px] h-[50px] rounded-full flex items-center justify-center no-underline text-[0.75rem] uppercase tracking-[0.05em] text-fg font-body border border-fg/15"
               whileHover={{
                 backgroundColor: "var(--fg)",
                 color: "var(--bg)",

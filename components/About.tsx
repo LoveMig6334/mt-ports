@@ -45,10 +45,8 @@ function Portrait() {
           }}
         />
         <div
-          className="absolute bottom-8 left-8"
+          className="absolute bottom-8 left-8 font-display font-extrabold"
           style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
             fontSize: "4rem",
             lineHeight: 0.9,
             letterSpacing: "-0.03em",
@@ -56,14 +54,7 @@ function Portrait() {
         >
           NOVA
           <span
-            className="block mt-2 text-[var(--accent)]"
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: "1.2rem",
-              letterSpacing: "0.05em",
-            }}
+            className="block mt-2 text-accent font-serif italic font-normal text-[1.2rem] tracking-[0.05em]"
           >
             Designer &amp; Creative
           </span>
@@ -85,24 +76,18 @@ function Bio() {
       className="pt-8"
     >
       <p
-        className="mb-8"
+        className="mb-8 font-serif italic text-fg"
         style={{
-          fontFamily: "var(--font-serif)",
-          fontStyle: "italic",
           fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
           lineHeight: 1.35,
-          color: "var(--fg)",
           letterSpacing: "-0.01em",
         }}
       >
         I&apos;m a multidisciplinary designer who believes that{" "}
-        <span className="text-[var(--coral)]">great design is felt</span> before
+        <span className="text-coral">great design is felt</span> before
         it&apos;s understood.
       </p>
-      <p
-        className="mb-12 text-[0.82rem] leading-[1.85]"
-        style={{ fontFamily: "var(--font-body)", color: "rgba(240,236,228,0.5)" }}
-      >
+      <p className="mb-12 text-[0.82rem] leading-[1.85] font-body text-fg/50">
         With 8 years of crafting visual identities, digital products, and
         editorial design, I bring a perspective shaped by art, culture, and
         technology. Every project begins with a deep understanding of the problem
@@ -115,11 +100,7 @@ function Bio() {
         {skills.map((skill) => (
           <motion.div
             key={skill}
-            className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.7rem] uppercase tracking-[0.1em]"
-            style={{
-              fontFamily: "var(--font-body)",
-              border: "1px solid rgba(240,236,228,0.1)",
-            }}
+            className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.7rem] uppercase tracking-[0.1em] font-body border border-fg/10"
             whileHover={{
               borderColor: "var(--accent)",
               backgroundColor: "var(--accent)",

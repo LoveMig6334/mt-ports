@@ -61,11 +61,7 @@ export default function StatsBar() {
       variants={fadeUpVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="grid grid-cols-4 max-[900px]:grid-cols-2 max-[600px]:grid-cols-2"
-      style={{
-        borderTop: "1px solid rgba(240,236,228,0.08)",
-        borderBottom: "1px solid rgba(240,236,228,0.08)",
-      }}
+      className="grid grid-cols-4 max-[900px]:grid-cols-2 max-[600px]:grid-cols-2 border-y border-fg/8"
     >
       {stats.map((stat, i) => (
         <div
@@ -77,20 +73,15 @@ export default function StatsBar() {
           }}
         >
           <div
-            className="leading-none mb-2 text-[var(--accent)]"
+            className="leading-none mb-2 text-accent font-display font-extrabold"
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
               fontSize: "clamp(2.5rem, 5vw, 4rem)",
               letterSpacing: "-0.04em",
             }}
           >
             <AnimatedNumber value={stat.value} suffix={stat.suffix} isInView={isInView} />
           </div>
-          <div
-            className="text-[0.65rem] uppercase tracking-[0.15em]"
-            style={{ fontFamily: "var(--font-body)", color: "rgba(240,236,228,0.4)" }}
-          >
+          <div className="text-[0.65rem] uppercase tracking-[0.15em] font-body text-fg/40">
             {stat.label}
           </div>
         </div>
