@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: #0a0a0a;
+  --color-fg: #f0ece4;
+  --color-accent: #e8ff47;
+  --color-coral: #ff6b4a;
+  --color-violet: #b48aff;
+  --color-cyan: #47f0ff;
+  --font-display: var(--font-syne);
+  --font-body: var(--font-space-mono);
+  --font-serif: "Instrument Serif", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --bg: #0a0a0a;
+  --fg: #f0ece4;
+  --accent: #e8ff47;
+  --coral: #ff6b4a;
+  --violet: #b48aff;
+  --cyan: #47f0ff;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ─── Grain Overlay ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.5;
+}
+
+/* ─── Marquee Keyframes ─── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ─── Gradient Shift for About Portrait ─── */
+@keyframes gradShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(40deg); }
 }
