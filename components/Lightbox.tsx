@@ -77,7 +77,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
           aria-modal="true"
           aria-label={`${project.title} — project preview`}
           tabIndex={-1}
-          className="fixed inset-0 z-[10002] flex items-center justify-center outline-none"
+          className="fixed inset-0 z-10002 flex items-center justify-center outline-none"
           style={{ backdropFilter: "blur(20px)" }}
           variants={lightboxBackdropVariants}
           initial="hidden"
@@ -103,8 +103,8 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
             {/* Close button */}
             <motion.button
               aria-label="Close lightbox"
-              className="absolute -top-[50px] right-0 w-10 h-10 rounded-full flex items-center justify-center text-[1.2rem] text-[var(--fg)] cursor-pointer bg-transparent"
-              style={{ border: "1.5px solid rgba(240,236,228,0.3)" }}
+              className="absolute -top-12.5 right-0 w-10 h-10 rounded-full flex items-center justify-center text-[1.2rem] cursor-pointer bg-transparent"
+              style={{ border: "1.5px solid rgba(240,236,228,0.3)", color: "#f0ece4" }}
               whileHover={{
                 borderColor: "#ff6b4a",
                 rotate: 90,
@@ -118,10 +118,11 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
             {/* Prev */}
             <motion.button
               aria-label="Previous project"
-              className="absolute top-1/2 -translate-y-1/2 -left-[70px] w-[50px] h-[50px] rounded-full flex items-center justify-center text-[1.2rem] text-[var(--fg)] cursor-pointer max-[900px]:left-[10px]"
+              className="absolute top-1/2 -translate-y-1/2 -left-17.5 w-12.5 h-12.5 rounded-full flex items-center justify-center text-[1.2rem] cursor-pointer max-[900px]:left-2.5"
               style={{
                 background: "rgba(240,236,228,0.05)",
                 border: "1px solid rgba(240,236,228,0.15)",
+                color: "#f0ece4",
               }}
               whileHover={{
                 backgroundColor: "#e8ff47",
@@ -137,10 +138,11 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
             {/* Next */}
             <motion.button
               aria-label="Next project"
-              className="absolute top-1/2 -translate-y-1/2 -right-[70px] w-[50px] h-[50px] rounded-full flex items-center justify-center text-[1.2rem] text-[var(--fg)] cursor-pointer max-[900px]:right-[10px]"
+              className="absolute top-1/2 -translate-y-1/2 -right-17.5 w-12.5 h-12.5 rounded-full flex items-center justify-center text-[1.2rem] cursor-pointer max-[900px]:right-2.5"
               style={{
                 background: "rgba(240,236,228,0.05)",
                 border: "1px solid rgba(240,236,228,0.15)",
+                color: "#f0ece4",
               }}
               whileHover={{
                 backgroundColor: "#e8ff47",

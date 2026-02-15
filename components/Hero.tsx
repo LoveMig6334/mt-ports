@@ -5,7 +5,7 @@ import { staggerContainer, heroLineVariants, fadeUpVariants, ease } from "@/lib/
 
 const heroLines = [
   <>
-    Creating <em className="not-italic font-serif italic font-normal text-[var(--coral)]">visual</em>
+    Creating <em className="font-serif italic font-normal text-(--coral)">visual</em>
   </>,
   <>experiences that</>,
   <>
@@ -67,13 +67,13 @@ export default function Hero() {
         transition={{ duration: 1, ease, delay: 1 }}
         className="flex justify-between items-end mt-12 max-[900px]:flex-col max-[900px]:items-start max-[900px]:gap-8"
       >
-        <p className="max-w-[340px] text-[0.8rem] leading-[1.7] font-body text-fg/55">
+        <p className="max-w-85 text-[0.8rem] leading-[1.7] font-body text-fg/55">
           I craft bold identities, immersive interfaces, and visual systems that
           speak louder than words. Based in Brooklyn, working globally.
         </p>
         <div className="flex flex-col items-center gap-3 text-[0.6rem] uppercase tracking-[0.2em] text-fg/35">
           <motion.div
-            className="w-px h-[60px]"
+            className="w-px h-15"
             style={{ background: "linear-gradient(to bottom, var(--accent), transparent)" }}
             animate={{ opacity: [0.3, 1, 0.3], scaleY: [1, 1.2, 1] }}
             transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}

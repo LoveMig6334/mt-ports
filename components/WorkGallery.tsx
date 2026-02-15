@@ -28,14 +28,14 @@ function WorkItem({
       style={{ aspectRatio: project.aspectRatio || "4/3" }}
       onClick={() => onOpen(index)}
     >
-      <div className="relative w-full h-full transition-transform duration-[800ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]">
+      <div className="relative w-full h-full transition-transform duration-800 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]">
         <Image
           src={project.image}
           alt={project.title}
           fill
           sizes="(max-width: 900px) 100vw, 50vw"
           loading={index === 0 ? "eager" : "lazy"}
-          className="object-cover saturate-[0.85] group-hover:saturate-[1.1] transition-[filter] duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)]"
+          className="object-cover saturate-[0.85] group-hover:saturate-[1.1] transition-[filter] duration-600 ease-[cubic-bezier(0.23,1,0.32,1)]"
         />
       </div>
       <div

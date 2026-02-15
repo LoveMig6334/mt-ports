@@ -47,7 +47,7 @@ export default function Contact() {
           </span>
         </h2>
 
-        <p className="mx-auto mb-12 max-w-[440px] text-[0.82rem] leading-[1.7] font-body text-fg/45">
+        <p className="mx-auto mb-12 max-w-110 text-[0.82rem] leading-[1.7] font-body text-fg/45">
           I&apos;m always open to discussing new projects, creative ideas, or
           opportunities to be part of your visions.
         </p>
@@ -73,7 +73,7 @@ export default function Contact() {
               key={link.title}
               href="#"
               title={link.title}
-              className="social-link w-[50px] h-[50px] rounded-full flex items-center justify-center no-underline text-[0.75rem] uppercase tracking-[0.05em] font-body"
+              className="social-link w-12.5 h-12.5 rounded-full flex items-center justify-center no-underline text-[0.75rem] uppercase tracking-[0.05em] font-body"
               style={{
                 color: "#f0ece4",
                 border: "1px solid rgba(240,236,228,0.15)",

@@ -17,7 +17,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 flex justify-between items-center px-12 py-6 z-[1000] mix-blend-difference max-[900px]:px-6 max-[900px]:py-5">
+    <nav className="fixed top-0 left-0 right-0 flex justify-between items-center px-12 py-6 z-1000 mix-blend-difference max-[900px]:px-6 max-[900px]:py-5">
       <a
         href="#"
         className="font-display font-extrabold text-[1.4rem] tracking-tight text-fg no-underline"

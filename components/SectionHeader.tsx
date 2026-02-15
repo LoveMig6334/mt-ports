@@ -21,7 +21,7 @@ export default function SectionHeader({ number, title, serifWord }: SectionHeade
       animate={isInView ? "visible" : "hidden"}
       className="flex items-baseline gap-8 pt-24 pb-12 px-12 max-[900px]:px-6"
     >
-      <span className="text-[0.7rem] tracking-[0.1em] text-accent font-body">
+      <span className="text-[0.7rem] tracking-widest text-accent font-body">
         {number}
       </span>
       <h2
