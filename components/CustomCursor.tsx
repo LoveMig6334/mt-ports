@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isTouch] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(pointer: coarse)").matches,
   );
 
   const mouseX = useMotionValue(0);
@@ -78,7 +80,8 @@ export default function CustomCursor() {
           border: isHovering
             ? "1.5px solid var(--coral)"
             : "1.5px solid var(--accent)",
-          transition: "width 0.4s cubic-bezier(0.23,1,0.32,1), height 0.4s cubic-bezier(0.23,1,0.32,1), border-color 0.3s",
+          transition:
+            "width 0.4s cubic-bezier(0.23,1,0.32,1), height 0.4s cubic-bezier(0.23,1,0.32,1), border-color 0.3s",
         }}
       />
     </>

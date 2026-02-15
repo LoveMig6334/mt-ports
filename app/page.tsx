@@ -1,8 +1,8 @@
-import dynamic from "next/dynamic";
-import SmoothScroll from "@/components/SmoothScroll";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
 import CustomCursorLoader from "@/components/CustomCursorLoader";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+import SmoothScroll from "@/components/SmoothScroll";
+import dynamic from "next/dynamic";
 
 const Marquee = dynamic(() => import("@/components/Marquee"));
 const SectionHeader = dynamic(() => import("@/components/SectionHeader"));

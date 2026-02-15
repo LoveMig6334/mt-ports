@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { fadeUpVariants, ease } from "@/lib/animations";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { ease, fadeUpVariants } from "@/lib/animations";
+import { motion } from "framer-motion";
 
 const skills = [
   "Brand Identity",
@@ -53,9 +53,7 @@ function Portrait() {
           }}
         >
           NOVA
-          <span
-            className="block mt-2 text-accent font-serif italic font-normal text-[1.2rem] tracking-[0.05em]"
-          >
+          <span className="block mt-2 text-accent font-serif italic font-normal text-[1.2rem] tracking-[0.05em]">
             Designer &amp; Creative
           </span>
         </div>
@@ -90,10 +88,11 @@ function Bio() {
       <p className="mb-12 text-[0.82rem] leading-[1.85] font-body text-fg/50">
         With 8 years of crafting visual identities, digital products, and
         editorial design, I bring a perspective shaped by art, culture, and
-        technology. Every project begins with a deep understanding of the problem
-        and ends with a solution that moves people — visually and emotionally.
-        I&apos;ve had the privilege of working with forward-thinking brands,
-        ambitious startups, and cultural institutions across the globe.
+        technology. Every project begins with a deep understanding of the
+        problem and ends with a solution that moves people — visually and
+        emotionally. I&apos;ve had the privilege of working with
+        forward-thinking brands, ambitious startups, and cultural institutions
+        across the globe.
       </p>
 
       <div className="grid grid-cols-2 gap-5 max-[600px]:grid-cols-1">

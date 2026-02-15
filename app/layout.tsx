@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Space_Mono, Instrument_Serif } from "next/font/google";
+import { Instrument_Serif, Space_Mono, Syne } from "next/font/google";
 import "./globals.css";
 
 const syne = Syne({

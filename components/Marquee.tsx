@@ -6,7 +6,11 @@ interface MarqueeProps {
   speed?: number;
 }
 
-export default function Marquee({ items, direction = "left", speed = 25 }: MarqueeProps) {
+export default function Marquee({
+  items,
+  direction = "left",
+  speed = 25,
+}: MarqueeProps) {
   const content = items.map((item, i) => (
     <span key={i}>
       {item}{" "}

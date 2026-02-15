@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
 import { fadeUpVariants } from "@/lib/animations";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 interface Stat {
   value: number;
@@ -18,7 +17,15 @@ const stats: Stat[] = [
   { value: 15, suffix: "", label: "Awards Won" },
 ];
 
-function AnimatedNumber({ value, suffix, isInView }: { value: number; suffix: string; isInView: boolean }) {
+function AnimatedNumber({
+  value,
+  suffix,
+  isInView,
+}: {
+  value: number;
+  suffix: string;
+  isInView: boolean;
+}) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -68,7 +75,10 @@ export default function StatsBar() {
           key={i}
           className="p-12 text-center max-[900px]:p-8"
           style={{
-            borderRight: i === stats.length - 1 ? "none" : "1px solid rgba(240,236,228,0.08)",
+            borderRight:
+              i === stats.length - 1
+                ? "none"
+                : "1px solid rgba(240,236,228,0.08)",
             ...(i === 1 && { borderRight: undefined }),
           }}
         >
@@ -79,7 +89,11 @@ export default function StatsBar() {
               letterSpacing: "-0.04em",
             }}
           >
-            <AnimatedNumber value={stat.value} suffix={stat.suffix} isInView={isInView} />
+            <AnimatedNumber
+              value={stat.value}
+              suffix={stat.suffix}
+              isInView={isInView}
+            />
           </div>
           <div className="text-[0.65rem] uppercase tracking-[0.15em] font-body text-fg/40">
             {stat.label}

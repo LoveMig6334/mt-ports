@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { fadeUpVariants } from "@/lib/animations";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { fadeUpVariants } from "@/lib/animations";
+import { motion } from "framer-motion";
 
 interface SectionHeaderProps {
   number: string;
@@ -10,7 +10,11 @@ interface SectionHeaderProps {
   serifWord: string;
 }
 
-export default function SectionHeader({ number, title, serifWord }: SectionHeaderProps) {
+export default function SectionHeader({
+  number,
+  title,
+  serifWord,
+}: SectionHeaderProps) {
   const { ref, isInView } = useScrollReveal();
 
   return (
@@ -32,9 +36,7 @@ export default function SectionHeader({ number, title, serifWord }: SectionHeade
         }}
       >
         {title}{" "}
-        <span className="font-serif italic font-normal">
-          {serifWord}
-        </span>
+        <span className="font-serif italic font-normal">{serifWord}</span>
       </h2>
     </motion.div>
   );

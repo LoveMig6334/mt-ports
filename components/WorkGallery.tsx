@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { projects } from "@/lib/projects";
-import { fadeUpVariants, ease } from "@/lib/animations";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { ease, fadeUpVariants } from "@/lib/animations";
+import { projects } from "@/lib/projects";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState } from "react";
 import Lightbox from "./Lightbox";
 
 function WorkItem({
@@ -41,14 +41,18 @@ function WorkItem({
       <div
         className="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100"
         style={{
-          background: "linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 55%)",
+          background:
+            "linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 55%)",
           transition: "opacity 0.5s cubic-bezier(0.23,1,0.32,1)",
         }}
       >
         <span className="text-[0.65rem] uppercase tracking-[0.15em] text-accent font-body">
           {project.category}
         </span>
-        <h3 className="text-[1.6rem] tracking-tight mb-0 font-display font-bold" style={{ letterSpacing: "-0.02em" }}>
+        <h3
+          className="text-[1.6rem] tracking-tight mb-0 font-display font-bold"
+          style={{ letterSpacing: "-0.02em" }}
+        >
           {project.title}
         </h3>
         <motion.div

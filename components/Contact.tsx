@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { fadeUpVariants, ease } from "@/lib/animations";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { ease, fadeUpVariants } from "@/lib/animations";
+import { motion } from "framer-motion";
 
 const socialLinks = [
   { label: "Dr", title: "Dribbble" },
@@ -16,7 +16,10 @@ export default function Contact() {
   const { ref, isInView } = useScrollReveal();
 
   return (
-    <section className="py-32 px-12 text-center relative max-[900px]:py-20 max-[900px]:px-6" id="contact">
+    <section
+      className="py-32 px-12 text-center relative max-[900px]:py-20 max-[900px]:px-6"
+      id="contact"
+    >
       <motion.div
         ref={ref}
         variants={fadeUpVariants}

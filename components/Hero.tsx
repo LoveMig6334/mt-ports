@@ -1,11 +1,12 @@
 "use client";
 
+import { ease, heroLineVariants, staggerContainer } from "@/lib/animations";
 import { motion } from "framer-motion";
-import { staggerContainer, heroLineVariants, ease } from "@/lib/animations";
 
 const heroLines = [
   <>
-    Creating <em className="font-serif italic font-normal text-(--coral)">visual</em>
+    Creating{" "}
+    <em className="font-serif italic font-normal text-(--coral)">visual</em>
   </>,
   <>experiences that</>,
   <>
@@ -74,7 +75,10 @@ export default function Hero() {
         <div className="flex flex-col items-center gap-3 text-[0.6rem] uppercase tracking-[0.2em] text-fg/35">
           <motion.div
             className="w-px h-15"
-            style={{ background: "linear-gradient(to bottom, var(--accent), transparent)" }}
+            style={{
+              background:
+                "linear-gradient(to bottom, var(--accent), transparent)",
+            }}
             animate={{ opacity: [0.3, 1, 0.3], scaleY: [1, 1.2, 1] }}
             transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
           />

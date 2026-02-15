@@ -1,12 +1,16 @@
 "use client";
 
-import { useEffect, useCallback, useRef } from "react";
-import { createPortal } from "react-dom";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { useLenis } from "lenis/react";
+import {
+  ease,
+  lightboxBackdropVariants,
+  lightboxContentVariants,
+} from "@/lib/animations";
 import { projects } from "@/lib/projects";
-import { lightboxBackdropVariants, lightboxContentVariants, ease } from "@/lib/animations";
+import { AnimatePresence, motion } from "framer-motion";
+import { useLenis } from "lenis/react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 interface LightboxProps {
   isOpen: boolean;
@@ -15,7 +19,12 @@ interface LightboxProps {
   onNavigate: (index: number) => void;
 }
 
-export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: LightboxProps) {
+export default function Lightbox({
+  isOpen,
+  currentIndex,
+  onClose,
+  onNavigate,
+}: LightboxProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
 
@@ -24,7 +33,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
       const next = (currentIndex + dir + projects.length) % projects.length;
       onNavigate(next);
     },
-    [currentIndex, onNavigate]
+    [currentIndex, onNavigate],
   );
 
   useEffect(() => {
@@ -42,7 +51,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
       // Focus trap
       if (e.key === "Tab") {
         const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
-          'button, [href], [tabindex]:not([tabindex="-1"])'
+          'button, [href], [tabindex]:not([tabindex="-1"])',
         );
         if (!focusable || focusable.length === 0) return;
 
@@ -111,7 +120,10 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
             <motion.button
               aria-label="Close lightbox"
               className="absolute -top-12.5 right-0 w-10 h-10 rounded-full flex items-center justify-center text-[1.2rem] cursor-pointer bg-transparent"
-              style={{ border: "1.5px solid rgba(240,236,228,0.3)", color: "#f0ece4" }}
+              style={{
+                border: "1.5px solid rgba(240,236,228,0.3)",
+                color: "#f0ece4",
+              }}
               whileHover={{
                 borderColor: "#ff6b4a",
                 rotate: 90,
@@ -177,7 +189,12 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
                   width={1800}
                   height={1200}
                   className="block rounded-lg"
-                  style={{ maxWidth: "100%", maxHeight: "80vh", width: "auto", height: "auto" }}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "80vh",
+                    width: "auto",
+                    height: "auto",
+                  }}
                   priority
                 />
               </motion.div>
@@ -196,6 +213,6 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
         </motion.div>
       )}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 }
