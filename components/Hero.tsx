@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { staggerContainer, heroLineVariants, fadeUpVariants, ease } from "@/lib/animations";
+import { staggerContainer, heroLineVariants, ease } from "@/lib/animations";
 
 const heroLines = [
   <>
