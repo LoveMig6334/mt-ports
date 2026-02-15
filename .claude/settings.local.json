@@ -5,7 +5,10 @@
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
       "Bash(timeout 15 npm run dev:*)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:images.unsplash.com)",
+      "Bash(curl:*)"
     ]
   }
 }
