@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLenis } from "lenis/react";
 import { projects } from "@/lib/projects";
 import { lightboxBackdropVariants, lightboxContentVariants, ease } from "@/lib/animations";
 
@@ -15,6 +17,7 @@ interface LightboxProps {
 
 export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: LightboxProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
 
   const navigate = useCallback(
     (dir: number) => {
@@ -27,6 +30,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
   useEffect(() => {
     if (!isOpen) return;
 
+    lenis?.stop();
     document.body.style.overflow = "hidden";
     dialogRef.current?.focus();
 
@@ -61,14 +65,17 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
 
     document.addEventListener("keydown", handleKey);
     return () => {
+      lenis?.start();
       document.body.style.overflow = "";
       document.removeEventListener("keydown", handleKey);
     };
-  }, [isOpen, onClose, navigate]);
+  }, [isOpen, onClose, navigate, lenis]);
 
   const project = projects[currentIndex];
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -93,7 +100,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
           />
 
           <motion.div
-            className="relative z-10"
+            className="relative z-10 flex flex-col items-center"
             style={{ maxWidth: "85vw", maxHeight: "85vh" }}
             variants={lightboxContentVariants}
             initial="hidden"
@@ -177,7 +184,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
             </AnimatePresence>
 
             {/* Info */}
-            <div className="flex justify-between items-center mt-5">
+            <div className="flex justify-between items-center mt-5 w-full">
               <h3 className="text-[1.2rem] font-display font-bold">
                 {project.title}
               </h3>
@@ -188,6 +195,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose, onNavigate }: 
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
