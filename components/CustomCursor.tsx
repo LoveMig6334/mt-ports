@@ -55,7 +55,7 @@ export default function CustomCursor() {
   return (
     <>
       <motion.div
-        className="pointer-events-none fixed z-10001 rounded-full mix-blend-difference"
+        className="pointer-events-none fixed z-10004 rounded-full mix-blend-difference"
         style={{
           width: 10,
           height: 10,
@@ -67,7 +67,7 @@ export default function CustomCursor() {
         }}
       />
       <motion.div
-        className="pointer-events-none fixed z-10000 rounded-full mix-blend-difference"
+        className="pointer-events-none fixed z-10003 rounded-full mix-blend-difference"
         style={{
           x: ringX,
           y: ringY,
