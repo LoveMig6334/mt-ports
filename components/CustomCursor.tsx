@@ -30,21 +30,22 @@ export default function CustomCursor() {
     const handleEnter = () => setIsHovering(true);
     const handleLeave = () => setIsHovering(false);
 
-    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    const observer = new MutationObserver(() => {
+    const attached = new WeakSet<Element>();
+
+    const attachListeners = () => {
       document.querySelectorAll(hoverTargets).forEach((el) => {
+        if (attached.has(el)) return;
+        attached.add(el);
         el.addEventListener("mouseenter", handleEnter);
         el.addEventListener("mouseleave", handleLeave);
       });
-    });
+    };
 
+    const observer = new MutationObserver(attachListeners);
     observer.observe(document.body, { childList: true, subtree: true });
-
-    document.querySelectorAll(hoverTargets).forEach((el) => {
-      el.addEventListener("mouseenter", handleEnter);
-      el.addEventListener("mouseleave", handleLeave);
-    });
+    attachListeners();
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
