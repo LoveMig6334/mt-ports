@@ -5,8 +5,10 @@ import { ease, fadeUpVariants } from "@/lib/animations";
 import { projects } from "@/lib/projects";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useState } from "react";
-import Lightbox from "./Lightbox";
+
+const Lightbox = dynamic(() => import("./Lightbox"));
 
 function WorkItem({
   index,
