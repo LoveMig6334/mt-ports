@@ -2,7 +2,7 @@
 
 import { fadeUpVariants } from "@/lib/animations";
 import { motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface Stat {
   value: number;
@@ -26,12 +26,11 @@ function AnimatedNumber({
   suffix: string;
   isInView: boolean;
 }) {
-  const [count, setCount] = useState(0);
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!isInView) return;
 
-    let start = 0;
     const duration = 2000;
     const startTime = performance.now();
 
@@ -39,8 +38,9 @@ function AnimatedNumber({
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      start = Math.floor(eased * value);
-      setCount(start);
+      if (spanRef.current) {
+        spanRef.current.textContent = Math.floor(eased * value) + suffix;
+      }
 
       if (progress < 1) {
         requestAnimationFrame(animate);
@@ -48,14 +48,9 @@ function AnimatedNumber({
     };
 
     requestAnimationFrame(animate);
-  }, [isInView, value]);
+  }, [isInView, value, suffix]);
 
-  return (
-    <>
-      {count}
-      {suffix}
-    </>
-  );
+  return <span ref={spanRef}>0{suffix}</span>;
 }
 
 export default function StatsBar() {
