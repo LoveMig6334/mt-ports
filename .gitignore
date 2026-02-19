@@ -13,6 +13,7 @@
 # testing
 /coverage
 /screenshot
+/public/certificate
 
 # next.js
 /.next/
