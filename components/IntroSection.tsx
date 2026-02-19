@@ -144,7 +144,7 @@ export default function IntroSection() {
             <motion.div
               key="face"
               className="absolute inset-0 w-full h-full"
-              initial={{ opacity: 0, scale: 0.92, rotateY: -15 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
@@ -381,7 +381,7 @@ export default function IntroSection() {
               className="absolute inset-0 w-full h-full rounded-full overflow-hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{ opacity: 0, scale: 0.92, rotateY: 15 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
             >
               {/* Real profile photo */}
