@@ -25,31 +25,24 @@ export default function CustomCursor() {
       mouseY.set(e.clientY);
     };
 
-    const hoverTargets = "a, button, .work-item, .skill-pill, .social-link";
+    const hoverTargets =
+      "a, button, .work-item, .skill-pill, .social-link, .avatar-hover";
 
-    const handleEnter = () => setIsHovering(true);
-    const handleLeave = () => setIsHovering(false);
-
-    document.addEventListener("mousemove", handleMouseMove, { passive: true });
-
-    const attached = new WeakSet<Element>();
-
-    const attachListeners = () => {
-      document.querySelectorAll(hoverTargets).forEach((el) => {
-        if (attached.has(el)) return;
-        attached.add(el);
-        el.addEventListener("mouseenter", handleEnter);
-        el.addEventListener("mouseleave", handleLeave);
-      });
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as Element;
+      if (target.closest(hoverTargets)) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
     };
 
-    const observer = new MutationObserver(attachListeners);
-    observer.observe(document.body, { childList: true, subtree: true });
-    attachListeners();
+    document.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseover", handleMouseOver, { passive: true });
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      observer.disconnect();
+      document.removeEventListener("mouseover", handleMouseOver);
     };
   }, [isTouch, mouseX, mouseY]);
 
