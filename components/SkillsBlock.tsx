@@ -214,7 +214,8 @@ function RadarChart() {
         const a = start + step * i;
         const x = cx + Math.cos(a) * rr,
           y = cy + Math.sin(a) * rr;
-        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
       }
       ctx.strokeStyle =
         ring === 4 ? "rgba(240,236,228,0.08)" : "rgba(240,236,228,0.04)";
@@ -240,7 +241,8 @@ function RadarChart() {
       const r = R * radarVals[idx];
       const x = cx + Math.cos(a) * r,
         y = cy + Math.sin(a) * r;
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
     }
     ctx.fillStyle = "rgba(232,255,71,0.08)";
     ctx.fill();
