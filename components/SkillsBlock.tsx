@@ -301,7 +301,7 @@ export default function SkillsBlock() {
                   {ab.pct}%
                 </span>
               </div>
-              <div className="ab-track w-full h-[5px] rounded-sm overflow-hidden bg-fg/8">
+              <div className="ab-track w-full h-1.25 rounded-sm overflow-hidden bg-fg/8">
                 <div
                   className={`ab-fill ${ab.colorClass} h-full rounded-sm`}
                   data-w={ab.pct}
@@ -326,7 +326,7 @@ export default function SkillsBlock() {
           {specialSkills.map((sk) => (
             <motion.div
               key={sk.title}
-              className="sp-card flex-1 min-w-[120px] max-w-[160px] p-5 text-center rounded-[14px] cursor-default max-[900px]:min-w-[100px] max-[600px]:min-w-[90px]"
+              className="sp-card flex-1 min-w-30 max-w-40 p-5 text-center rounded-[14px] cursor-default max-[900px]:min-w-25 max-[600px]:min-w-22.5"
               style={{
                 background: "rgba(240,236,228,0.025)",
                 border: "1px solid rgba(240,236,228,0.07)",
