@@ -69,10 +69,10 @@ export default function IntroSection() {
     >
       {/* Ghost background text */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 font-display font-extrabold whitespace-nowrap pointer-events-none select-none leading-none"
+        className="absolute top-1/2 left-1/2 font-display font-extrabold whitespace-nowrap pointer-events-none select-none leading-none"
         style={{
-          transform: "translate(-50%, -58%)",
-          fontSize: "clamp(8rem, 22vw, 26rem)",
+          transform: "translate(-50%, -60%)",
+          fontSize: "clamp(4rem, 14vw, 16rem)",
           color: "transparent",
           WebkitTextStroke: "1.5px rgba(240,236,228,0.04)",
           letterSpacing: "-0.04em",
