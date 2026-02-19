@@ -3,6 +3,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
 import { motion } from "framer-motion";
+import NextImage from "next/image";
 
 const skills = [
   "Brand Identity",
@@ -27,23 +28,28 @@ function Portrait() {
     >
       <div
         className="w-full rounded-[14px] relative overflow-hidden"
-        style={{
-          aspectRatio: "3/4",
-          background: "linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)",
-        }}
+        style={{ aspectRatio: "3/4" }}
       >
+        {/* Real profile photo */}
+        <NextImage
+          src="/profile.jpg"
+          alt="Nova — Designer & Creative"
+          fill
+          className="object-cover object-top"
+          sizes="(max-width: 900px) 100vw, 50vw"
+          priority
+        />
+
+        {/* Bottom scrim so the label stays readable */}
         <div
           className="absolute inset-0"
           style={{
-            background: `
-              radial-gradient(circle at 30% 40%, var(--coral) 0%, transparent 50%),
-              radial-gradient(circle at 70% 60%, var(--violet) 0%, transparent 50%),
-              radial-gradient(circle at 50% 80%, var(--cyan) 0%, transparent 40%)
-            `,
-            opacity: 0.4,
-            animation: "gradShift 8s ease-in-out infinite alternate",
+            background:
+              "linear-gradient(to top, rgba(10,10,10,0.78) 0%, rgba(10,10,10,0.15) 45%, transparent 100%)",
           }}
         />
+
+        {/* NOVA label */}
         <div
           className="absolute bottom-8 left-8 font-display font-extrabold"
           style={{

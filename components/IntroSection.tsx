@@ -3,6 +3,7 @@
 import { ease } from "@/lib/animations";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
+import NextImage from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 /* ─── Particles Data ─── */
@@ -372,7 +373,7 @@ export default function IntroSection() {
           )}
         </AnimatePresence>
 
-        {/* Portrait card (shown on hover) — matches About Me portrait */}
+        {/* Profile photo (shown on hover) — matches About Me portrait */}
         <AnimatePresence>
           {avatarHovered && (
             <motion.div
@@ -382,45 +383,37 @@ export default function IntroSection() {
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
               exit={{ opacity: 0, scale: 0.92, rotateY: 15 }}
               transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
-              style={{
-                background:
-                  "linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)",
-              }}
             >
-              {/* Animated colour blobs matching the About portrait */}
+              {/* Real profile photo */}
+              <NextImage
+                src="/profile.jpg"
+                alt="Nova — Designer & Creative"
+                fill
+                className="object-cover object-top"
+                sizes="220px"
+                priority
+              />
+              {/* Bottom scrim for label readability */}
               <div
                 className="absolute inset-0"
                 style={{
-                  background: `
-                    radial-gradient(circle at 30% 40%, var(--coral) 0%, transparent 50%),
-                    radial-gradient(circle at 70% 60%, var(--violet) 0%, transparent 50%),
-                    radial-gradient(circle at 50% 80%, var(--cyan) 0%, transparent 40%)
-                  `,
-                  opacity: 0.4,
-                  animation: "gradShift 8s ease-in-out infinite alternate",
+                  background:
+                    "linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.1) 45%, transparent 100%)",
                 }}
               />
               {/* NOVA label */}
               <div
                 className="absolute bottom-5 left-5 font-display font-extrabold leading-none"
-                style={{ fontSize: "1.6rem", letterSpacing: "-0.03em" }}
+                style={{ fontSize: "1.4rem", letterSpacing: "-0.03em" }}
               >
                 NOVA
                 <span
                   className="block mt-1 text-accent font-serif italic font-normal"
-                  style={{ fontSize: "0.55rem", letterSpacing: "0.06em" }}
+                  style={{ fontSize: "0.5rem", letterSpacing: "0.06em" }}
                 >
                   Designer &amp; Creative
                 </span>
               </div>
-              {/* Subtle inner-glow highlight */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 35% 30%, rgba(255,255,255,0.07) 0%, transparent 55%)",
-                }}
-              />
             </motion.div>
           )}
         </AnimatePresence>
