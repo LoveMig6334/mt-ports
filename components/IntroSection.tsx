@@ -22,8 +22,8 @@ const RIGHT_EYE = { cx: 150, cy: 110 };
 export default function IntroSection() {
   const lenis = useLenis();
   const svgRef = useRef<SVGSVGElement>(null);
-  const pupilLRef = useRef<SVGCircleElement>(null);
-  const pupilRRef = useRef<SVGCircleElement>(null);
+  const pupilLRef = useRef<SVGGElement>(null);
+  const pupilRRef = useRef<SVGGElement>(null);
 
   /* ─── Eye Tracking ─── */
   useEffect(() => {
@@ -49,8 +49,7 @@ export default function IntroSection() {
         );
         const dx = (Math.cos(ang) * dist) / scaleX;
         const dy = (Math.sin(ang) * dist) / scaleY;
-        pupil.setAttribute("cx", String(cx + dx));
-        pupil.setAttribute("cy", String(cy + dy));
+        pupil.setAttribute("transform", `translate(${dx}, ${dy})`);
       });
     };
     document.addEventListener("mousemove", handler);
@@ -228,28 +227,17 @@ export default function IntroSection() {
             <circle cx="70" cy="110" r="21" fill="url(#av-eyeGrad)" />
             <circle cx="150" cy="110" r="21" fill="url(#av-eyeGrad)" />
 
-            {/* Pupils (mouse-tracked) */}
-            <circle
-              ref={pupilLRef}
-              cx="70"
-              cy="110"
-              r="11"
-              fill="url(#av-pupilGrad)"
-            />
-            <circle
-              ref={pupilRRef}
-              cx="150"
-              cy="110"
-              r="11"
-              fill="url(#av-pupilGrad)"
-            />
-
-            {/* Pupil highlights — left */}
-            <circle cx="66" cy="106" r="3.5" fill="rgba(255,255,255,0.85)" />
-            <circle cx="71" cy="113" r="1.5" fill="rgba(255,255,255,0.35)" />
-            {/* Pupil highlights — right */}
-            <circle cx="146" cy="106" r="3.5" fill="rgba(255,255,255,0.85)" />
-            <circle cx="151" cy="113" r="1.5" fill="rgba(255,255,255,0.35)" />
+            {/* Pupils + highlights (grouped for mouse tracking) */}
+            <g ref={pupilLRef}>
+              <circle cx="70" cy="110" r="11" fill="url(#av-pupilGrad)" />
+              <circle cx="66" cy="106" r="3.5" fill="rgba(255,255,255,0.85)" />
+              <circle cx="71" cy="113" r="1.5" fill="rgba(255,255,255,0.35)" />
+            </g>
+            <g ref={pupilRRef}>
+              <circle cx="150" cy="110" r="11" fill="url(#av-pupilGrad)" />
+              <circle cx="146" cy="106" r="3.5" fill="rgba(255,255,255,0.85)" />
+              <circle cx="151" cy="113" r="1.5" fill="rgba(255,255,255,0.35)" />
+            </g>
 
             {/* Glasses — lenses */}
             <rect
@@ -390,7 +378,7 @@ export default function IntroSection() {
 
       {/* Description */}
       <motion.p
-        className="max-w-155 text-center text-[0.88rem] leading-relaxed mb-11 z-2"
+        className="max-w-155 text-center text-[0.88rem] leading-relaxed mb-11 z-2 font-body"
         style={{ color: "rgba(240,236,228,0.5)", lineHeight: "1.9" }}
         initial={{ opacity: 0, y: 35 }}
         animate={{ opacity: 1, y: 0 }}
