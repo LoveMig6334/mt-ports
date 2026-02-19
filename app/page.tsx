@@ -13,6 +13,7 @@ const WorkGallery = dynamic(() => import("@/components/WorkGallery"));
 const StatsBar = dynamic(() => import("@/components/StatsBar"));
 const About = dynamic(() => import("@/components/About"));
 const SkillsBlock = dynamic(() => import("@/components/SkillsBlock"));
+const CertCarousel = dynamic(() => import("@/components/CertCarousel"));
 const Contact = dynamic(() => import("@/components/Contact"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
@@ -48,6 +49,7 @@ export default function Home() {
       <SectionHeader number="02" title="About" serifWord="Me" />
       <About />
       <SkillsBlock />
+      <CertCarousel />
       <Marquee items={ctaMarquee} direction="right" speed={25} />
       <Contact />
       <Footer />
