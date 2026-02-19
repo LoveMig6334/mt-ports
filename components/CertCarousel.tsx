@@ -54,7 +54,7 @@ function CertCard({
   return (
     <motion.div
       ref={isFirst ? cardRef : undefined}
-      className="shrink-0 cursor-pointer rounded-xl overflow-hidden"
+      className="shrink-0 cursor-pointer rounded-xl overflow-hidden cert-card"
       style={{
         width:
           visibleCount === 1

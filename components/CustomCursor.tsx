@@ -26,7 +26,7 @@ export default function CustomCursor() {
     };
 
     const hoverTargets =
-      "a, button, .work-item, .skill-pill, .social-link, .avatar-hover";
+      "a, button, .work-item, .skill-pill, .social-link, .avatar-hover, .cert-card";
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as Element;
