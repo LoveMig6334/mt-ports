@@ -1,9 +1,9 @@
 "use client";
 
 import { ease } from "@/lib/animations";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* ─── Particles Data ─── */
 const particles = [
@@ -24,6 +24,7 @@ export default function IntroSection() {
   const svgRef = useRef<SVGSVGElement>(null);
   const pupilLRef = useRef<SVGGElement>(null);
   const pupilRRef = useRef<SVGGElement>(null);
+  const [avatarHovered, setAvatarHovered] = useState(false);
 
   /* ─── Eye Tracking ─── */
   useEffect(() => {
@@ -113,6 +114,9 @@ export default function IntroSection() {
         initial={{ opacity: 0, y: 35 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease, delay: 0.15 }}
+        onHoverStart={() => setAvatarHovered(true)}
+        onHoverEnd={() => setAvatarHovered(false)}
+        style={{ cursor: "pointer" }}
       >
         {/* Glow ring (Framer Motion) */}
         <motion.div
@@ -122,189 +126,303 @@ export default function IntroSection() {
               "radial-gradient(circle, rgba(232,255,71,0.07) 0%, transparent 70%)",
           }}
           animate={{
-            scale: [1, 1.12, 1],
-            opacity: [0.5, 1, 0.5],
+            scale: avatarHovered ? [1.15, 1.25, 1.15] : [1, 1.12, 1],
+            opacity: avatarHovered ? [0.7, 1, 0.7] : [0.5, 1, 0.5],
           }}
           transition={{
-            duration: 4,
+            duration: avatarHovered ? 2 : 4,
             ease: "easeInOut",
             repeat: Infinity,
           }}
         />
 
-        {/* SVG Avatar */}
-        <svg
-          ref={svgRef}
-          viewBox="0 0 220 220"
-          className="w-full h-full"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="av-faceGrad" x1="0.2" y1="0" x2="0.8" y2="1">
-              <stop offset="0%" stopColor="#22223a" />
-              <stop offset="50%" stopColor="#181828" />
-              <stop offset="100%" stopColor="#10101e" />
-            </linearGradient>
-            <linearGradient id="av-hairGrad" x1="0.5" y1="0" x2="0.5" y2="1">
-              <stop offset="0%" stopColor="#141418" />
-              <stop offset="100%" stopColor="#222230" />
-            </linearGradient>
-            <radialGradient id="av-highlight" cx="0.35" cy="0.3" r="0.55">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.08)" />
-              <stop offset="100%" stopColor="transparent" />
-            </radialGradient>
-            <linearGradient id="av-eyeGrad" x1="0.5" y1="0" x2="0.5" y2="1">
-              <stop offset="0%" stopColor="#ffffff" />
-              <stop offset="100%" stopColor="#eae8e2" />
-            </linearGradient>
-            <radialGradient id="av-pupilGrad" cx="0.32" cy="0.32" r="0.68">
-              <stop offset="0%" stopColor="#4f5080" />
-              <stop offset="55%" stopColor="#1c1c30" />
-              <stop offset="100%" stopColor="#0c0c18" />
-            </radialGradient>
-            <clipPath id="av-faceClip">
-              <circle cx="110" cy="110" r="110" />
-            </clipPath>
-            <filter id="av-faceShadow">
-              <feDropShadow
-                dx="0"
-                dy="24"
-                stdDeviation="35"
-                floodColor="#000"
-                floodOpacity="0.55"
+        {/* SVG Face (default) */}
+        <AnimatePresence>
+          {!avatarHovered && (
+            <motion.div
+              key="face"
+              className="absolute inset-0 w-full h-full"
+              initial={{ opacity: 0, scale: 0.92, rotateY: -15 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              exit={{ opacity: 0, scale: 0.88, rotateY: 15 }}
+              transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
+            >
+              <svg
+                ref={svgRef}
+                viewBox="0 0 220 220"
+                className="w-full h-full"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <linearGradient
+                    id="av-faceGrad"
+                    x1="0.2"
+                    y1="0"
+                    x2="0.8"
+                    y2="1"
+                  >
+                    <stop offset="0%" stopColor="#22223a" />
+                    <stop offset="50%" stopColor="#181828" />
+                    <stop offset="100%" stopColor="#10101e" />
+                  </linearGradient>
+                  <linearGradient
+                    id="av-hairGrad"
+                    x1="0.5"
+                    y1="0"
+                    x2="0.5"
+                    y2="1"
+                  >
+                    <stop offset="0%" stopColor="#141418" />
+                    <stop offset="100%" stopColor="#222230" />
+                  </linearGradient>
+                  <radialGradient id="av-highlight" cx="0.35" cy="0.3" r="0.55">
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.08)" />
+                    <stop offset="100%" stopColor="transparent" />
+                  </radialGradient>
+                  <linearGradient
+                    id="av-eyeGrad"
+                    x1="0.5"
+                    y1="0"
+                    x2="0.5"
+                    y2="1"
+                  >
+                    <stop offset="0%" stopColor="#ffffff" />
+                    <stop offset="100%" stopColor="#eae8e2" />
+                  </linearGradient>
+                  <radialGradient
+                    id="av-pupilGrad"
+                    cx="0.32"
+                    cy="0.32"
+                    r="0.68"
+                  >
+                    <stop offset="0%" stopColor="#4f5080" />
+                    <stop offset="55%" stopColor="#1c1c30" />
+                    <stop offset="100%" stopColor="#0c0c18" />
+                  </radialGradient>
+                  <clipPath id="av-faceClip">
+                    <circle cx="110" cy="110" r="110" />
+                  </clipPath>
+                  <filter id="av-faceShadow">
+                    <feDropShadow
+                      dx="0"
+                      dy="24"
+                      stdDeviation="35"
+                      floodColor="#000"
+                      floodOpacity="0.55"
+                    />
+                  </filter>
+                </defs>
+
+                {/* Face */}
+                <circle
+                  cx="110"
+                  cy="110"
+                  r="110"
+                  fill="url(#av-faceGrad)"
+                  filter="url(#av-faceShadow)"
+                />
+                <circle cx="110" cy="110" r="110" fill="url(#av-highlight)" />
+
+                <g clipPath="url(#av-faceClip)">
+                  {/* Hair — main top (semicircle top, flat bottom) */}
+                  <path
+                    d="M15 97 V87 A95 95 0 0 1 110 -8 A95 95 0 0 1 205 87 V97 Z"
+                    fill="url(#av-hairGrad)"
+                  />
+                  {/* Hair — left sideburn */}
+                  <path
+                    d="M-3 54 H52 V101 A28 28 0 0 1 24 129 H25 A28 28 0 0 1 -3 101 Z"
+                    fill="url(#av-hairGrad)"
+                  />
+                  {/* Hair — right sideburn */}
+                  <path
+                    d="M168 54 H223 V101 A28 28 0 0 1 195 129 H196 A28 28 0 0 1 168 101 Z"
+                    fill="url(#av-hairGrad)"
+                  />
+
+                  {/* Eyebrows */}
+                  <rect
+                    x="38"
+                    y="62"
+                    width="44"
+                    height="7"
+                    rx="4"
+                    fill="#181820"
+                    transform="rotate(-5, 60, 65.5)"
+                  />
+                  <rect
+                    x="138"
+                    y="62"
+                    width="44"
+                    height="7"
+                    rx="4"
+                    fill="#181820"
+                    transform="rotate(5, 160, 65.5)"
+                  />
+
+                  {/* Eyes — whites */}
+                  <circle cx="70" cy="110" r="21" fill="url(#av-eyeGrad)" />
+                  <circle cx="150" cy="110" r="21" fill="url(#av-eyeGrad)" />
+
+                  {/* Pupils + highlights (grouped for mouse tracking) */}
+                  <g ref={pupilLRef}>
+                    <circle cx="70" cy="110" r="11" fill="url(#av-pupilGrad)" />
+                    <circle
+                      cx="66"
+                      cy="106"
+                      r="3.5"
+                      fill="rgba(255,255,255,0.85)"
+                    />
+                    <circle
+                      cx="71"
+                      cy="113"
+                      r="1.5"
+                      fill="rgba(255,255,255,0.35)"
+                    />
+                  </g>
+                  <g ref={pupilRRef}>
+                    <circle
+                      cx="150"
+                      cy="110"
+                      r="11"
+                      fill="url(#av-pupilGrad)"
+                    />
+                    <circle
+                      cx="146"
+                      cy="106"
+                      r="3.5"
+                      fill="rgba(255,255,255,0.85)"
+                    />
+                    <circle
+                      cx="151"
+                      cy="113"
+                      r="1.5"
+                      fill="rgba(255,255,255,0.35)"
+                    />
+                  </g>
+
+                  {/* Glasses — lenses */}
+                  <rect
+                    x="41"
+                    y="76"
+                    width="58"
+                    height="46"
+                    rx="10"
+                    fill="rgba(232,255,71,0.04)"
+                    stroke="#e8ff47"
+                    strokeWidth="3"
+                  />
+                  <rect
+                    x="121"
+                    y="76"
+                    width="58"
+                    height="46"
+                    rx="10"
+                    fill="rgba(232,255,71,0.04)"
+                    stroke="#e8ff47"
+                    strokeWidth="3"
+                  />
+                  {/* Glasses — bridge */}
+                  <line
+                    x1="99"
+                    y1="99"
+                    x2="121"
+                    y2="99"
+                    stroke="#e8ff47"
+                    strokeWidth="3"
+                  />
+                  {/* Glasses — arms */}
+                  <line
+                    x1="3"
+                    y1="103"
+                    x2="41"
+                    y2="99"
+                    stroke="#e8ff47"
+                    strokeWidth="3"
+                  />
+                  <line
+                    x1="179"
+                    y1="99"
+                    x2="217"
+                    y2="103"
+                    stroke="#e8ff47"
+                    strokeWidth="3"
+                  />
+
+                  {/* Nose */}
+                  <path
+                    d="M100 140 Q110 148 120 140"
+                    stroke="rgba(255,255,255,0.1)"
+                    strokeWidth="2"
+                    fill="none"
+                  />
+
+                  {/* Mouth */}
+                  <path
+                    d="M93 176 Q110 188 127 176"
+                    stroke="rgba(255,107,74,0.55)"
+                    strokeWidth="3"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                </g>
+              </svg>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Portrait card (shown on hover) — matches About Me portrait */}
+        <AnimatePresence>
+          {avatarHovered && (
+            <motion.div
+              key="portrait"
+              className="absolute inset-0 w-full h-full rounded-full overflow-hidden"
+              initial={{ opacity: 0, scale: 1.08, rotateY: -15 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              exit={{ opacity: 0, scale: 0.92, rotateY: 15 }}
+              transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
+              style={{
+                background:
+                  "linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)",
+              }}
+            >
+              {/* Animated colour blobs matching the About portrait */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `
+                    radial-gradient(circle at 30% 40%, var(--coral) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 60%, var(--violet) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 80%, var(--cyan) 0%, transparent 40%)
+                  `,
+                  opacity: 0.4,
+                  animation: "gradShift 8s ease-in-out infinite alternate",
+                }}
               />
-            </filter>
-          </defs>
-
-          {/* Face */}
-          <circle
-            cx="110"
-            cy="110"
-            r="110"
-            fill="url(#av-faceGrad)"
-            filter="url(#av-faceShadow)"
-          />
-          <circle cx="110" cy="110" r="110" fill="url(#av-highlight)" />
-
-          <g clipPath="url(#av-faceClip)">
-            {/* Hair — main top (semicircle top, flat bottom) */}
-            <path
-              d="M15 97 V87 A95 95 0 0 1 110 -8 A95 95 0 0 1 205 87 V97 Z"
-              fill="url(#av-hairGrad)"
-            />
-            {/* Hair — left sideburn */}
-            <path
-              d="M-3 54 H52 V101 A28 28 0 0 1 24 129 H25 A28 28 0 0 1 -3 101 Z"
-              fill="url(#av-hairGrad)"
-            />
-            {/* Hair — right sideburn */}
-            <path
-              d="M168 54 H223 V101 A28 28 0 0 1 195 129 H196 A28 28 0 0 1 168 101 Z"
-              fill="url(#av-hairGrad)"
-            />
-
-            {/* Eyebrows */}
-            <rect
-              x="38"
-              y="62"
-              width="44"
-              height="7"
-              rx="4"
-              fill="#181820"
-              transform="rotate(-5, 60, 65.5)"
-            />
-            <rect
-              x="138"
-              y="62"
-              width="44"
-              height="7"
-              rx="4"
-              fill="#181820"
-              transform="rotate(5, 160, 65.5)"
-            />
-
-            {/* Eyes — whites */}
-            <circle cx="70" cy="110" r="21" fill="url(#av-eyeGrad)" />
-            <circle cx="150" cy="110" r="21" fill="url(#av-eyeGrad)" />
-
-            {/* Pupils + highlights (grouped for mouse tracking) */}
-            <g ref={pupilLRef}>
-              <circle cx="70" cy="110" r="11" fill="url(#av-pupilGrad)" />
-              <circle cx="66" cy="106" r="3.5" fill="rgba(255,255,255,0.85)" />
-              <circle cx="71" cy="113" r="1.5" fill="rgba(255,255,255,0.35)" />
-            </g>
-            <g ref={pupilRRef}>
-              <circle cx="150" cy="110" r="11" fill="url(#av-pupilGrad)" />
-              <circle cx="146" cy="106" r="3.5" fill="rgba(255,255,255,0.85)" />
-              <circle cx="151" cy="113" r="1.5" fill="rgba(255,255,255,0.35)" />
-            </g>
-
-            {/* Glasses — lenses */}
-            <rect
-              x="41"
-              y="76"
-              width="58"
-              height="46"
-              rx="10"
-              fill="rgba(232,255,71,0.04)"
-              stroke="#e8ff47"
-              strokeWidth="3"
-            />
-            <rect
-              x="121"
-              y="76"
-              width="58"
-              height="46"
-              rx="10"
-              fill="rgba(232,255,71,0.04)"
-              stroke="#e8ff47"
-              strokeWidth="3"
-            />
-            {/* Glasses — bridge */}
-            <line
-              x1="99"
-              y1="99"
-              x2="121"
-              y2="99"
-              stroke="#e8ff47"
-              strokeWidth="3"
-            />
-            {/* Glasses — arms */}
-            <line
-              x1="3"
-              y1="103"
-              x2="41"
-              y2="99"
-              stroke="#e8ff47"
-              strokeWidth="3"
-            />
-            <line
-              x1="179"
-              y1="99"
-              x2="217"
-              y2="103"
-              stroke="#e8ff47"
-              strokeWidth="3"
-            />
-
-            {/* Nose */}
-            <path
-              d="M100 140 Q110 148 120 140"
-              stroke="rgba(255,255,255,0.1)"
-              strokeWidth="2"
-              fill="none"
-            />
-
-            {/* Mouth */}
-            <path
-              d="M93 176 Q110 188 127 176"
-              stroke="rgba(255,107,74,0.55)"
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-            />
-          </g>
-        </svg>
+              {/* NOVA label */}
+              <div
+                className="absolute bottom-5 left-5 font-display font-extrabold leading-none"
+                style={{ fontSize: "1.6rem", letterSpacing: "-0.03em" }}
+              >
+                NOVA
+                <span
+                  className="block mt-1 text-accent font-serif italic font-normal"
+                  style={{ fontSize: "0.55rem", letterSpacing: "0.06em" }}
+                >
+                  Designer &amp; Creative
+                </span>
+              </div>
+              {/* Subtle inner-glow highlight */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 35% 30%, rgba(255,255,255,0.07) 0%, transparent 55%)",
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* ─── Text ─── */}
