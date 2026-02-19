@@ -9,7 +9,7 @@ import { projects } from "@/lib/projects";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import Image from "next/image";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface LightboxProps {
@@ -27,6 +27,7 @@ export default function Lightbox({
 }: LightboxProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
+  const [errorIndices, setErrorIndices] = useState<Set<number>>(new Set());
 
   const navigate = useCallback(
     (dir: number) => {
@@ -81,6 +82,11 @@ export default function Lightbox({
   }, [isOpen, onClose, navigate, lenis]);
 
   const project = projects[currentIndex];
+  const hasError = errorIndices.has(currentIndex);
+
+  const handleImageError = useCallback(() => {
+    setErrorIndices((prev) => new Set(prev).add(currentIndex));
+  }, [currentIndex]);
 
   if (typeof document === "undefined") return null;
 
@@ -183,20 +189,61 @@ export default function Lightbox({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease }}
               >
-                <Image
-                  src={project.imageFull}
-                  alt={project.title}
-                  width={1800}
-                  height={1200}
-                  className="block rounded-lg"
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "80vh",
-                    width: "auto",
-                    height: "auto",
-                  }}
-                  priority
-                />
+                {hasError ? (
+                  <div
+                    className="flex flex-col items-center justify-center gap-4 rounded-lg"
+                    style={{
+                      width: "min(85vw, 900px)",
+                      height: "min(60vh, 600px)",
+                      backgroundColor: "rgba(21,21,21,1)",
+                      border: "1px solid rgba(255,107,74,0.25)",
+                    }}
+                  >
+                    <svg
+                      width="64"
+                      height="64"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#ff6b4a"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <path d="m21 15-5-5L5 21" />
+                      <line x1="2" y1="2" x2="22" y2="22" />
+                    </svg>
+                    <span
+                      className="text-sm uppercase tracking-widest font-body"
+                      style={{ color: "#ff6b4a" }}
+                    >
+                      Image could not be loaded
+                    </span>
+                    <span
+                      className="text-xs font-body"
+                      style={{ color: "rgba(240,236,228,0.4)" }}
+                    >
+                      The source may be unavailable
+                    </span>
+                  </div>
+                ) : (
+                  <Image
+                    src={project.imageFull}
+                    alt={project.title}
+                    width={1800}
+                    height={1200}
+                    className="block rounded-lg"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "80vh",
+                      width: "auto",
+                      height: "auto",
+                    }}
+                    priority
+                    onError={handleImageError}
+                  />
+                )}
               </motion.div>
             </AnimatePresence>
 

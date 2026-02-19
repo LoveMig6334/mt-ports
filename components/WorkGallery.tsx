@@ -6,7 +6,7 @@ import { projects } from "@/lib/projects";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const Lightbox = dynamic(() => import("./Lightbox"));
 
@@ -19,6 +19,9 @@ function WorkItem({
 }) {
   const project = projects[index];
   const { ref, isInView } = useScrollReveal();
+  const [hasError, setHasError] = useState(false);
+
+  const handleError = useCallback(() => setHasError(true), []);
 
   return (
     <motion.div
@@ -30,16 +33,40 @@ function WorkItem({
       style={{ aspectRatio: project.aspectRatio || "4/3" }}
       onClick={() => onOpen(index)}
     >
-      <div className="relative w-full h-full transition-transform duration-800 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          sizes="(max-width: 900px) 100vw, 50vw"
-          loading={index === 0 ? "eager" : "lazy"}
-          className="object-cover saturate-[0.85] group-hover:saturate-[1.1] transition-[filter] duration-600 ease-[cubic-bezier(0.23,1,0.32,1)]"
-        />
-      </div>
+      {hasError ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ff6b4a"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m21 15-5-5L5 21" />
+            <line x1="2" y1="2" x2="22" y2="22" />
+          </svg>
+          <span className="text-xs uppercase tracking-widest font-body text-(--coral)">
+            Image unavailable
+          </span>
+        </div>
+      ) : (
+        <div className="relative w-full h-full transition-transform duration-800 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 900px) 100vw, 50vw"
+            loading={index === 0 ? "eager" : "lazy"}
+            className="object-cover saturate-[0.85] group-hover:saturate-[1.1] transition-[filter] duration-600 ease-[cubic-bezier(0.23,1,0.32,1)]"
+            onError={handleError}
+          />
+        </div>
+      )}
       <div
         className="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100"
         style={{
