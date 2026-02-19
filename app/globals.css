@@ -52,14 +52,6 @@ body::after {
   opacity: 0.5;
 }
 
-/* ─── Content Visibility for Below-the-Fold ─── */
-#work,
-#about,
-#contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
-}
-
 /* ─── Marquee Keyframes ─── */
 @keyframes marquee {
   0% {
