@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 
 const links = [
+  { href: "#intro", label: "Intro" },
   { href: "#work", label: "Work" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },

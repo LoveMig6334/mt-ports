@@ -3,6 +3,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
 import { motion } from "framer-motion";
+import SurveyCard from "./SurveyCard";
 
 const socialLinks = [
   { label: "Dr", title: "Dribbble" },
@@ -93,6 +94,9 @@ export default function Contact() {
             </motion.a>
           ))}
         </div>
+
+        {/* Portfolio Feedback Survey */}
+        <SurveyCard />
       </motion.div>
     </section>
   );

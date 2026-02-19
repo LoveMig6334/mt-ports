@@ -4,11 +4,15 @@ import Navbar from "@/components/Navbar";
 import SmoothScroll from "@/components/SmoothScroll";
 import dynamic from "next/dynamic";
 
+const IntroSection = dynamic(() => import("@/components/IntroSection"));
+const HeroDivider = dynamic(() => import("@/components/HeroDivider"));
+const HeroRight = dynamic(() => import("@/components/HeroRight"));
 const Marquee = dynamic(() => import("@/components/Marquee"));
 const SectionHeader = dynamic(() => import("@/components/SectionHeader"));
 const WorkGallery = dynamic(() => import("@/components/WorkGallery"));
 const StatsBar = dynamic(() => import("@/components/StatsBar"));
 const About = dynamic(() => import("@/components/About"));
+const SkillsBlock = dynamic(() => import("@/components/SkillsBlock"));
 const Contact = dynamic(() => import("@/components/Contact"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
@@ -33,13 +37,17 @@ export default function Home() {
     <SmoothScroll>
       <CustomCursorLoader />
       <Navbar />
+      <IntroSection />
       <Hero />
+      <HeroDivider />
+      <HeroRight />
       <Marquee items={servicesMarquee} direction="left" speed={25} />
       <SectionHeader number="01" title="Selected" serifWord="Work" />
       <WorkGallery />
       <StatsBar />
       <SectionHeader number="02" title="About" serifWord="Me" />
       <About />
+      <SkillsBlock />
       <Marquee items={ctaMarquee} direction="right" speed={25} />
       <Contact />
       <Footer />
