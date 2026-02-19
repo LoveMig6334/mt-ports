@@ -20,6 +20,30 @@ export const certifications: Certification[] = [
     image: "/certificate/KMITL_2025.jpg",
   },
   {
+    id: "nsc-1",
+    title: "NSC Certificate 1",
+    description: "Certificate description",
+    image: "/certificate/NSC_1.jpg",
+  },
+  {
+    id: "nsc-2",
+    title: "NSC Certificate 2",
+    description: "Certificate description",
+    image: "/certificate/NSC_2.jpg",
+  },
+  {
+    id: "ayc1-2025",
+    title: "AYC1 2025",
+    description: "Certificate description",
+    image: "/certificate/AYC1_2025.jpg",
+  },
+  {
+    id: "ayc2-2025",
+    title: "AYC2 2025",
+    description: "Certificate description",
+    image: "/certificate/AYC2_2025.jpg",
+  },
+  {
     id: "sch-1",
     title: "Scholarship Certificate 1",
     description: "Certificate description",
@@ -78,29 +102,5 @@ export const certifications: Certification[] = [
     title: "AI & Data Fundamentals 5",
     description: "Certificate description",
     image: "/certificate/AI_DF_5.jpg",
-  },
-  {
-    id: "ayc1-2025",
-    title: "AYC1 2025",
-    description: "Certificate description",
-    image: "/certificate/AYC1_2025.jpg",
-  },
-  {
-    id: "ayc2-2025",
-    title: "AYC2 2025",
-    description: "Certificate description",
-    image: "/certificate/AYC2_2025.jpg",
-  },
-  {
-    id: "nsc-1",
-    title: "NSC Certificate 1",
-    description: "Certificate description",
-    image: "/certificate/NSC_1.jpg",
-  },
-  {
-    id: "nsc-2",
-    title: "NSC Certificate 2",
-    description: "Certificate description",
-    image: "/certificate/NSC_2.jpg",
   },
 ];
