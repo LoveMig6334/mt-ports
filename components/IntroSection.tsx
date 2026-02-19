@@ -116,6 +116,7 @@ export default function IntroSection() {
         transition={{ duration: 1, ease, delay: 0.15 }}
         onHoverStart={() => setAvatarHovered(true)}
         onHoverEnd={() => setAvatarHovered(false)}
+        onClick={() => lenis?.scrollTo("#about")}
         style={{ cursor: "pointer" }}
       >
         {/* Glow ring (Framer Motion) */}
