@@ -15,7 +15,8 @@
       "Bash(node -e:*)",
       "Bash(npm run lint:*)",
       "Bash(taskkill:*)",
-      "Bash(npm audit:*)"
+      "Bash(npm audit:*)",
+      "Bash(timeout 25 npx next dev:*)"
     ]
   }
 }

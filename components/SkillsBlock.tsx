@@ -332,7 +332,7 @@ export default function SkillsBlock() {
                 border: "1px solid rgba(240,236,228,0.07)",
               }}
               whileHover={{
-                borderColor: "var(--accent)",
+                borderColor: "#e8ff47",
                 background: "rgba(232,255,71,0.04)",
                 y: -4,
                 transition: { duration: 0.4, ease },

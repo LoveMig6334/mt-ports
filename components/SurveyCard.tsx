@@ -40,18 +40,19 @@ function StarRating({
 export default function SurveyCard() {
   const [ratings, setRatings] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [avg, setAvg] = useState(0);
   const btnRef = useRef<HTMLButtonElement>(null);
+
+  const vals = Object.values(ratings);
+  const avg = submitted && vals.length > 0
+    ? +(vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1)
+    : 0;
 
   const handleRate = useCallback((cat: string, val: number) => {
     setRatings((prev) => ({ ...prev, [cat]: val }));
   }, []);
 
   const handleSubmit = () => {
-    const vals = Object.values(ratings);
     if (vals.length === 0) return;
-    const average = +(vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1);
-    setAvg(average);
     setSubmitted(true);
   };
 
