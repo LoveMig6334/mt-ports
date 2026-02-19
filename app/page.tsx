@@ -1,12 +1,12 @@
 import CustomCursorLoader from "@/components/CustomCursorLoader";
+import Hero from "@/components/Hero";
+import HeroDivider from "@/components/HeroDivider";
+import HeroRight from "@/components/HeroRight";
 import IntroSection from "@/components/IntroSection";
 import Navbar from "@/components/Navbar";
 import SmoothScroll from "@/components/SmoothScroll";
 import dynamic from "next/dynamic";
 
-const Hero = dynamic(() => import("@/components/Hero"));
-const HeroDivider = dynamic(() => import("@/components/HeroDivider"));
-const HeroRight = dynamic(() => import("@/components/HeroRight"));
 const Marquee = dynamic(() => import("@/components/Marquee"));
 const SectionHeader = dynamic(() => import("@/components/SectionHeader"));
 const WorkGallery = dynamic(() => import("@/components/WorkGallery"));

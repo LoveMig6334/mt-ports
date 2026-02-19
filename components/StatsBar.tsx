@@ -1,7 +1,8 @@
 "use client";
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { fadeUpVariants } from "@/lib/animations";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 interface Stat {
@@ -27,6 +28,7 @@ function AnimatedNumber({
   isInView: boolean;
 }) {
   const spanRef = useRef<HTMLSpanElement>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!isInView) return;
@@ -43,19 +45,24 @@ function AnimatedNumber({
       }
 
       if (progress < 1) {
-        requestAnimationFrame(animate);
+        animationFrameRef.current = requestAnimationFrame(animate);
       }
     };
 
-    requestAnimationFrame(animate);
+    animationFrameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
   }, [isInView, value, suffix]);
 
   return <span ref={spanRef}>0{suffix}</span>;
 }
 
 export default function StatsBar() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const { ref, isInView } = useScrollReveal({ once: true, amount: 0.3 });
 
   return (
     <motion.div
@@ -67,7 +74,7 @@ export default function StatsBar() {
     >
       {stats.map((stat, i) => (
         <div
-          key={i}
+          key={stat.label}
           className="p-12 text-center max-[900px]:p-8"
           style={{
             borderRight:

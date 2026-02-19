@@ -4,9 +4,9 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
 import { projects } from "@/lib/projects";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useState, useCallback } from "react";
+import Image from "next/image";
+import { useCallback, useState } from "react";
 
 const Lightbox = dynamic(() => import("./Lightbox"));
 
@@ -110,8 +110,8 @@ export default function WorkGallery() {
   return (
     <section className="pb-16" id="work">
       <div className="grid grid-cols-2 gap-6 px-12 max-[900px]:grid-cols-1 max-[900px]:px-6">
-        {projects.map((_, i) => (
-          <WorkItem key={i} index={i} onOpen={setLightboxIndex} />
+        {projects.map((project, i) => (
+          <WorkItem key={project.id} index={i} onOpen={setLightboxIndex} />
         ))}
       </div>
 
