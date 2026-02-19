@@ -53,9 +53,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${syne.variable} ${spaceMono.variable} ${instrumentSerif.variable}`}
+        suppressHydrationWarning
       >
         {children}
       </body>
