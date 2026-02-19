@@ -7,12 +7,36 @@ import { useCallback, useEffect, useRef } from "react";
 
 /* ─── Data ─── */
 const abilities = [
-  { name: "UI/UX Design", pct: 95, colorClass: "c1" },
-  { name: "Brand Identity", pct: 92, colorClass: "c2" },
-  { name: "Typography", pct: 88, colorClass: "c3" },
-  { name: "Motion Design", pct: 78, colorClass: "c4" },
-  { name: "Illustration", pct: 82, colorClass: "c5" },
-  { name: "Art Direction", pct: 90, colorClass: "c6" },
+  {
+    name: "UI/UX Design",
+    pct: 95,
+    gradient: "linear-gradient(90deg, #e8ff47, #c6e840)",
+  },
+  {
+    name: "Brand Identity",
+    pct: 92,
+    gradient: "linear-gradient(90deg, #ff6b4a, #ff966b)",
+  },
+  {
+    name: "Typography",
+    pct: 88,
+    gradient: "linear-gradient(90deg, #b48aff, #d3b3ff)",
+  },
+  {
+    name: "Motion Design",
+    pct: 78,
+    gradient: "linear-gradient(90deg, #47f0ff, #80f5ff)",
+  },
+  {
+    name: "Illustration",
+    pct: 82,
+    gradient: "linear-gradient(90deg, #e8ff47, #ff6b4a)",
+  },
+  {
+    name: "Art Direction",
+    pct: 90,
+    gradient: "linear-gradient(90deg, #47f0ff, #b48aff)",
+  },
 ];
 
 const specialSkills = [
@@ -269,44 +293,51 @@ function RadarChart() {
 export default function SkillsBlock() {
   const { ref, isInView } = useScrollReveal();
   const barsRevealed = useRef(false);
+  const barsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isInView && !barsRevealed.current) {
       barsRevealed.current = true;
-      document.querySelectorAll<HTMLDivElement>(".ab-fill").forEach((el) => {
-        const w = el.dataset.w;
-        if (w) el.style.width = w + "%";
-      });
+      barsRef.current
+        ?.querySelectorAll<HTMLDivElement>("[data-w]")
+        .forEach((el) => {
+          const w = el.dataset.w;
+          if (w) el.style.width = w + "%";
+        });
     }
   }, [isInView]);
 
   return (
-    <div ref={ref} className="skills-block">
-      <div className="skills-top-grid">
+    <div
+      ref={ref}
+      className="py-16 px-12 border-t border-fg/6 max-[900px]:py-12 max-[900px]:px-6"
+    >
+      <div className="grid grid-cols-2 gap-16 items-center max-[900px]:grid-cols-1 max-[900px]:gap-8">
         <RadarChart />
-        <div className="abilities">
+        <div ref={barsRef}>
           <h3 className="font-display font-bold text-2xl mb-1">
             Core Abilities
           </h3>
-          <div className="sub-label text-[0.68rem] uppercase tracking-[0.18em] text-accent mb-8">
+          <div className="text-[0.68rem] uppercase tracking-[0.18em] text-accent mb-8">
             Proficiency Breakdown
           </div>
           {abilities.map((ab) => (
-            <div key={ab.name} className="ab-row mb-5">
-              <div className="ab-row-head flex justify-between items-center mb-1.5">
-                <span className="ab-name text-[0.72rem] uppercase tracking-[0.08em] text-fg/75">
+            <div key={ab.name} className="mb-5">
+              <div className="flex justify-between items-center mb-1.5">
+                <span className="text-[0.72rem] uppercase tracking-[0.08em] text-fg/75">
                   {ab.name}
                 </span>
-                <span className="ab-pct font-display font-bold text-[0.85rem] text-accent">
+                <span className="font-display font-bold text-[0.85rem] text-accent">
                   {ab.pct}%
                 </span>
               </div>
-              <div className="ab-track w-full h-1.25 rounded-sm overflow-hidden bg-fg/8">
+              <div className="w-full h-1.25 rounded-sm overflow-hidden bg-fg/8">
                 <div
-                  className={`ab-fill ${ab.colorClass} h-full rounded-sm`}
+                  className="h-full rounded-sm"
                   data-w={ab.pct}
                   style={{
                     width: 0,
+                    background: ab.gradient,
                     transition: "width 1.5s cubic-bezier(0.23,1,0.32,1)",
                   }}
                 />
