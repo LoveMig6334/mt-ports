@@ -4,6 +4,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
 import { motion } from "framer-motion";
 import NextImage from "next/image";
+import { useCallback, useState } from "react";
 
 const skills = [
   "Brand Identity",
@@ -18,6 +19,8 @@ const skills = [
 
 function Portrait() {
   const { ref, isInView } = useScrollReveal();
+  const [hasError, setHasError] = useState(false);
+  const handleError = useCallback(() => setHasError(true), []);
 
   return (
     <motion.div
@@ -30,15 +33,38 @@ function Portrait() {
         className="w-full rounded-[14px] relative overflow-hidden"
         style={{ aspectRatio: "3/4" }}
       >
-        {/* Real profile photo */}
-        <NextImage
-          src="/profile.jpg"
-          alt="Nova — Designer & Creative"
-          fill
-          className="object-cover object-top"
-          sizes="(max-width: 900px) 100vw, 50vw"
-          priority
-        />
+        {hasError ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#151515]">
+            <svg
+              width="56"
+              height="56"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#ff6b4a"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="m21 15-5-5L5 21" />
+              <line x1="2" y1="2" x2="22" y2="22" />
+            </svg>
+            <span className="text-xs uppercase tracking-widest font-body text-(--coral)">
+              Image unavailable
+            </span>
+          </div>
+        ) : (
+          <NextImage
+            src="/profile.jpg"
+            alt="Nova — Designer & Creative"
+            fill
+            className="object-cover object-top"
+            sizes="(max-width: 900px) 100vw, 50vw"
+            priority
+            onError={handleError}
+          />
+        )}
 
         {/* Bottom scrim so the label stays readable */}
         <div

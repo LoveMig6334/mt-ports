@@ -4,7 +4,7 @@ import { ease } from "@/lib/animations";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import NextImage from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /* ─── Particles Data ─── */
 const particles = [
@@ -26,6 +26,8 @@ export default function IntroSection() {
   const pupilLRef = useRef<SVGGElement>(null);
   const pupilRRef = useRef<SVGGElement>(null);
   const [avatarHovered, setAvatarHovered] = useState(false);
+  const [profileError, setProfileError] = useState(false);
+  const handleProfileError = useCallback(() => setProfileError(true), []);
 
   /* ─── Eye Tracking ─── */
   useEffect(() => {
@@ -384,36 +386,65 @@ export default function IntroSection() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
             >
-              {/* Real profile photo */}
-              <NextImage
-                src="/profile.jpg"
-                alt="Nova — Designer & Creative"
-                fill
-                className="object-cover object-top"
-                sizes="220px"
-                priority
-              />
-              {/* Bottom scrim for label readability */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.1) 45%, transparent 100%)",
-                }}
-              />
-              {/* NOVA label */}
-              <div
-                className="absolute bottom-5 left-5 font-display font-extrabold leading-none"
-                style={{ fontSize: "1.4rem", letterSpacing: "-0.03em" }}
-              >
-                NOVA
-                <span
-                  className="block mt-1 text-accent font-serif italic font-normal"
-                  style={{ fontSize: "0.5rem", letterSpacing: "0.06em" }}
-                >
-                  Designer &amp; Creative
-                </span>
-              </div>
+              {profileError ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#151515]">
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#ff6b4a"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path d="m21 15-5-5L5 21" />
+                    <line x1="2" y1="2" x2="22" y2="22" />
+                  </svg>
+                  <span
+                    className="font-body uppercase tracking-widest"
+                    style={{ fontSize: "0.45rem", color: "#ff6b4a" }}
+                  >
+                    Unavailable
+                  </span>
+                </div>
+              ) : (
+                <>
+                  {/* Real profile photo */}
+                  <NextImage
+                    src="/profile.jpg"
+                    alt="Nova — Designer & Creative"
+                    fill
+                    className="object-cover object-top"
+                    sizes="220px"
+                    priority
+                    onError={handleProfileError}
+                  />
+                  {/* Bottom scrim for label readability */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.1) 45%, transparent 100%)",
+                    }}
+                  />
+                  {/* NOVA label */}
+                  <div
+                    className="absolute bottom-5 left-5 font-display font-extrabold leading-none"
+                    style={{ fontSize: "1.4rem", letterSpacing: "-0.03em" }}
+                  >
+                    NOVA
+                    <span
+                      className="block mt-1 text-accent font-serif italic font-normal"
+                      style={{ fontSize: "0.5rem", letterSpacing: "0.06em" }}
+                    >
+                      Designer &amp; Creative
+                    </span>
+                  </div>
+                </>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
