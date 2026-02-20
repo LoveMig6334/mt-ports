@@ -184,10 +184,13 @@ const radarColors = [
 ];
 
 /* ─── Radar Chart ─── */
-function RadarChart() {
+function RadarChart({ animate }: { animate: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const progressRef = useRef(0);
+  const hasAnimated = useRef(false);
+  const rafRef = useRef<number>(0);
 
-  const draw = useCallback(() => {
+  const draw = useCallback((progress: number) => {
     const c = canvasRef.current;
     if (!c) return;
     const ctx = c.getContext("2d");
@@ -206,9 +209,11 @@ function RadarChart() {
       step = (Math.PI * 2) / N,
       start = -Math.PI / 2;
 
+    const t = progress;
+
     /* Grid rings */
     for (let ring = 1; ring <= 4; ring++) {
-      const rr = (R / 4) * ring;
+      const rr = (R / 4) * ring * t;
       ctx.beginPath();
       for (let i = 0; i <= N; i++) {
         const a = start + step * i;
@@ -228,7 +233,7 @@ function RadarChart() {
       const a = start + step * i;
       ctx.beginPath();
       ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R);
+      ctx.lineTo(cx + Math.cos(a) * R * t, cy + Math.sin(a) * R * t);
       ctx.strokeStyle = "rgba(240,236,228,0.06)";
       ctx.stroke();
     }
@@ -238,32 +243,36 @@ function RadarChart() {
     for (let i = 0; i <= N; i++) {
       const idx = i % N;
       const a = start + step * idx;
-      const r = R * radarVals[idx];
+      const r = R * radarVals[idx] * t;
       const x = cx + Math.cos(a) * r,
         y = cy + Math.sin(a) * r;
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     }
-    ctx.fillStyle = "rgba(232,255,71,0.08)";
+    ctx.fillStyle = `rgba(232,255,71,${0.08 * t})`;
     ctx.fill();
-    ctx.strokeStyle = "#e8ff47";
+    ctx.strokeStyle = `rgba(232,255,71,${t})`;
     ctx.lineWidth = 2;
     ctx.stroke();
 
     /* Data points */
     for (let i = 0; i < N; i++) {
       const a = start + step * i;
-      const r = R * radarVals[i];
+      const r = R * radarVals[i] * t;
       const x = cx + Math.cos(a) * r,
         y = cy + Math.sin(a) * r;
       ctx.beginPath();
-      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.arc(x, y, 5 * t, 0, Math.PI * 2);
       ctx.fillStyle = radarColors[i];
+      ctx.globalAlpha = t;
       ctx.fill();
+      ctx.globalAlpha = 1;
       ctx.beginPath();
-      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.arc(x, y, 2 * t, 0, Math.PI * 2);
       ctx.fillStyle = "#0a0a0a";
+      ctx.globalAlpha = t;
       ctx.fill();
+      ctx.globalAlpha = 1;
     }
 
     /* Labels */
@@ -275,13 +284,34 @@ function RadarChart() {
       const lr = R + 28;
       const x = cx + Math.cos(a) * lr,
         y = cy + Math.sin(a) * lr;
-      ctx.fillStyle = "rgba(240,236,228,0.45)";
+      ctx.fillStyle = `rgba(240,236,228,${0.45 * t})`;
       ctx.fillText(radarLabels[i], x, y);
     }
   }, []);
 
   useEffect(() => {
-    draw();
+    if (!animate || hasAnimated.current) return;
+    hasAnimated.current = true;
+    const duration = 1200;
+    let startTime: number | null = null;
+
+    const tick = (now: number) => {
+      if (!startTime) startTime = now;
+      const elapsed = now - startTime;
+      const raw = Math.min(elapsed / duration, 1);
+      /* cubic-bezier ease-out */
+      const t = 1 - Math.pow(1 - raw, 3);
+      progressRef.current = t;
+      draw(t);
+      if (raw < 1) rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [animate, draw]);
+
+  /* Draw initial empty state */
+  useEffect(() => {
+    if (!hasAnimated.current) draw(0);
   }, [draw]);
 
   return (
@@ -315,7 +345,7 @@ export default function SkillsBlock() {
       className="py-16 px-12 border-t border-fg/6 max-[900px]:py-12 max-[900px]:px-6"
     >
       <div className="grid grid-cols-2 gap-16 items-center max-[900px]:grid-cols-1 max-[900px]:gap-8">
-        <RadarChart />
+        <RadarChart animate={isInView} />
         <div ref={barsRef}>
           <h3 className="font-display font-bold text-2xl mb-1">
             Core Abilities
