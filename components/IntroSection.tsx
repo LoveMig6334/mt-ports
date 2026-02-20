@@ -422,27 +422,6 @@ export default function IntroSection() {
                     priority
                     onError={handleProfileError}
                   />
-                  {/* Bottom scrim for label readability */}
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.1) 45%, transparent 100%)",
-                    }}
-                  />
-                  {/* NOVA label */}
-                  <div
-                    className="absolute bottom-5 left-5 font-display font-extrabold leading-none"
-                    style={{ fontSize: "1.4rem", letterSpacing: "-0.03em" }}
-                  >
-                    NOVA
-                    <span
-                      className="block mt-1 text-accent font-serif italic font-normal"
-                      style={{ fontSize: "0.5rem", letterSpacing: "0.06em" }}
-                    >
-                      Designer &amp; Creative
-                    </span>
-                  </div>
                 </>
               )}
             </motion.div>
