@@ -184,7 +184,10 @@ export default function CertCarousel() {
               style={{ color: "#f0ece4" }}
             >
               Certifications &{" "}
-              <span className="font-serif italic font-normal">
+              <span
+                className="font-serif italic font-normal"
+                style={{ color: "#e8ff47" }}
+              >
                 Achievements
               </span>
             </h2>
