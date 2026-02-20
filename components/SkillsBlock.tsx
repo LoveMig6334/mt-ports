@@ -2,42 +2,9 @@
 
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease } from "@/lib/animations";
+import { abilities, radarColors, radarLabels, radarVals } from "@/lib/skills";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef } from "react";
-
-/* ─── Data ─── */
-const abilities = [
-  {
-    name: "UI/UX Design",
-    pct: 95,
-    gradient: "linear-gradient(90deg, #e8ff47, #c6e840)",
-  },
-  {
-    name: "Brand Identity",
-    pct: 92,
-    gradient: "linear-gradient(90deg, #ff6b4a, #ff966b)",
-  },
-  {
-    name: "Typography",
-    pct: 88,
-    gradient: "linear-gradient(90deg, #b48aff, #d3b3ff)",
-  },
-  {
-    name: "Motion Design",
-    pct: 78,
-    gradient: "linear-gradient(90deg, #47f0ff, #80f5ff)",
-  },
-  {
-    name: "Illustration",
-    pct: 82,
-    gradient: "linear-gradient(90deg, #e8ff47, #ff6b4a)",
-  },
-  {
-    name: "Art Direction",
-    pct: 90,
-    gradient: "linear-gradient(90deg, #47f0ff, #b48aff)",
-  },
-];
 
 const specialSkills = [
   {
@@ -165,24 +132,6 @@ const specialSkills = [
   },
 ];
 
-const radarLabels = [
-  "UI/UX",
-  "Branding",
-  "Typography",
-  "Motion",
-  "Illustration",
-  "Art Direction",
-];
-const radarVals = [0.95, 0.92, 0.88, 0.78, 0.82, 0.9];
-const radarColors = [
-  "#e8ff47",
-  "#ff6b4a",
-  "#b48aff",
-  "#47f0ff",
-  "#ff6b4a",
-  "#e8ff47",
-];
-
 /* ─── Radar Chart ─── */
 function RadarChart({ animate }: { animate: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -196,20 +145,35 @@ function RadarChart({ animate }: { animate: boolean }) {
     const ctx = c.getContext("2d");
     if (!ctx) return;
     const dpr = window.devicePixelRatio || 1;
-    const S = 380;
+    const S = 400;
     c.width = S * dpr;
     c.height = S * dpr;
     c.style.width = S + "px";
     c.style.height = S + "px";
     ctx.scale(dpr, dpr);
-    const cx = S / 2,
-      cy = S / 2,
-      R = 140;
+    const mx = S / 2,
+      my = S / 2,
+      R = 130;
     const N = radarLabels.length,
       step = (Math.PI * 2) / N,
       start = -Math.PI / 2;
 
     const t = progress;
+
+    const hexRgba = (hex: string, a: number) => {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r},${g},${b},${a})`;
+    };
+
+    /* Pre-calculate data points */
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i < N; i++) {
+      const a = start + step * i;
+      const r = R * radarVals[i] * t;
+      pts.push({ x: mx + Math.cos(a) * r, y: my + Math.sin(a) * r });
+    }
 
     /* Grid rings */
     for (let ring = 1; ring <= 4; ring++) {
@@ -217,8 +181,8 @@ function RadarChart({ animate }: { animate: boolean }) {
       ctx.beginPath();
       for (let i = 0; i <= N; i++) {
         const a = start + step * i;
-        const x = cx + Math.cos(a) * rr,
-          y = cy + Math.sin(a) * rr;
+        const x = mx + Math.cos(a) * rr,
+          y = my + Math.sin(a) * rr;
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
@@ -232,9 +196,10 @@ function RadarChart({ animate }: { animate: boolean }) {
     for (let i = 0; i < N; i++) {
       const a = start + step * i;
       ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + Math.cos(a) * R * t, cy + Math.sin(a) * R * t);
+      ctx.moveTo(mx, my);
+      ctx.lineTo(mx + Math.cos(a) * R * t, my + Math.sin(a) * R * t);
       ctx.strokeStyle = "rgba(240,236,228,0.06)";
+      ctx.lineWidth = 1;
       ctx.stroke();
     }
 
@@ -242,10 +207,7 @@ function RadarChart({ animate }: { animate: boolean }) {
     ctx.beginPath();
     for (let i = 0; i <= N; i++) {
       const idx = i % N;
-      const a = start + step * idx;
-      const r = R * radarVals[idx] * t;
-      const x = cx + Math.cos(a) * r,
-        y = cy + Math.sin(a) * r;
+      const { x, y } = pts[idx];
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     }
@@ -255,37 +217,49 @@ function RadarChart({ animate }: { animate: boolean }) {
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    /* Data points */
+    /* Data points with glow */
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
     for (let i = 0; i < N; i++) {
-      const a = start + step * i;
-      const r = R * radarVals[i] * t;
-      const x = cx + Math.cos(a) * r,
-        y = cy + Math.sin(a) * r;
+      /* Soft glow halo */
       ctx.beginPath();
-      ctx.arc(x, y, 5 * t, 0, Math.PI * 2);
-      ctx.fillStyle = radarColors[i];
-      ctx.globalAlpha = t;
+      ctx.arc(pts[i].x, pts[i].y, 9 * t, 0, Math.PI * 2);
+      ctx.fillStyle = hexRgba(radarColors[i], 0.15 * t);
       ctx.fill();
-      ctx.globalAlpha = 1;
+      /* Outer ring */
       ctx.beginPath();
-      ctx.arc(x, y, 2 * t, 0, Math.PI * 2);
+      ctx.arc(pts[i].x, pts[i].y, 5 * t, 0, Math.PI * 2);
+      ctx.fillStyle = hexRgba(radarColors[i], 0.9 * t);
+      ctx.fill();
+      /* Inner dot */
+      ctx.beginPath();
+      ctx.arc(pts[i].x, pts[i].y, 2 * t, 0, Math.PI * 2);
       ctx.fillStyle = "#0a0a0a";
       ctx.globalAlpha = t;
       ctx.fill();
       ctx.globalAlpha = 1;
     }
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
 
-    /* Labels */
-    ctx.font = "11px 'Space Mono', monospace";
+    /* Labels — topic name + percentage */
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     for (let i = 0; i < N; i++) {
       const a = start + step * i;
-      const lr = R + 28;
-      const x = cx + Math.cos(a) * lr,
-        y = cy + Math.sin(a) * lr;
-      ctx.fillStyle = `rgba(240,236,228,${0.45 * t})`;
-      ctx.fillText(radarLabels[i], x, y);
+      const lr = R + 34;
+      const x = mx + Math.cos(a) * lr,
+        y = my + Math.sin(a) * lr;
+
+      /* Topic name */
+      ctx.font = "11px 'Space Mono', monospace";
+      ctx.fillStyle = hexRgba(radarColors[i], 0.85 * t);
+      ctx.fillText(radarLabels[i], x, y - 7);
+
+      /* Percentage */
+      ctx.font = "bold 13px 'Syne', sans-serif";
+      ctx.fillStyle = hexRgba(radarColors[i], 0.55 * t);
+      ctx.fillText(Math.round(radarVals[i] * 100) + "%", x, y + 8);
     }
   }, []);
 
