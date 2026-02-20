@@ -4,7 +4,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease } from "@/lib/animations";
 import { abilities, radarColors, radarLabels, radarVals } from "@/lib/skills";
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const specialSkills = [
   {
@@ -134,163 +134,190 @@ const specialSkills = [
 
 /* ─── Radar Chart ─── */
 function RadarChart({ animate }: { animate: boolean }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const progressRef = useRef(0);
-  const hasAnimated = useRef(false);
-  const rafRef = useRef<number>(0);
+  const S = 400;
+  const mx = S / 2;
+  const my = S / 2;
+  const R = 130;
+  const N = radarLabels.length;
+  const step = (Math.PI * 2) / N;
+  const start = -Math.PI / 2;
 
-  const draw = useCallback((progress: number) => {
-    const c = canvasRef.current;
-    if (!c) return;
-    const ctx = c.getContext("2d");
-    if (!ctx) return;
-    const dpr = window.devicePixelRatio || 1;
-    const S = 400;
-    c.width = S * dpr;
-    c.height = S * dpr;
-    c.style.width = S + "px";
-    c.style.height = S + "px";
-    ctx.scale(dpr, dpr);
-    const mx = S / 2,
-      my = S / 2,
-      R = 130;
-    const N = radarLabels.length,
-      step = (Math.PI * 2) / N,
-      start = -Math.PI / 2;
+  const hexRgba = (hex: string, a: number) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r},${g},${b},${a})`;
+  };
 
-    const t = progress;
+  const hexPts = radarLabels.map((_, i) => {
+    const a = start + step * i;
+    return { x: Math.cos(a), y: Math.sin(a) };
+  });
 
-    const hexRgba = (hex: string, a: number) => {
-      const r = parseInt(hex.slice(1, 3), 16);
-      const g = parseInt(hex.slice(3, 5), 16);
-      const b = parseInt(hex.slice(5, 7), 16);
-      return `rgba(${r},${g},${b},${a})`;
-    };
+  const pts = hexPts.map((p, i) => ({
+    x: mx + p.x * R * radarVals[i],
+    y: my + p.y * R * radarVals[i],
+  }));
 
-    /* Pre-calculate data points */
-    const pts: { x: number; y: number }[] = [];
-    for (let i = 0; i < N; i++) {
-      const a = start + step * i;
-      const r = R * radarVals[i] * t;
-      pts.push({ x: mx + Math.cos(a) * r, y: my + Math.sin(a) * r });
-    }
+  const initialDataPath =
+    pts.map((_, i) => `${i === 0 ? "M" : "L"} ${mx} ${my}`).join(" ") + " Z";
+  const animateDataPath =
+    pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ") + " Z";
 
-    /* Grid rings */
-    for (let ring = 1; ring <= 4; ring++) {
-      const rr = (R / 4) * ring * t;
-      ctx.beginPath();
-      for (let i = 0; i <= N; i++) {
-        const a = start + step * i;
-        const x = mx + Math.cos(a) * rr,
-          y = my + Math.sin(a) * rr;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.strokeStyle =
-        ring === 4 ? "rgba(240,236,228,0.08)" : "rgba(240,236,228,0.04)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-
-    /* Axes */
-    for (let i = 0; i < N; i++) {
-      const a = start + step * i;
-      ctx.beginPath();
-      ctx.moveTo(mx, my);
-      ctx.lineTo(mx + Math.cos(a) * R * t, my + Math.sin(a) * R * t);
-      ctx.strokeStyle = "rgba(240,236,228,0.06)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-
-    /* Data polygon */
-    ctx.beginPath();
-    for (let i = 0; i <= N; i++) {
-      const idx = i % N;
-      const { x, y } = pts[idx];
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.fillStyle = `rgba(232,255,71,${0.08 * t})`;
-    ctx.fill();
-    ctx.strokeStyle = `rgba(232,255,71,${t})`;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    /* Data points with glow */
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-    for (let i = 0; i < N; i++) {
-      /* Soft glow halo */
-      ctx.beginPath();
-      ctx.arc(pts[i].x, pts[i].y, 9 * t, 0, Math.PI * 2);
-      ctx.fillStyle = hexRgba(radarColors[i], 0.15 * t);
-      ctx.fill();
-      /* Outer ring */
-      ctx.beginPath();
-      ctx.arc(pts[i].x, pts[i].y, 5 * t, 0, Math.PI * 2);
-      ctx.fillStyle = hexRgba(radarColors[i], 0.9 * t);
-      ctx.fill();
-      /* Inner dot */
-      ctx.beginPath();
-      ctx.arc(pts[i].x, pts[i].y, 2 * t, 0, Math.PI * 2);
-      ctx.fillStyle = "#0a0a0a";
-      ctx.globalAlpha = t;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    }
-    ctx.shadowColor = "transparent";
-    ctx.shadowBlur = 0;
-
-    /* Labels — topic name + percentage */
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    for (let i = 0; i < N; i++) {
-      const a = start + step * i;
-      const lr = R + 34;
-      const x = mx + Math.cos(a) * lr,
-        y = my + Math.sin(a) * lr;
-
-      /* Topic name */
-      ctx.font = "11px 'Space Mono', monospace";
-      ctx.fillStyle = hexRgba(radarColors[i], 0.85 * t);
-      ctx.fillText(radarLabels[i], x, y - 7);
-
-      /* Percentage */
-      ctx.font = "bold 13px 'Syne', sans-serif";
-      ctx.fillStyle = hexRgba(radarColors[i], 0.55 * t);
-      ctx.fillText(Math.round(radarVals[i] * 100) + "%", x, y + 8);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!animate || hasAnimated.current) return;
-    hasAnimated.current = true;
-    const duration = 1200;
-    let startTime: number | null = null;
-
-    const tick = (now: number) => {
-      if (!startTime) startTime = now;
-      const elapsed = now - startTime;
-      const raw = Math.min(elapsed / duration, 1);
-      /* cubic-bezier ease-out */
-      const t = 1 - Math.pow(1 - raw, 3);
-      progressRef.current = t;
-      draw(t);
-      if (raw < 1) rafRef.current = requestAnimationFrame(tick);
-    };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [animate, draw]);
-
-  /* Draw initial empty state */
-  useEffect(() => {
-    if (!hasAnimated.current) draw(0);
-  }, [draw]);
+  const rings = [1, 2, 3, 4];
+  const easeCurve: [number, number, number, number] = [0.23, 1, 0.32, 1];
+  const duration = 1.2;
 
   return (
     <div className="flex items-center justify-center">
-      <canvas ref={canvasRef} style={{ maxWidth: "100%" }} />
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${S} ${S}`}
+        style={{ maxWidth: S, maxHeight: S }}
+        className="overflow-visible"
+      >
+        {/* Grid rings */}
+        {rings.map((ring) => {
+          const rr = (R / 4) * ring;
+          const initialPath =
+            hexPts
+              .map((_, i) => `${i === 0 ? "M" : "L"} ${mx} ${my}`)
+              .join(" ") + " Z";
+          const animatePath =
+            hexPts
+              .map(
+                (p, i) =>
+                  `${i === 0 ? "M" : "L"} ${mx + p.x * rr} ${my + p.y * rr}`,
+              )
+              .join(" ") + " Z";
+
+          return (
+            <motion.path
+              key={`ring-${ring}`}
+              initial={{ d: initialPath }}
+              animate={animate ? { d: animatePath } : { d: initialPath }}
+              transition={{ duration, ease: easeCurve }}
+              fill="none"
+              stroke={
+                ring === 4 ? "rgba(240,236,228,0.08)" : "rgba(240,236,228,0.04)"
+              }
+              strokeWidth={1}
+            />
+          );
+        })}
+
+        {/* Axes */}
+        {hexPts.map((p, i) => (
+          <motion.line
+            key={`axis-${i}`}
+            x1={mx}
+            y1={my}
+            x2={mx}
+            y2={my}
+            animate={animate ? { x2: mx + p.x * R, y2: my + p.y * R } : {}}
+            transition={{ duration, ease: easeCurve }}
+            stroke="rgba(240,236,228,0.06)"
+            strokeWidth={1}
+          />
+        ))}
+
+        {/* Data polygon */}
+        <motion.path
+          initial={{
+            d: initialDataPath,
+            fill: "rgba(232,255,71,0)",
+            stroke: "rgba(232,255,71,0)",
+          }}
+          animate={
+            animate
+              ? {
+                  d: animateDataPath,
+                  fill: "rgba(232,255,71,0.08)",
+                  stroke: "rgba(232,255,71,1)",
+                }
+              : {}
+          }
+          transition={{ duration, ease: easeCurve }}
+          strokeWidth={2}
+        />
+
+        {/* Data points */}
+        {pts.map((p, i) => (
+          <motion.g
+            key={`pt-${i}`}
+            initial={{ x: mx, y: my, opacity: 0 }}
+            animate={animate ? { x: p.x, y: p.y, opacity: 1 } : {}}
+            transition={{ duration, ease: easeCurve }}
+          >
+            {/* Soft glow halo */}
+            <motion.circle
+              r={0}
+              animate={animate ? { r: 9 } : {}}
+              transition={{ duration, ease: easeCurve }}
+              fill={hexRgba(radarColors[i], 0.15)}
+            />
+            {/* Outer ring */}
+            <motion.circle
+              r={0}
+              animate={animate ? { r: 5 } : {}}
+              transition={{ duration, ease: easeCurve }}
+              fill={hexRgba(radarColors[i], 0.9)}
+            />
+            {/* Inner dot */}
+            <motion.circle
+              r={0}
+              animate={animate ? { r: 2 } : {}}
+              transition={{ duration, ease: easeCurve }}
+              fill="#0a0a0a"
+            />
+          </motion.g>
+        ))}
+
+        {/* Labels — topic name + percentage */}
+        {radarLabels.map((lbl, i) => {
+          const a = start + step * i;
+          const lr = R + 34;
+          const x = mx + Math.cos(a) * lr;
+          const y = my + Math.sin(a) * lr;
+
+          return (
+            <motion.g
+              key={`lbl-${i}`}
+              initial={{ opacity: 0 }}
+              animate={animate ? { opacity: 1 } : {}}
+              transition={{ duration, ease: easeCurve, delay: 0.2 }}
+            >
+              {/* Topic name */}
+              <text
+                x={x}
+                y={y - 7}
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill={hexRgba(radarColors[i], 0.85)}
+                fontSize="11"
+                fontFamily="'Space Mono', monospace"
+              >
+                {lbl}
+              </text>
+
+              {/* Percentage */}
+              <text
+                x={x}
+                y={y + 8}
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill={hexRgba(radarColors[i], 0.55)}
+                fontSize="13"
+                fontWeight="bold"
+                fontFamily="'Syne', sans-serif"
+              >
+                {Math.round(radarVals[i] * 100)}%
+              </text>
+            </motion.g>
+          );
+        })}
+      </svg>
     </div>
   );
 }
