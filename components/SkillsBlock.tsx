@@ -318,6 +318,28 @@ export default function SkillsBlock() {
       ref={ref}
       className="py-16 px-12 border-t border-fg/6 max-[900px]:py-12 max-[900px]:px-6"
     >
+      {/* Header */}
+      <div className="mb-12">
+        <h2
+          className="text-[2.5rem] font-display font-bold leading-tight max-[600px]:text-[1.8rem]"
+          style={{ color: "#f0ece4" }}
+        >
+          Skills &{" "}
+          <span
+            className="font-serif italic font-normal"
+            style={{ color: "#e8ff47" }}
+          >
+            Abilities
+          </span>
+        </h2>
+        <p
+          className="text-sm font-body mt-2"
+          style={{ color: "rgba(240,236,228,0.5)" }}
+        >
+          Professional expertise and proficiencies
+        </p>
+      </div>
+
       <div className="grid grid-cols-2 gap-16 items-center max-[900px]:grid-cols-1 max-[900px]:gap-8">
         <RadarChart animate={isInView} />
         <div ref={barsRef}>
