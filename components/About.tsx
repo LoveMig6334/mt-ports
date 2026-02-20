@@ -61,7 +61,6 @@ function Portrait() {
             fill
             className="object-cover object-top"
             sizes="(max-width: 900px) 100vw, 50vw"
-            priority
             onError={handleError}
           />
         )}

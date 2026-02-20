@@ -4,7 +4,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease } from "@/lib/animations";
 import { abilities, radarColors, radarLabels, radarVals } from "@/lib/skills";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { memo } from "react";
 
 const specialSkills = [
   {
@@ -132,42 +132,65 @@ const specialSkills = [
   },
 ];
 
-/* ─── Radar Chart ─── */
-function RadarChart({ animate }: { animate: boolean }) {
-  const S = 400;
-  const mx = S / 2;
-  const my = S / 2;
-  const R = 130;
-  const N = radarLabels.length;
-  const step = (Math.PI * 2) / N;
-  const start = -Math.PI / 2;
+/* ─── Radar Chart — hoisted constants & geometry ─── */
+const S = 400;
+const mx = S / 2;
+const my = S / 2;
+const R = 130;
+const N = radarLabels.length;
+const step = (Math.PI * 2) / N;
+const start = -Math.PI / 2;
+const rings = [1, 2, 3, 4];
+const easeCurve: [number, number, number, number] = [0.23, 1, 0.32, 1];
+const duration = 1.2;
 
-  const hexRgba = (hex: string, a: number) => {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `rgba(${r},${g},${b},${a})`;
-  };
+const hexRgba = (hex: string, a: number) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r},${g},${b},${a})`;
+};
 
-  const hexPts = radarLabels.map((_, i) => {
-    const a = start + step * i;
-    return { x: Math.cos(a), y: Math.sin(a) };
-  });
+const hexPts = radarLabels.map((_, i) => {
+  const a = start + step * i;
+  return { x: Math.cos(a), y: Math.sin(a) };
+});
 
-  const pts = hexPts.map((p, i) => ({
-    x: mx + p.x * R * radarVals[i],
-    y: my + p.y * R * radarVals[i],
-  }));
+const pts = hexPts.map((p, i) => ({
+  x: mx + p.x * R * radarVals[i],
+  y: my + p.y * R * radarVals[i],
+}));
 
-  const initialDataPath =
-    pts.map((_, i) => `${i === 0 ? "M" : "L"} ${mx} ${my}`).join(" ") + " Z";
-  const animateDataPath =
-    pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ") + " Z";
+const centerPath =
+  hexPts.map((_, i) => `${i === 0 ? "M" : "L"} ${mx} ${my}`).join(" ") + " Z";
 
-  const rings = [1, 2, 3, 4];
-  const easeCurve: [number, number, number, number] = [0.23, 1, 0.32, 1];
-  const duration = 1.2;
+const dataPath =
+  pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ") + " Z";
 
+const ringPaths = rings.map((ring) => {
+  const rr = (R / 4) * ring;
+  return (
+    hexPts
+      .map(
+        (p, i) =>
+          `${i === 0 ? "M" : "L"} ${mx + p.x * rr} ${my + p.y * rr}`,
+      )
+      .join(" ") + " Z"
+  );
+});
+
+const labelPositions = radarLabels.map((_, i) => {
+  const a = start + step * i;
+  const lr = R + 34;
+  return { x: mx + Math.cos(a) * lr, y: my + Math.sin(a) * lr };
+});
+
+/* ─── Radar Chart Component ─── */
+const RadarChart = memo(function RadarChart({
+  animate,
+}: {
+  animate: boolean;
+}) {
   return (
     <div className="flex items-center justify-center">
       <svg
@@ -178,34 +201,19 @@ function RadarChart({ animate }: { animate: boolean }) {
         className="overflow-visible"
       >
         {/* Grid rings */}
-        {rings.map((ring) => {
-          const rr = (R / 4) * ring;
-          const initialPath =
-            hexPts
-              .map((_, i) => `${i === 0 ? "M" : "L"} ${mx} ${my}`)
-              .join(" ") + " Z";
-          const animatePath =
-            hexPts
-              .map(
-                (p, i) =>
-                  `${i === 0 ? "M" : "L"} ${mx + p.x * rr} ${my + p.y * rr}`,
-              )
-              .join(" ") + " Z";
-
-          return (
-            <motion.path
-              key={`ring-${ring}`}
-              initial={{ d: initialPath }}
-              animate={animate ? { d: animatePath } : { d: initialPath }}
-              transition={{ duration, ease: easeCurve }}
-              fill="none"
-              stroke={
-                ring === 4 ? "rgba(240,236,228,0.08)" : "rgba(240,236,228,0.04)"
-              }
-              strokeWidth={1}
-            />
-          );
-        })}
+        {rings.map((ring, idx) => (
+          <motion.path
+            key={`ring-${ring}`}
+            initial={{ d: centerPath }}
+            animate={animate ? { d: ringPaths[idx] } : { d: centerPath }}
+            transition={{ duration, ease: easeCurve }}
+            fill="none"
+            stroke={
+              ring === 4 ? "rgba(240,236,228,0.08)" : "rgba(240,236,228,0.04)"
+            }
+            strokeWidth={1}
+          />
+        ))}
 
         {/* Axes */}
         {hexPts.map((p, i) => (
@@ -215,7 +223,11 @@ function RadarChart({ animate }: { animate: boolean }) {
             y1={my}
             x2={mx}
             y2={my}
-            animate={animate ? { x2: mx + p.x * R, y2: my + p.y * R } : {}}
+            animate={
+              animate
+                ? { x2: mx + p.x * R, y2: my + p.y * R }
+                : { x2: mx, y2: my }
+            }
             transition={{ duration, ease: easeCurve }}
             stroke="rgba(240,236,228,0.06)"
             strokeWidth={1}
@@ -225,18 +237,22 @@ function RadarChart({ animate }: { animate: boolean }) {
         {/* Data polygon */}
         <motion.path
           initial={{
-            d: initialDataPath,
+            d: centerPath,
             fill: "rgba(232,255,71,0)",
             stroke: "rgba(232,255,71,0)",
           }}
           animate={
             animate
               ? {
-                  d: animateDataPath,
+                  d: dataPath,
                   fill: "rgba(232,255,71,0.08)",
                   stroke: "rgba(232,255,71,1)",
                 }
-              : {}
+              : {
+                  d: centerPath,
+                  fill: "rgba(232,255,71,0)",
+                  stroke: "rgba(232,255,71,0)",
+                }
           }
           transition={{ duration, ease: easeCurve }}
           strokeWidth={2}
@@ -247,27 +263,31 @@ function RadarChart({ animate }: { animate: boolean }) {
           <motion.g
             key={`pt-${i}`}
             initial={{ x: mx, y: my, opacity: 0 }}
-            animate={animate ? { x: p.x, y: p.y, opacity: 1 } : {}}
+            animate={
+              animate
+                ? { x: p.x, y: p.y, opacity: 1 }
+                : { x: mx, y: my, opacity: 0 }
+            }
             transition={{ duration, ease: easeCurve }}
           >
             {/* Soft glow halo */}
             <motion.circle
               r={0}
-              animate={animate ? { r: 9 } : {}}
+              animate={animate ? { r: 9 } : { r: 0 }}
               transition={{ duration, ease: easeCurve }}
               fill={hexRgba(radarColors[i], 0.15)}
             />
             {/* Outer ring */}
             <motion.circle
               r={0}
-              animate={animate ? { r: 5 } : {}}
+              animate={animate ? { r: 5 } : { r: 0 }}
               transition={{ duration, ease: easeCurve }}
               fill={hexRgba(radarColors[i], 0.9)}
             />
             {/* Inner dot */}
             <motion.circle
               r={0}
-              animate={animate ? { r: 2 } : {}}
+              animate={animate ? { r: 2 } : { r: 0 }}
               transition={{ duration, ease: easeCurve }}
               fill="#0a0a0a"
             />
@@ -275,70 +295,49 @@ function RadarChart({ animate }: { animate: boolean }) {
         ))}
 
         {/* Labels — topic name + percentage */}
-        {radarLabels.map((lbl, i) => {
-          const a = start + step * i;
-          const lr = R + 34;
-          const x = mx + Math.cos(a) * lr;
-          const y = my + Math.sin(a) * lr;
-
-          return (
-            <motion.g
-              key={`lbl-${i}`}
-              initial={{ opacity: 0 }}
-              animate={animate ? { opacity: 1 } : {}}
-              transition={{ duration, ease: easeCurve, delay: 0.2 }}
+        {radarLabels.map((lbl, i) => (
+          <motion.g
+            key={`lbl-${i}`}
+            initial={{ opacity: 0 }}
+            animate={animate ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration, ease: easeCurve, delay: 0.2 }}
+          >
+            {/* Topic name */}
+            <text
+              x={labelPositions[i].x}
+              y={labelPositions[i].y - 7}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fill={hexRgba(radarColors[i], 0.85)}
+              fontSize="11"
+              fontFamily="'Space Mono', monospace"
             >
-              {/* Topic name */}
-              <text
-                x={x}
-                y={y - 7}
-                textAnchor="middle"
-                dominantBaseline="central"
-                fill={hexRgba(radarColors[i], 0.85)}
-                fontSize="11"
-                fontFamily="'Space Mono', monospace"
-              >
-                {lbl}
-              </text>
+              {lbl}
+            </text>
 
-              {/* Percentage */}
-              <text
-                x={x}
-                y={y + 8}
-                textAnchor="middle"
-                dominantBaseline="central"
-                fill={hexRgba(radarColors[i], 0.55)}
-                fontSize="13"
-                fontWeight="bold"
-                fontFamily="'Syne', sans-serif"
-              >
-                {Math.round(radarVals[i] * 100)}%
-              </text>
-            </motion.g>
-          );
-        })}
+            {/* Percentage */}
+            <text
+              x={labelPositions[i].x}
+              y={labelPositions[i].y + 8}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fill={hexRgba(radarColors[i], 0.55)}
+              fontSize="13"
+              fontWeight="bold"
+              fontFamily="'Syne', sans-serif"
+            >
+              {Math.round(radarVals[i] * 100)}%
+            </text>
+          </motion.g>
+        ))}
       </svg>
     </div>
   );
-}
+});
 
 /* ─── Main Component ─── */
 export default function SkillsBlock() {
   const { ref, isInView } = useScrollReveal();
-  const barsRevealed = useRef(false);
-  const barsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isInView && !barsRevealed.current) {
-      barsRevealed.current = true;
-      barsRef.current
-        ?.querySelectorAll<HTMLDivElement>("[data-w]")
-        .forEach((el) => {
-          const w = el.dataset.w;
-          if (w) el.style.width = w + "%";
-        });
-    }
-  }, [isInView]);
 
   return (
     <div
@@ -369,7 +368,7 @@ export default function SkillsBlock() {
 
       <div className="grid grid-cols-2 gap-16 items-center max-[900px]:grid-cols-1 max-[900px]:gap-8">
         <RadarChart animate={isInView} />
-        <div ref={barsRef}>
+        <div>
           <h3 className="font-display font-bold text-2xl mb-1">
             Core Abilities
           </h3>
@@ -389,9 +388,8 @@ export default function SkillsBlock() {
               <div className="w-full h-1.25 rounded-sm overflow-hidden bg-fg/8">
                 <div
                   className="h-full rounded-sm"
-                  data-w={ab.pct}
                   style={{
-                    width: 0,
+                    width: isInView ? `${ab.pct}%` : 0,
                     background: ab.gradient,
                     transition: "width 1.5s cubic-bezier(0.23,1,0.32,1)",
                   }}

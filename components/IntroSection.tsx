@@ -419,7 +419,6 @@ export default function IntroSection() {
                     fill
                     className="object-cover object-top"
                     sizes="220px"
-                    priority
                     onError={handleProfileError}
                   />
                 </>
