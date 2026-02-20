@@ -258,7 +258,7 @@ export default function CertCarousel() {
         </div>
 
         {/* Carousel track */}
-        <div className="overflow-hidden">
+        <div className="overflow-hidden py-4 -my-4 px-1 -mx-1">
           <motion.div
             className="flex gap-6"
             animate={{ x: slideOffset }}
