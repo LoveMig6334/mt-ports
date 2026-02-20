@@ -44,6 +44,12 @@ export const certifications: Certification[] = [
     image: "/certificate/AYC2_2025.jpg",
   },
   {
+    id: "icq-2025",
+    title: "ICQ 2025",
+    description: "Certificate description",
+    image: "/certificate/ICQ_2025.jpg",
+  },
+  {
     id: "sch-1",
     title: "Scholarship Certificate 1",
     description: "Certificate description",
