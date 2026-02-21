@@ -35,7 +35,30 @@ export const categories: Category[] = [
     slug: "typography",
     folder: "Typography",
     description: "Letterforms that speak volumes",
-    works: [],
+    works: [
+      {
+        id: "vortex-type-series",
+        title: "Vortex Type Series",
+        description: "Experimental poster series exploring kinetic typography",
+        thumbnail: "/category/Typography/vortex-type-series/1.jpg",
+        images: [
+          "/category/Typography/vortex-type-series/1.jpg",
+          "/category/Typography/vortex-type-series/2.jpg",
+          "/category/Typography/vortex-type-series/3.jpg",
+        ],
+        aspectRatio: "16/10",
+      },
+      {
+        id: "mono-glyphs",
+        title: "Mono Glyphs",
+        description: "Monospaced typeface design for digital interfaces",
+        thumbnail: "/category/Typography/mono-glyphs/1.jpg",
+        images: [
+          "/category/Typography/mono-glyphs/1.jpg",
+          "/category/Typography/mono-glyphs/2.jpg",
+        ],
+      },
+    ],
   },
   {
     name: "Art Direction",
