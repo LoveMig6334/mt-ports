@@ -13,7 +13,7 @@ const categories = [
   "Overall",
 ];
 
-/* ─── Star Rating ────────────────────────────────────────────── */
+/* ─── Star Rating ─── */
 function StarRating({
   name,
   onRate,
@@ -55,13 +55,13 @@ function StarRating({
   );
 }
 
-/* ─── Shared card wrapper styles ─────────────────────────────── */
+/* ─── Shared card wrapper styles ─── */
 const cardStyle = {
   background: "rgba(18,18,26,0.7)",
   border: "1px solid rgba(240,236,228,0.08)",
 };
 
-/* ─── SurveyCard ─────────────────────────────────────────────── */
+/* ─── SurveyCard ─── */
 export default function SurveyCard() {
   const [ratings, setRatings] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
