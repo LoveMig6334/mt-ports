@@ -2,8 +2,10 @@
 
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
+import { skillToSlug } from "@/lib/categoryWorks";
 import { motion } from "framer-motion";
 import NextImage from "next/image";
+import Link from "next/link";
 import { useCallback, useState } from "react";
 
 const skills = [
@@ -128,19 +130,24 @@ function Bio() {
 
       <div className="grid grid-cols-2 gap-5 max-[600px]:grid-cols-1">
         {skills.map((skill) => (
-          <motion.div
+          <Link
             key={skill}
-            className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.7rem] uppercase tracking-widest font-body"
-            style={{ border: "1px solid rgba(240,236,228,0.1)" }}
-            whileHover={{
-              borderColor: "#e8ff47",
-              backgroundColor: "#e8ff47",
-              color: "#0a0a0a",
-              transition: { duration: 0.4, ease },
-            }}
+            href={`/work/${skillToSlug[skill]}`}
+            className="no-underline"
           >
-            {skill}
-          </motion.div>
+            <motion.div
+              className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.7rem] uppercase tracking-widest font-body"
+              style={{ border: "1px solid rgba(240,236,228,0.1)" }}
+              whileHover={{
+                borderColor: "#e8ff47",
+                backgroundColor: "#e8ff47",
+                color: "#0a0a0a",
+                transition: { duration: 0.4, ease },
+              }}
+            >
+              {skill}
+            </motion.div>
+          </Link>
         ))}
       </div>
     </motion.div>
