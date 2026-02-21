@@ -171,10 +171,7 @@ const ringPaths = rings.map((ring) => {
   const rr = (R / 4) * ring;
   return (
     hexPts
-      .map(
-        (p, i) =>
-          `${i === 0 ? "M" : "L"} ${mx + p.x * rr} ${my + p.y * rr}`,
-      )
+      .map((p, i) => `${i === 0 ? "M" : "L"} ${mx + p.x * rr} ${my + p.y * rr}`)
       .join(" ") + " Z"
   );
 });
@@ -186,11 +183,7 @@ const labelPositions = radarLabels.map((_, i) => {
 });
 
 /* ─── Radar Chart Component ─── */
-const RadarChart = memo(function RadarChart({
-  animate,
-}: {
-  animate: boolean;
-}) {
+const RadarChart = memo(function RadarChart({ animate }: { animate: boolean }) {
   return (
     <div className="flex items-center justify-center">
       <svg
