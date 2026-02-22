@@ -103,7 +103,7 @@ export default function SurveyCard() {
               Rate This Portfolio
             </h3>
             <p className="text-[0.68rem] text-fg/40 text-center mb-8 tracking-[0.05em]">
-              Your feedback helps me grow — takes 30 seconds
+              Your feedback helps me grow and improve.
             </p>
 
             {categories.map((cat, i) => {
