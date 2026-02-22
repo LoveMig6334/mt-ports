@@ -59,7 +59,7 @@ function Portrait() {
         ) : (
           <NextImage
             src="/profile.jpg"
-            alt="Nova — Designer & Creative"
+            alt="Thatt — Designer & Creative"
             fill
             className="object-cover object-top"
             sizes="(max-width: 900px) 100vw, 50vw"
@@ -76,7 +76,7 @@ function Portrait() {
           }}
         />
 
-        {/* NOVA label */}
+        {/* THATT label */}
         <div
           className="absolute bottom-8 left-8 font-display font-extrabold"
           style={{
@@ -85,7 +85,7 @@ function Portrait() {
             letterSpacing: "-0.03em",
           }}
         >
-          NOVA
+          THATT
           <span className="block mt-2 text-accent font-serif italic font-normal text-[1.2rem] tracking-[0.05em]">
             Designer &amp; Creative
           </span>

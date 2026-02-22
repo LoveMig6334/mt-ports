@@ -28,7 +28,7 @@ export default function Navbar() {
         href="#"
         className="font-display font-extrabold text-[1.4rem] tracking-tight text-fg no-underline"
       >
-        NOVA&copy;
+        T B &copy;
       </a>
       <ul className="flex gap-10 list-none max-[900px]:gap-6">
         {links.map((link) => (

@@ -1,4 +1,4 @@
-# NOVA — Graphic & UI Designer Portfolio
+# The Graphic & UI Designer Portfolio
 
 A bold, animation-rich portfolio website for a freelance graphic and UI designer. Built with Next.js, Framer Motion, and Tailwind CSS.
 

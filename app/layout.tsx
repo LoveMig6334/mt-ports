@@ -26,25 +26,8 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nova.design"),
-  title: "NOVA — Graphic & UI Designer",
-  description:
-    "Portfolio of NOVA, a freelance graphic and UI designer creating bold visual experiences.",
-  openGraph: {
-    title: "NOVA — Graphic & UI Designer",
-    description:
-      "Portfolio of NOVA, a freelance graphic and UI designer creating bold visual experiences.",
-    images: ["/og-image.png"],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  title: "Portfolio",
+  description: "My personal portfolio",
 };
 
 export default function RootLayout({

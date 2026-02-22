@@ -57,14 +57,14 @@ export default function Contact() {
         </p>
 
         <a
-          href="mailto:hello@nova.design"
+          href="mailto:06334@cds.ac.th"
           className="relative inline-block pb-1.5 no-underline group font-display font-bold text-fg hover:text-accent"
           style={{
             fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)",
             transition: "color 0.3s",
           }}
         >
-          hello@nova.design
+          06334@cds.ac.th
           <span
             className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-right group-hover:origin-left scale-x-0 group-hover:scale-x-100"
             style={{ transition: "transform 0.5s cubic-bezier(0.23,1,0.32,1)" }}

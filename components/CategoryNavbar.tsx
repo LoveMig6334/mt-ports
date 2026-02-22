@@ -15,7 +15,7 @@ export default function CategoryNavbar({ categoryName }: CategoryNavbarProps) {
         href="/"
         className="font-display font-extrabold text-[1.4rem] tracking-tight text-fg no-underline"
       >
-        NOVA&copy;
+        T B &copy;
       </Link>
 
       <div className="flex items-center gap-10 max-[900px]:gap-6">

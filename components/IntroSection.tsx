@@ -415,7 +415,7 @@ export default function IntroSection() {
                   {/* Real profile photo */}
                   <NextImage
                     src="/profile.jpg"
-                    alt="Nova — Designer & Creative"
+                    alt="Thatt — Designer & Creative"
                     fill
                     className="object-cover object-top"
                     sizes="220px"
@@ -453,7 +453,7 @@ export default function IntroSection() {
           className="font-serif italic font-normal text-coral"
           style={{ fontSize: "1.12em" }}
         >
-          Nova
+          Thatt
         </span>
       </motion.h1>
 

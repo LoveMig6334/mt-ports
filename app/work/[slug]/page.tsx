@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const category = getCategoryBySlug(slug);
   return {
-    title: category ? `${category.name} — NOVA` : "Work — NOVA",
+    title: category ? `${category.name} — THATT` : "Work — THATT",
   };
 }
 
