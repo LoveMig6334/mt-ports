@@ -20,7 +20,10 @@
       "Bash(npx eslint:*)",
       "Bash(timeout 20 npm run dev:*)",
       "Bash(timeout 30 npm run dev)",
-      "Bash(timeout 30 npx next dev:*)"
+      "Bash(timeout 30 npx next dev:*)",
+      "Bash(head:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(tail:*)"
     ]
   }
 }
