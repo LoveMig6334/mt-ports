@@ -23,7 +23,8 @@
       "Bash(timeout 30 npx next dev:*)",
       "Bash(head:*)",
       "WebFetch(domain:github.com)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
+      "Bash(cd \"/c/Users/thatt/Documents/Coding Project/Web Projects/mt-ports\" && npm ls minimatch 2>&1)"
     ]
   }
 }
