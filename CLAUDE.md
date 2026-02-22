@@ -15,11 +15,17 @@ No test framework is configured.
 
 ## Architecture
 
-Single-page portfolio site using **Next.js 16 App Router** with one route (`app/page.tsx`).
+Portfolio site using **Next.js 16 App Router** with two routes:
+- `app/page.tsx` — Home page composing all sections
+- `app/work/[slug]/page.tsx` — Dynamic category pages (Brand Identity, UI/UX Design, Typography, Art Direction, Motion Design, Editorial)
 
-**Rendering model:** `app/layout.tsx` and `app/page.tsx` are Server Components. All interactive components in `components/` are Client Components (`"use client"`). Below-the-fold sections are lazy-loaded via `next/dynamic` in `page.tsx` for code-splitting.
+**Rendering model:** `app/layout.tsx`, `app/page.tsx`, and `app/work/[slug]/page.tsx` are Server Components. All interactive components in `components/` are Client Components (`"use client"`). Below-the-fold sections are lazy-loaded via `next/dynamic` in `page.tsx` for code-splitting. Category pages use `generateStaticParams()` for static pre-rendering.
 
-**Data flow:** No global state management. All state is component-local or lifted one level (e.g., `lightboxIndex` in `WorkGallery` passed to `Lightbox`). Project data lives in `lib/projects.ts`.
+**Data flow:** No global state management. All state is component-local or lifted one level (e.g., `lightboxIndex` in `WorkGallery` passed to `Lightbox`). Static data lives in `lib/`:
+- `lib/projects.ts` — Home page project data
+- `lib/skills.ts` — Abilities, radar chart data, and skill gradients
+- `lib/certifications.ts` — Certification entries (images in `public/certificate/`)
+- `lib/categoryWorks.ts` — Category definitions and per-category work items (images in `public/category/`)
 
 **Key shared modules:**
 - `lib/animations.ts` — Framer Motion variant presets (`fadeUpVariants`, `staggerContainer`, `heroLineVariants`, `scaleIn`, lightbox variants) and a shared `ease` curve
