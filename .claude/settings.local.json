@@ -24,7 +24,9 @@
       "Bash(head:*)",
       "WebFetch(domain:github.com)",
       "Bash(tail:*)",
-      "Bash(cd \"/c/Users/thatt/Documents/Coding Project/Web Projects/mt-ports\" && npm ls minimatch 2>&1)"
+      "Bash(cd \"/c/Users/thatt/Documents/Coding Project/Web Projects/mt-ports\" && npm ls minimatch 2>&1)",
+      "Bash(xargs cat)",
+      "Bash(python3:*)"
     ]
   }
 }
