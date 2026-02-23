@@ -1,4 +1,5 @@
 import CustomCursorLoader from "@/components/CustomCursorLoader";
+import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import HeroDivider from "@/components/HeroDivider";
 import HeroRight from "@/components/HeroRight";
@@ -15,7 +16,6 @@ const About = dynamic(() => import("@/components/About"));
 const SkillsBlock = dynamic(() => import("@/components/SkillsBlock"));
 const CertCarousel = dynamic(() => import("@/components/CertCarousel"));
 const Contact = dynamic(() => import("@/components/Contact"));
-const Footer = dynamic(() => import("@/components/Footer"));
 
 const servicesMarquee = [
   "Branding",

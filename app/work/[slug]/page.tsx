@@ -1,5 +1,6 @@
 import CategoryNavbar from "@/components/CategoryNavbar";
 import CustomCursorLoader from "@/components/CustomCursorLoader";
+import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import { getAllCategorySlugs, getCategoryBySlug } from "@/lib/categoryWorks";
 import type { Metadata } from "next";
@@ -9,7 +10,6 @@ import { notFound } from "next/navigation";
 const CategoryWorkGallery = dynamic(
   () => import("@/components/CategoryWorkGallery"),
 );
-const Footer = dynamic(() => import("@/components/Footer"));
 
 export function generateStaticParams() {
   return getAllCategorySlugs().map((slug) => ({ slug }));

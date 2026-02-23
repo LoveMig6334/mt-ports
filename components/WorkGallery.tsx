@@ -61,7 +61,7 @@ function WorkItem({
             alt={project.title}
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
-            loading={index === 0 ? "eager" : "lazy"}
+            priority={index === 0}
             className="object-cover saturate-[0.85] group-hover:saturate-[1.1] transition-[filter] duration-600 ease-[cubic-bezier(0.23,1,0.32,1)]"
             onError={handleError}
           />

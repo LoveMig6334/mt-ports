@@ -26,8 +26,20 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "My personal portfolio",
+  title: {
+    default: "THATT — Designer & Art Director",
+    template: "%s — THATT",
+  },
+  description:
+    "Portfolio of THATT — branding, UI/UX design, motion, typography, and art direction.",
+  openGraph: {
+    title: "THATT — Designer & Art Director",
+    description:
+      "Portfolio of THATT — branding, UI/UX design, motion, typography, and art direction.",
+    siteName: "THATT",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
