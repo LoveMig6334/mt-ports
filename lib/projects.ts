@@ -12,56 +12,44 @@ export const projects: Project[] = [
     id: 1,
     title: "Neon Flux",
     category: "Branding / Visual Identity",
-    image:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80",
-    imageFull:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1800&q=90",
+    image: "/projects/project-1.jpg",
+    imageFull: "/projects/project-1-full.jpg",
     aspectRatio: "16/10",
   },
   {
     id: 2,
     title: "Prism UI Kit",
     category: "UI / UX Design",
-    image:
-      "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=1200&q=80",
-    imageFull:
-      "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=1800&q=90",
+    image: "/projects/project-2.jpg",
+    imageFull: "/projects/project-2-full.jpg",
   },
   {
     id: 3,
     title: "Solstice Mag",
     category: "Art Direction",
-    image:
-      "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=1200&q=80",
-    imageFull:
-      "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=1800&q=90",
+    image: "/projects/project-3.jpg",
+    imageFull: "/projects/project-3-full.jpg",
   },
   {
     id: 4,
     title: "Vortex Series",
     category: "Typography / Poster",
-    image:
-      "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&q=80",
-    imageFull:
-      "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1800&q=90",
+    image: "/projects/project-4.jpg",
+    imageFull: "/projects/project-4-full.jpg",
     aspectRatio: "16/10",
   },
   {
     id: 5,
     title: "RetroWave Co.",
     category: "Branding / Packaging",
-    image:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&q=80",
-    imageFull:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1800&q=90",
+    image: "/projects/project-5.jpg",
+    imageFull: "/projects/project-5-full.jpg",
   },
   {
     id: 6,
     title: "Chromatic Labs",
     category: "Motion / Identity",
-    image:
-      "https://images.unsplash.com/photo-1563089145-599997674d42?w=1200&q=80",
-    imageFull:
-      "https://images.unsplash.com/photo-1563089145-599997674d42?w=1800&q=90",
+    image: "/projects/project-6.jpg",
+    imageFull: "/projects/project-6-full.jpg",
   },
 ];
