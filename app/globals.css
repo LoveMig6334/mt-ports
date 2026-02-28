@@ -7,6 +7,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "CMU-Bold";
+  src: url("/Font/CMU/CMU-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme inline {
   --color-bg: #0a0a0a;
   --color-fg: #f0ece4;

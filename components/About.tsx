@@ -3,10 +3,10 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
 import { skillToSlug } from "@/lib/categoryWorks";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import NextImage from "next/image";
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const skills = [
   "Brand Identity",
@@ -23,6 +23,12 @@ function Portrait() {
   const { ref, isInView } = useScrollReveal();
   const [hasError, setHasError] = useState(false);
   const handleError = useCallback(() => setHasError(true), []);
+  const [showThai, setShowThai] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => setShowThai((prev) => !prev), 3000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <motion.div
@@ -85,7 +91,32 @@ function Portrait() {
             letterSpacing: "-0.03em",
           }}
         >
-          THATT
+          <AnimatePresence mode="wait" initial={false}>
+            {showThai ? (
+              <motion.span
+                key="thai"
+                className="block"
+                style={{ fontFamily: "'CMU-Bold'", letterSpacing: "0" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
+              >
+                ธรรศ บุนนาค
+              </motion.span>
+            ) : (
+              <motion.span
+                key="en"
+                className="block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
+              >
+                THATT
+              </motion.span>
+            )}
+          </AnimatePresence>
           <span className="block mt-2 text-accent font-serif italic font-normal text-[1.2rem] tracking-[0.05em]">
             Designer &amp; Creative
           </span>
