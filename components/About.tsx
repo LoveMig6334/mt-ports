@@ -91,14 +91,23 @@ function Portrait() {
             letterSpacing: "-0.03em",
           }}
         >
-          <div
-            style={{ overflow: "hidden", position: "relative", height: "1em" }}
-          >
+          <div className="grid" style={{ overflow: "hidden" }}>
+            {/* Invisible placeholders to prevent width collapse and maintain consistent dimensions */}
+            <span className="invisible whitespace-nowrap col-start-1 row-start-1">
+              THATT
+            </span>
+            <span
+              className="invisible whitespace-nowrap col-start-1 row-start-1"
+              style={{ fontFamily: "'CMU-Bold'", letterSpacing: "0" }}
+            >
+              ธรรศ บุนนาค
+            </span>
+
             <AnimatePresence mode="sync" initial={false}>
               {showThai ? (
                 <motion.span
                   key="thai"
-                  className="absolute top-0 left-0"
+                  className="col-start-1 row-start-1 whitespace-nowrap"
                   style={{ fontFamily: "'CMU-Bold'", letterSpacing: "0" }}
                   initial={{ y: "100%" }}
                   animate={{ y: 0 }}
@@ -110,7 +119,7 @@ function Portrait() {
               ) : (
                 <motion.span
                   key="en"
-                  className="absolute top-0 left-0"
+                  className="col-start-1 row-start-1 whitespace-nowrap"
                   initial={{ y: "100%" }}
                   animate={{ y: 0 }}
                   exit={{ y: "-100%" }}

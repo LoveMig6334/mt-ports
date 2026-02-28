@@ -335,17 +335,43 @@ export default function IntroSection() {
       >
         Hello, I&apos;m{" "}
         <motion.span
-          className="font-serif italic font-normal text-coral inline-block relative"
-          style={{ fontSize: "1.12em" }}
+          className="font-serif italic font-normal text-coral relative"
+          style={{ fontSize: "1.12em", display: "inline-grid" }}
           onHoverStart={() => setNameHovered(true)}
           onHoverEnd={() => setNameHovered(false)}
         >
+          {/* Hidden ghost spans lock the grid cell to the max width of both texts */}
+          <span
+            aria-hidden
+            style={{
+              gridArea: "1 / 1",
+              visibility: "hidden",
+              fontFamily: "'SOV_YoongYerng'",
+              fontStyle: "normal",
+              pointerEvents: "none",
+            }}
+          >
+            ธรรศ
+          </span>
+          <span
+            aria-hidden
+            style={{
+              gridArea: "1 / 1",
+              visibility: "hidden",
+              pointerEvents: "none",
+            }}
+          >
+            Thatt
+          </span>
           <AnimatePresence mode="wait" initial={false}>
             {nameHovered ? (
               <motion.span
                 key="thai"
-                className="inline-block"
-                style={{ fontFamily: "'SOV_YoongYerng'", fontStyle: "normal" }}
+                style={{
+                  gridArea: "1 / 1",
+                  fontFamily: "'SOV_YoongYerng'",
+                  fontStyle: "normal",
+                }}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -356,7 +382,7 @@ export default function IntroSection() {
             ) : (
               <motion.span
                 key="en"
-                className="inline-block"
+                style={{ gridArea: "1 / 1" }}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
