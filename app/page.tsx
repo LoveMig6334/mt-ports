@@ -2,7 +2,6 @@ import CustomCursorLoader from "@/components/CustomCursorLoader";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import HeroDivider from "@/components/HeroDivider";
-import HeroRight from "@/components/HeroRight";
 import IntroSection from "@/components/IntroSection";
 import Navbar from "@/components/Navbar";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -41,7 +40,6 @@ export default function Home() {
       <IntroSection />
       <Hero />
       <HeroDivider />
-      <HeroRight />
       <Marquee items={servicesMarquee} direction="left" speed={25} />
       <SectionHeader number="01" title="Selected" serifWord="Work" />
       <WorkGallery />
