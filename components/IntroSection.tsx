@@ -1,13 +1,13 @@
 "use client";
 
 import { ease } from "@/lib/animations";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import NextImage from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
-/* ─── Particles Data ─── */
-const particles = [
+/* ─── Background particles ─── */
+const bgParticles = [
   { top: "12%", left: "15%", delay: 0, dur: 7 },
   { top: "22%", left: "82%", delay: 1.2, dur: 9 },
   { top: "65%", left: "8%", delay: 2.5, dur: 6.5 },
@@ -16,49 +16,133 @@ const particles = [
   { top: "88%", left: "32%", delay: 1.8, dur: 7.5 },
 ];
 
-/* ─── Eye positions in SVG coordinate space ─── */
-const LEFT_EYE = { cx: 70, cy: 110 };
-const RIGHT_EYE = { cx: 150, cy: 110 };
+/* ─── Dust particles orbiting the profile ─── */
+const dustParticles = [
+  {
+    x: -118,
+    y: -38,
+    size: 2.5,
+    color: "#e8ff47",
+    delay: 0,
+    dur: 2.5,
+    driftY: -9,
+    driftX: 4,
+  },
+  {
+    x: 120,
+    y: -52,
+    size: 2,
+    color: "#e8ff47",
+    delay: 0.6,
+    dur: 3,
+    driftY: -7,
+    driftX: -3,
+  },
+  {
+    x: -88,
+    y: 82,
+    size: 3,
+    color: "#b48aff",
+    delay: 1.2,
+    dur: 2.8,
+    driftY: 9,
+    driftX: -5,
+  },
+  {
+    x: 96,
+    y: 72,
+    size: 2,
+    color: "#47f0ff",
+    delay: 0.3,
+    dur: 3.2,
+    driftY: 7,
+    driftX: 5,
+  },
+  {
+    x: -52,
+    y: -108,
+    size: 2.5,
+    color: "#e8ff47",
+    delay: 0.9,
+    dur: 2.2,
+    driftY: -11,
+    driftX: -4,
+  },
+  {
+    x: 58,
+    y: -102,
+    size: 2,
+    color: "#e8ff47",
+    delay: 1.5,
+    dur: 2.7,
+    driftY: -9,
+    driftX: 3,
+  },
+  {
+    x: -132,
+    y: 14,
+    size: 2,
+    color: "#47f0ff",
+    delay: 0.5,
+    dur: 3.5,
+    driftY: 5,
+    driftX: -7,
+  },
+  {
+    x: 126,
+    y: 22,
+    size: 3,
+    color: "#b48aff",
+    delay: 1.8,
+    dur: 2.9,
+    driftY: -6,
+    driftX: 7,
+  },
+  {
+    x: 8,
+    y: -124,
+    size: 2,
+    color: "#e8ff47",
+    delay: 0.2,
+    dur: 3.1,
+    driftY: -13,
+    driftX: 2,
+  },
+  {
+    x: -18,
+    y: 118,
+    size: 2.5,
+    color: "#e8ff47",
+    delay: 1.1,
+    dur: 2.4,
+    driftY: 11,
+    driftX: -3,
+  },
+  {
+    x: 82,
+    y: -88,
+    size: 1.5,
+    color: "#ff6b4a",
+    delay: 0.7,
+    dur: 3.3,
+    driftY: -8,
+    driftX: 5,
+  },
+  {
+    x: -78,
+    y: 96,
+    size: 1.5,
+    color: "#ff6b4a",
+    delay: 1.4,
+    dur: 2.6,
+    driftY: 10,
+    driftX: -4,
+  },
+];
 
 export default function IntroSection() {
   const lenis = useLenis();
-  const svgRef = useRef<SVGSVGElement>(null);
-  const pupilLRef = useRef<SVGGElement>(null);
-  const pupilRRef = useRef<SVGGElement>(null);
-  const [avatarHovered, setAvatarHovered] = useState(false);
-  const [profileError, setProfileError] = useState(false);
-  const handleProfileError = useCallback(() => setProfileError(true), []);
-
-  /* ─── Eye Tracking ─── */
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (!svgRef.current) return;
-      const svgRect = svgRef.current.getBoundingClientRect();
-      const scaleX = svgRect.width / 220;
-      const scaleY = svgRect.height / 220;
-
-      const eyes = [
-        { ...LEFT_EYE, pupil: pupilLRef.current },
-        { ...RIGHT_EYE, pupil: pupilRRef.current },
-      ];
-
-      eyes.forEach(({ cx, cy, pupil }) => {
-        if (!pupil) return;
-        const eyeScreenX = svgRect.left + cx * scaleX;
-        const eyeScreenY = svgRect.top + cy * scaleY;
-        const ang = Math.atan2(e.clientY - eyeScreenY, e.clientX - eyeScreenX);
-        const dist = Math.min(
-          Math.hypot(e.clientX - eyeScreenX, e.clientY - eyeScreenY) / 18,
-          8,
-        );
-        const dx = (Math.cos(ang) * dist) / scaleX;
-        const dy = (Math.sin(ang) * dist) / scaleY;
-        pupil.setAttribute("transform", `translate(${dx}, ${dy})`);
-      });
-    };
-    document.addEventListener("mousemove", handler);
-    return () => document.removeEventListener("mousemove", handler);
-  }, []);
+  const [hovered, setHovered] = useState(false);
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -85,17 +169,13 @@ export default function IntroSection() {
         WELCOME
       </div>
 
-      {/* Floating particles (Framer Motion) */}
+      {/* Floating background particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {particles.map((p, i) => (
+        {bgParticles.map((p, i) => (
           <motion.span
             key={i}
             className="absolute w-0.75 h-0.75 rounded-full"
-            style={{
-              top: p.top,
-              left: p.left,
-              background: "#e8ff47",
-            }}
+            style={{ top: p.top, left: p.left, background: "#e8ff47" }}
             animate={{
               y: [0, -25, -12, -32, 0],
               x: [0, 12, -18, 8, 0],
@@ -111,321 +191,125 @@ export default function IntroSection() {
         ))}
       </div>
 
-      {/* ─── Avatar ─── */}
+      {/* ─── Profile Image ─── */}
       <motion.div
-        className="relative w-55 h-55 mb-10 z-2 max-[600px]:w-42.5 max-[600px]:h-42.5 avatar-hover"
+        className="relative w-55 h-55 mb-10 z-2 max-[600px]:w-42.5 max-[600px]:h-42.5"
         initial={{ opacity: 0, y: 35 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease, delay: 0.15 }}
-        onHoverStart={() => setAvatarHovered(true)}
-        onHoverEnd={() => setAvatarHovered(false)}
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
         onClick={() => lenis?.scrollTo("#about")}
         style={{ cursor: "pointer" }}
       >
-        {/* Glow ring (Framer Motion) */}
-        <motion.div
-          className="absolute -inset-6.5 rounded-full"
+        {/* Outer diffuse glow — base layer (always visible, subtly) */}
+        <div
+          className="absolute rounded-full pointer-events-none"
           style={{
+            inset: "-44px",
             background:
-              "radial-gradient(circle, rgba(232,255,71,0.07) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(232,255,71,0.055) 0%, transparent 68%)",
+          }}
+        />
+
+        {/* Outer diffuse glow — hover layer */}
+        <motion.div
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            inset: "-44px",
+            background:
+              "radial-gradient(circle, rgba(232,255,71,0.2) 0%, rgba(180,138,255,0.08) 42%, transparent 68%)",
+          }}
+          animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1.08 : 1 }}
+          transition={{ duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
+        />
+
+        {/* Pulsing mid-glow (always running, more intense on hover) */}
+        <motion.div
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            inset: "-18px",
+            background:
+              "radial-gradient(circle, rgba(232,255,71,0.16) 0%, transparent 58%)",
           }}
           animate={{
-            scale: avatarHovered ? [1.15, 1.25, 1.15] : [1, 1.12, 1],
-            opacity: avatarHovered ? [0.7, 1, 0.7] : [0.5, 1, 0.5],
+            opacity: hovered ? [0.55, 1, 0.55] : [0.08, 0.18, 0.08],
+            scale: hovered ? [1, 1.07, 1] : [1, 1.04, 1],
           }}
           transition={{
-            duration: avatarHovered ? 2 : 4,
+            duration: hovered ? 1.8 : 3.5,
             ease: "easeInOut",
             repeat: Infinity,
           }}
         />
 
-        {/* SVG Face (default) */}
-        <AnimatePresence>
-          {!avatarHovered && (
-            <motion.div
-              key="face"
-              className="absolute inset-0 w-full h-full"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
-            >
-              <svg
-                ref={svgRef}
-                viewBox="0 0 220 220"
-                className="w-full h-full"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  <linearGradient
-                    id="av-faceGrad"
-                    x1="0.2"
-                    y1="0"
-                    x2="0.8"
-                    y2="1"
-                  >
-                    <stop offset="0%" stopColor="#22223a" />
-                    <stop offset="50%" stopColor="#181828" />
-                    <stop offset="100%" stopColor="#10101e" />
-                  </linearGradient>
-                  <linearGradient
-                    id="av-hairGrad"
-                    x1="0.5"
-                    y1="0"
-                    x2="0.5"
-                    y2="1"
-                  >
-                    <stop offset="0%" stopColor="#141418" />
-                    <stop offset="100%" stopColor="#222230" />
-                  </linearGradient>
-                  <radialGradient id="av-highlight" cx="0.35" cy="0.3" r="0.55">
-                    <stop offset="0%" stopColor="rgba(255,255,255,0.08)" />
-                    <stop offset="100%" stopColor="transparent" />
-                  </radialGradient>
-                  <linearGradient
-                    id="av-eyeGrad"
-                    x1="0.5"
-                    y1="0"
-                    x2="0.5"
-                    y2="1"
-                  >
-                    <stop offset="0%" stopColor="#ffffff" />
-                    <stop offset="100%" stopColor="#eae8e2" />
-                  </linearGradient>
-                  <radialGradient
-                    id="av-pupilGrad"
-                    cx="0.32"
-                    cy="0.32"
-                    r="0.68"
-                  >
-                    <stop offset="0%" stopColor="#4f5080" />
-                    <stop offset="55%" stopColor="#1c1c30" />
-                    <stop offset="100%" stopColor="#0c0c18" />
-                  </radialGradient>
-                  <clipPath id="av-faceClip">
-                    <circle cx="110" cy="110" r="110" />
-                  </clipPath>
-                  <filter id="av-faceShadow">
-                    <feDropShadow
-                      dx="0"
-                      dy="24"
-                      stdDeviation="35"
-                      floodColor="#000"
-                      floodOpacity="0.55"
-                    />
-                  </filter>
-                </defs>
+        {/* Dust particles — faded in on hover */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          animate={{ opacity: hovered ? 1 : 0 }}
+          transition={{ duration: 0.35 }}
+        >
+          {dustParticles.map((p, i) => (
+            <motion.span
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: p.size,
+                height: p.size,
+                background: p.color,
+                left: `calc(50% + ${p.x}px)`,
+                top: `calc(50% + ${p.y}px)`,
+                marginLeft: -p.size / 2,
+                marginTop: -p.size / 2,
+                boxShadow: `0 0 ${p.size * 2.5}px ${p.color}`,
+              }}
+              animate={{
+                opacity: [0, 0.85, 0],
+                y: [0, p.driftY, p.driftY * 1.6],
+                x: [0, p.driftX, p.driftX * 1.3],
+                scale: [0.3, 1.3, 0.3],
+              }}
+              transition={{
+                duration: p.dur,
+                ease: "easeInOut",
+                repeat: Infinity,
+                delay: p.delay,
+              }}
+            />
+          ))}
+        </motion.div>
 
-                {/* Face */}
-                <circle
-                  cx="110"
-                  cy="110"
-                  r="110"
-                  fill="url(#av-faceGrad)"
-                  filter="url(#av-faceShadow)"
-                />
-                <circle cx="110" cy="110" r="110" fill="url(#av-highlight)" />
+        {/* Glow ring — base */}
+        <div
+          className="absolute inset-0 rounded-full pointer-events-none"
+          style={{ boxShadow: "0 0 0 1.5px rgba(232,255,71,0.1)" }}
+        />
 
-                <g clipPath="url(#av-faceClip)">
-                  {/* Hair — main top (semicircle top, flat bottom) */}
-                  <path
-                    d="M15 97 V87 A95 95 0 0 1 110 -8 A95 95 0 0 1 205 87 V97 Z"
-                    fill="url(#av-hairGrad)"
-                  />
-                  {/* Hair — left sideburn */}
-                  <path
-                    d="M-3 54 H52 V101 A28 28 0 0 1 24 129 H25 A28 28 0 0 1 -3 101 Z"
-                    fill="url(#av-hairGrad)"
-                  />
-                  {/* Hair — right sideburn */}
-                  <path
-                    d="M168 54 H223 V101 A28 28 0 0 1 195 129 H196 A28 28 0 0 1 168 101 Z"
-                    fill="url(#av-hairGrad)"
-                  />
+        {/* Glow ring — hover */}
+        <motion.div
+          className="absolute inset-0 rounded-full pointer-events-none"
+          style={{
+            boxShadow:
+              "0 0 0 2px rgba(232,255,71,0.55), 0 0 22px rgba(232,255,71,0.28), 0 0 55px rgba(232,255,71,0.1)",
+          }}
+          animate={{ opacity: hovered ? 1 : 0 }}
+          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+        />
 
-                  {/* Eyebrows */}
-                  <rect
-                    x="38"
-                    y="62"
-                    width="44"
-                    height="7"
-                    rx="4"
-                    fill="#181820"
-                    transform="rotate(-5, 60, 65.5)"
-                  />
-                  <rect
-                    x="138"
-                    y="62"
-                    width="44"
-                    height="7"
-                    rx="4"
-                    fill="#181820"
-                    transform="rotate(5, 160, 65.5)"
-                  />
-
-                  {/* Eyes — whites */}
-                  <circle cx="70" cy="110" r="21" fill="url(#av-eyeGrad)" />
-                  <circle cx="150" cy="110" r="21" fill="url(#av-eyeGrad)" />
-
-                  {/* Pupils + highlights (grouped for mouse tracking) */}
-                  <g ref={pupilLRef}>
-                    <circle cx="70" cy="110" r="11" fill="url(#av-pupilGrad)" />
-                    <circle
-                      cx="66"
-                      cy="106"
-                      r="3.5"
-                      fill="rgba(255,255,255,0.85)"
-                    />
-                    <circle
-                      cx="71"
-                      cy="113"
-                      r="1.5"
-                      fill="rgba(255,255,255,0.35)"
-                    />
-                  </g>
-                  <g ref={pupilRRef}>
-                    <circle
-                      cx="150"
-                      cy="110"
-                      r="11"
-                      fill="url(#av-pupilGrad)"
-                    />
-                    <circle
-                      cx="146"
-                      cy="106"
-                      r="3.5"
-                      fill="rgba(255,255,255,0.85)"
-                    />
-                    <circle
-                      cx="151"
-                      cy="113"
-                      r="1.5"
-                      fill="rgba(255,255,255,0.35)"
-                    />
-                  </g>
-
-                  {/* Glasses — lenses */}
-                  <rect
-                    x="41"
-                    y="76"
-                    width="58"
-                    height="46"
-                    rx="10"
-                    fill="rgba(232,255,71,0.04)"
-                    stroke="#e8ff47"
-                    strokeWidth="3"
-                  />
-                  <rect
-                    x="121"
-                    y="76"
-                    width="58"
-                    height="46"
-                    rx="10"
-                    fill="rgba(232,255,71,0.04)"
-                    stroke="#e8ff47"
-                    strokeWidth="3"
-                  />
-                  {/* Glasses — bridge */}
-                  <line
-                    x1="99"
-                    y1="99"
-                    x2="121"
-                    y2="99"
-                    stroke="#e8ff47"
-                    strokeWidth="3"
-                  />
-                  {/* Glasses — arms */}
-                  <line
-                    x1="3"
-                    y1="103"
-                    x2="41"
-                    y2="99"
-                    stroke="#e8ff47"
-                    strokeWidth="3"
-                  />
-                  <line
-                    x1="179"
-                    y1="99"
-                    x2="217"
-                    y2="103"
-                    stroke="#e8ff47"
-                    strokeWidth="3"
-                  />
-
-                  {/* Nose */}
-                  <path
-                    d="M100 140 Q110 148 120 140"
-                    stroke="rgba(255,255,255,0.1)"
-                    strokeWidth="2"
-                    fill="none"
-                  />
-
-                  {/* Mouth */}
-                  <path
-                    d="M93 176 Q110 188 127 176"
-                    stroke="rgba(255,107,74,0.55)"
-                    strokeWidth="3"
-                    fill="none"
-                    strokeLinecap="round"
-                  />
-                </g>
-              </svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Profile photo (shown on hover) — matches About Me portrait */}
-        <AnimatePresence>
-          {avatarHovered && (
-            <motion.div
-              key="portrait"
-              className="absolute inset-0 w-full h-full rounded-full overflow-hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
-            >
-              {profileError ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#151515]">
-                  <svg
-                    width="36"
-                    height="36"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#ff6b4a"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <path d="m21 15-5-5L5 21" />
-                    <line x1="2" y1="2" x2="22" y2="22" />
-                  </svg>
-                  <span
-                    className="font-body uppercase tracking-widest"
-                    style={{ fontSize: "0.45rem", color: "#ff6b4a" }}
-                  >
-                    Unavailable
-                  </span>
-                </div>
-              ) : (
-                <>
-                  {/* Real profile photo */}
-                  <NextImage
-                    src="/profile.jpg"
-                    alt="Thatt — Designer & Creative"
-                    fill
-                    className="object-cover object-top"
-                    sizes="220px"
-                    onError={handleProfileError}
-                  />
-                </>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Profile photo — scales on hover */}
+        <motion.div
+          className="absolute inset-0 rounded-full overflow-hidden"
+          animate={{ scale: hovered ? 1.07 : 1 }}
+          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+        >
+          <NextImage
+            src="/profile.jpg"
+            alt="Thatt — Designer & Creative"
+            fill
+            className="object-cover object-top"
+            sizes="220px"
+          />
+        </motion.div>
       </motion.div>
 
       {/* ─── Text ─── */}
@@ -563,15 +447,8 @@ export default function IntroSection() {
           style={{
             background: "linear-gradient(to bottom, #e8ff47, transparent)",
           }}
-          animate={{
-            opacity: [0.3, 1, 0.3],
-            scaleY: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 2,
-            ease: "easeInOut",
-            repeat: Infinity,
-          }}
+          animate={{ opacity: [0.3, 1, 0.3], scaleY: [1, 1.2, 1] }}
+          transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
         />
         Explore
       </motion.div>
