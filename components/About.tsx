@@ -91,32 +91,36 @@ function Portrait() {
             letterSpacing: "-0.03em",
           }}
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {showThai ? (
-              <motion.span
-                key="thai"
-                className="block"
-                style={{ fontFamily: "'CMU-Bold'", letterSpacing: "0" }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.7, ease: "easeInOut" }}
-              >
-                ธรรศ บุนนาค
-              </motion.span>
-            ) : (
-              <motion.span
-                key="en"
-                className="block"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.7, ease: "easeInOut" }}
-              >
-                THATT
-              </motion.span>
-            )}
-          </AnimatePresence>
+          <div
+            style={{ overflow: "hidden", position: "relative", height: "1em" }}
+          >
+            <AnimatePresence mode="sync" initial={false}>
+              {showThai ? (
+                <motion.span
+                  key="thai"
+                  className="absolute top-0 left-0"
+                  style={{ fontFamily: "'CMU-Bold'", letterSpacing: "0" }}
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "-100%" }}
+                  transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+                >
+                  ธรรศ บุนนาค
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="en"
+                  className="absolute top-0 left-0"
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "-100%" }}
+                  transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+                >
+                  THATT
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
           <span className="block mt-2 text-accent font-serif italic font-normal text-[1.2rem] tracking-[0.05em]">
             Designer &amp; Creative
           </span>
