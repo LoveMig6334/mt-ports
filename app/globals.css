@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "SOV_YoongYerng";
+  src: url("/Font/SOV/SOV_YoongYerng.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme inline {
   --color-bg: #0a0a0a;
   --color-fg: #f0ece4;

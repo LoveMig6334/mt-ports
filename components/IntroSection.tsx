@@ -1,7 +1,7 @@
 "use client";
 
 import { ease } from "@/lib/animations";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import NextImage from "next/image";
 import { useState } from "react";
@@ -143,6 +143,7 @@ const dustParticles = [
 export default function IntroSection() {
   const lenis = useLenis();
   const [hovered, setHovered] = useState(false);
+  const [nameHovered, setNameHovered] = useState(false);
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -333,12 +334,39 @@ export default function IntroSection() {
         transition={{ duration: 0.9, ease, delay: 0.5 }}
       >
         Hello, I&apos;m{" "}
-        <span
-          className="font-serif italic font-normal text-coral"
+        <motion.span
+          className="font-serif italic font-normal text-coral inline-block relative"
           style={{ fontSize: "1.12em" }}
+          onHoverStart={() => setNameHovered(true)}
+          onHoverEnd={() => setNameHovered(false)}
         >
-          Thatt
-        </span>
+          <AnimatePresence mode="wait" initial={false}>
+            {nameHovered ? (
+              <motion.span
+                key="thai"
+                className="inline-block"
+                style={{ fontFamily: "'SOV_YoongYerng'", fontStyle: "normal" }}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+              >
+                ธรรศ
+              </motion.span>
+            ) : (
+              <motion.span
+                key="en"
+                className="inline-block"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+              >
+                Thatt
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.span>
       </motion.h1>
 
       <motion.div
