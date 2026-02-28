@@ -193,7 +193,7 @@ export default function IntroSection() {
 
       {/* ─── Profile Image ─── */}
       <motion.div
-        className="relative w-55 h-55 mb-10 z-2 max-[600px]:w-42.5 max-[600px]:h-42.5"
+        className="relative w-55 h-55 mb-10 z-2 max-[600px]:w-42.5 max-[600px]:h-42.5 avatar-hover"
         initial={{ opacity: 0, y: 35 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease, delay: 0.15 }}
