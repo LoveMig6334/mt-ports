@@ -16,6 +16,7 @@ const subjects = [
   "เคมี",
   "ชีววิทยา",
   "คอมพิวเตอร์",
+  "สังคมศึกษา",
 ];
 
 const personalInfo = [

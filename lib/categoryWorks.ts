@@ -65,6 +65,13 @@ export const categories: Category[] = [
     description: "Programming, systems, and digital creation",
     works: [],
   },
+  {
+    name: "สังคมศึกษา",
+    slug: "social-studies",
+    folder: "SocialStudies",
+    description: "History, geography, civics, and social sciences",
+    works: [],
+  },
 ];
 
 export function getCategoryBySlug(slug: string): Category | undefined {
@@ -83,4 +90,5 @@ export const skillToSlug: Record<string, string> = {
   เคมี: "chemistry",
   ชีววิทยา: "biology",
   คอมพิวเตอร์: "computer",
+  สังคมศึกษา: "social-studies",
 };
