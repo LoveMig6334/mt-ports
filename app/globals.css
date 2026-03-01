@@ -14,6 +14,41 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "CMU-BoldItalic";
+  src: url("/Font/CMU/CMU-BoldItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CMU-Italic";
+  src: url("/Font/CMU/CMU-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CMU-Light";
+  src: url("/Font/CMU/CMU-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CMU-LightItalic";
+  src: url("/Font/CMU/CMU-LightItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CMU-Regular";
+  src: url("/Font/CMU/CMU-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme inline {
   --color-bg: #0a0a0a;
   --color-fg: #f0ece4;
