@@ -19,12 +19,13 @@ export default function CategoryNavbar({ categoryName }: CategoryNavbarProps) {
       </Link>
 
       <div className="flex items-center gap-10 max-[900px]:gap-6">
-        <span className="text-[0.72rem] uppercase tracking-[0.15em] text-fg/50 font-body max-[600px]:hidden">
+        <span className="text-[0.72rem] uppercase tracking-[0.15em] text-fg/50 max-[600px]:hidden" style={{ fontFamily: "'CMU-Regular'" }}>
           {categoryName}
         </span>
         <Link href="/#about">
           <motion.span
-            className="relative pb-1 text-[0.72rem] uppercase tracking-[0.15em] text-fg no-underline font-body cursor-pointer inline-block"
+            className="relative pb-1 text-[0.72rem] uppercase tracking-[0.15em] text-fg no-underline cursor-pointer inline-block"
+            style={{ fontFamily: "'CMU-Regular'" }}
             whileHover="hover"
           >
             &larr; Back

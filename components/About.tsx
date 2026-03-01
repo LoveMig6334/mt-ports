@@ -2,8 +2,10 @@
 
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
+import { skillToSlug } from "@/lib/categoryWorks";
 import { AnimatePresence, motion } from "framer-motion";
 import NextImage from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 const subjects = [
@@ -167,8 +169,10 @@ function Bio() {
         style={{ fontFamily: "'CMU-Regular'" }}
       >
         ข้าพเจ้าเป็นผู้ที่มีความสนใจในด้านเทคโนโลยีและการเขียนโปรแกรมควบคู่ไปกับความชื่นชอบในงานออกแบบและศิลปะ
-        แม้จะเรียนอยู่ในแผนวิทยาศาสตร์-คณิตศาสตร์ แต่ข้าพเจ้าเชื่อว่าความคิดสร้างสรรค์และตรรกะไม่ได้แยกจากกัน
-        หากแต่เสริมส่งซึ่งกันและกัน การเรียนรู้สิ่งใหม่คือสิ่งที่ขับเคลื่อนข้าพเจ้าเสมอ
+        แม้จะเรียนอยู่ในแผนวิทยาศาสตร์-คณิตศาสตร์
+        แต่ข้าพเจ้าเชื่อว่าความคิดสร้างสรรค์และตรรกะไม่ได้แยกจากกัน
+        หากแต่เสริมส่งซึ่งกันและกัน
+        การเรียนรู้สิ่งใหม่คือสิ่งที่ขับเคลื่อนข้าพเจ้าเสมอ
         ไม่ว่าจะเป็นภาษาโปรแกรมมิ่งใหม่ แนวคิดทางวิทยาศาสตร์ หรือทักษะการออกแบบ
         ข้าพเจ้าพยายามนำทุกสิ่งที่เรียนมาถ่ายทอดออกมาเป็นผลงานที่มีความหมาย
       </p>
@@ -191,22 +195,27 @@ function Bio() {
 
       <div className="grid grid-cols-2 gap-5 max-[600px]:grid-cols-1">
         {subjects.map((subject) => (
-          <motion.div
+          <Link
             key={subject}
-            className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.9rem] uppercase tracking-widest"
-            style={{
-              border: "1px solid rgba(240,236,228,0.1)",
-              fontFamily: "'CMU-Regular'",
-            }}
-            whileHover={{
-              borderColor: "#e8ff47",
-              backgroundColor: "#e8ff47",
-              color: "#0a0a0a",
-              transition: { duration: 0.4, ease },
-            }}
+            href={`/work/${skillToSlug[subject]}`}
+            className="no-underline"
           >
-            {subject}
-          </motion.div>
+            <motion.div
+              className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.9rem] uppercase tracking-widest"
+              style={{
+                border: "1px solid rgba(240,236,228,0.1)",
+                fontFamily: "'CMU-Regular'",
+              }}
+              whileHover={{
+                borderColor: "#e8ff47",
+                backgroundColor: "#e8ff47",
+                color: "#0a0a0a",
+                transition: { duration: 0.4, ease },
+              }}
+            >
+              {subject}
+            </motion.div>
+          </Link>
         ))}
       </div>
     </motion.div>

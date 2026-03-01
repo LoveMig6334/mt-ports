@@ -3,12 +3,12 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
 import type { Category, CategoryWork } from "@/lib/categoryWorks";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useCallback, useState } from "react";
 
-const CategoryLightbox = dynamic(() => import("./CategoryLightbox"));
+const Lightbox = dynamic(() => import("./Lightbox"));
 
 function CategoryWorkItem({
   work,
@@ -120,8 +120,9 @@ export default function CategoryWorkGallery({
       {/* Category header */}
       <div className="px-12 mb-16 max-[900px]:px-6">
         <h1
-          className="font-display font-extrabold tracking-tight text-fg"
+          className="tracking-tight text-fg"
           style={{
+            fontFamily: "'CMU-Bold'",
             fontSize: "clamp(2.4rem, 6vw, 4.5rem)",
             lineHeight: 1,
             letterSpacing: "-0.03em",
@@ -181,14 +182,15 @@ export default function CategoryWorkGallery({
         </div>
       )}
 
-      {selectedWork && (
-        <CategoryLightbox
-          key={selectedWork.id}
-          isOpen={selectedWorkId !== null}
-          work={selectedWork}
-          onClose={() => setSelectedWorkId(null)}
-        />
-      )}
+      <AnimatePresence>
+        {selectedWork && (
+          <Lightbox
+            key={selectedWork.id}
+            item={selectedWork}
+            onClose={() => setSelectedWorkId(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

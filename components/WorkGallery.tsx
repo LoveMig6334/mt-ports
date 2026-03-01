@@ -2,8 +2,9 @@
 
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
+import type { Project } from "@/lib/projects";
 import { projects } from "@/lib/projects";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useCallback, useState } from "react";
@@ -11,13 +12,14 @@ import { useCallback, useState } from "react";
 const Lightbox = dynamic(() => import("./Lightbox"));
 
 function WorkItem({
+  project,
   index,
   onOpen,
 }: {
+  project: Project;
   index: number;
-  onOpen: (i: number) => void;
+  onOpen: (id: string) => void;
 }) {
-  const project = projects[index];
   const { ref, isInView } = useScrollReveal();
   const [hasError, setHasError] = useState(false);
 
@@ -31,7 +33,7 @@ function WorkItem({
       animate={isInView ? "visible" : "hidden"}
       className="work-item relative rounded-xl overflow-hidden cursor-pointer group bg-[#151515]"
       style={{ aspectRatio: project.aspectRatio || "4/3" }}
-      onClick={() => onOpen(index)}
+      onClick={() => onOpen(project.id)}
     >
       {hasError ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
@@ -57,7 +59,7 @@ function WorkItem({
       ) : (
         <div className="relative w-full h-full transition-transform duration-800 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]">
           <Image
-            src={project.image}
+            src={project.thumbnail}
             alt={project.title}
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
@@ -105,22 +107,31 @@ function WorkItem({
 }
 
 export default function WorkGallery() {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selectedProject = projects.find((p) => p.id === selectedId) ?? null;
 
   return (
     <section className="pb-16" id="work">
       <div className="grid grid-cols-2 gap-6 px-12 max-[900px]:grid-cols-1 max-[900px]:px-6">
         {projects.map((project, i) => (
-          <WorkItem key={project.id} index={i} onOpen={setLightboxIndex} />
+          <WorkItem
+            key={project.id}
+            project={project}
+            index={i}
+            onOpen={setSelectedId}
+          />
         ))}
       </div>
 
-      <Lightbox
-        isOpen={lightboxIndex !== null}
-        currentIndex={lightboxIndex ?? 0}
-        onClose={() => setLightboxIndex(null)}
-        onNavigate={setLightboxIndex}
-      />
+      <AnimatePresence>
+        {selectedProject && (
+          <Lightbox
+            key={selectedProject.id}
+            item={selectedProject}
+            onClose={() => setSelectedId(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

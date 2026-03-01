@@ -1,55 +1,56 @@
 export interface Project {
-  id: number;
+  id: string;
   title: string;
   category: string;
-  image: string;
-  imageFull: string;
+  description?: string;
+  thumbnail: string;
+  images: string[];
   aspectRatio?: string;
 }
 
 export const projects: Project[] = [
   {
-    id: 1,
+    id: "neon-flux",
     title: "Neon Flux",
     category: "Branding / Visual Identity",
-    image: "/projects/project-1.jpg",
-    imageFull: "/projects/project-1-full.jpg",
+    thumbnail: "/projects/neon-flux/thumbnail.jpg",
+    images: ["/projects/neon-flux/1.jpg"],
     aspectRatio: "16/10",
   },
   {
-    id: 2,
+    id: "prism-ui-kit",
     title: "Prism UI Kit",
     category: "UI / UX Design",
-    image: "/projects/project-2.jpg",
-    imageFull: "/projects/project-2-full.jpg",
+    thumbnail: "/projects/prism-ui-kit/thumbnail.jpg",
+    images: ["/projects/prism-ui-kit/1.jpg"],
   },
   {
-    id: 3,
+    id: "solstice-mag",
     title: "Solstice Mag",
     category: "Art Direction",
-    image: "/projects/project-3.jpg",
-    imageFull: "/projects/project-3-full.jpg",
+    thumbnail: "/projects/solstice-mag/thumbnail.jpg",
+    images: ["/projects/solstice-mag/1.jpg"],
   },
   {
-    id: 4,
+    id: "vortex-series",
     title: "Vortex Series",
     category: "Typography / Poster",
-    image: "/projects/project-4.jpg",
-    imageFull: "/projects/project-4-full.jpg",
+    thumbnail: "/projects/vortex-series/thumbnail.jpg",
+    images: ["/projects/vortex-series/1.jpg"],
     aspectRatio: "16/10",
   },
   {
-    id: 5,
+    id: "retrowave-co",
     title: "RetroWave Co.",
     category: "Branding / Packaging",
-    image: "/projects/project-5.jpg",
-    imageFull: "/projects/project-5-full.jpg",
+    thumbnail: "/projects/retrowave-co/thumbnail.jpg",
+    images: ["/projects/retrowave-co/1.jpg"],
   },
   {
-    id: 6,
+    id: "chromatic-labs",
     title: "Chromatic Labs",
     category: "Motion / Identity",
-    image: "/projects/project-6.jpg",
-    imageFull: "/projects/project-6-full.jpg",
+    thumbnail: "/projects/chromatic-labs/thumbnail.jpg",
+    images: ["/projects/chromatic-labs/1.jpg"],
   },
 ];

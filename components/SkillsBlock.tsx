@@ -699,11 +699,17 @@ export default function SkillsBlock() {
       <div className="grid grid-cols-2 gap-16 items-center max-[900px]:grid-cols-1 max-[900px]:gap-8">
         <RadarChart animate={isInView} />
         <div>
-          <h3 className="font-display font-bold text-2xl mb-1">
-            Core Abilities
+          <h3
+            className="font-bold text-2xl mb-1"
+            style={{ fontFamily: "'CMU-Bold'" }}
+          >
+            ความสามารถหลักทางวิชาการ
           </h3>
-          <div className="text-[0.68rem] uppercase tracking-[0.18em] text-accent mb-8">
-            Proficiency Breakdown
+          <div
+            className="text-[0.68rem] uppercase tracking-[0.18em] text-accent mb-8"
+            style={{ fontFamily: "'CMU-Regular'" }}
+          >
+            ความสามารถรายวิชา
           </div>
           {abilities.map((ab) => (
             <div key={ab.name} className="mb-5">
@@ -735,9 +741,17 @@ export default function SkillsBlock() {
 
       {/* ─── Special Skills ─── */}
       <div className="specials mt-12 pt-8 border-t border-fg/6">
-        <h4 className="font-display font-bold text-xl mb-1">Special Skills</h4>
-        <div className="sub-label text-[0.68rem] uppercase tracking-[0.18em] text-accent mb-6">
-          Unique Expertise &amp; Tools
+        <h4
+          className="font-bold text-xl mb-1"
+          style={{ fontFamily: "'CMU-Bold'" }}
+        >
+          ทักษะพิเศษ
+        </h4>
+        <div
+          className="sub-label text-[0.68rem] uppercase tracking-[0.18em] text-accent mb-6"
+          style={{ fontFamily: "'CMU-Regular'" }}
+        >
+          ความเชี่ยวชาญและเครื่องมือ
         </div>
         <div className="specials-row flex gap-4 flex-wrap">
           {specialSkills.map((sk) => (
