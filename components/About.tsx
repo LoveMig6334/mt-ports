@@ -2,21 +2,30 @@
 
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ease, fadeUpVariants } from "@/lib/animations";
-import { skillToSlug } from "@/lib/categoryWorks";
 import { AnimatePresence, motion } from "framer-motion";
 import NextImage from "next/image";
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
-const skills = [
-  "Brand Identity",
-  "UI/UX Design",
-  "Typography",
-  "Art Direction",
-  "Motion Design",
-  "Editorial",
-  "Illustration",
-  "Packaging",
+const subjects = [
+  "ภาษาไทย",
+  "ภาษาอังกฤษ",
+  "คณิตศาสตร์",
+  "ฟิสิกส์",
+  "เคมี",
+  "ชีววิทยา",
+  "คอมพิวเตอร์",
+];
+
+const personalInfo = [
+  { label: "ชื่อ นามสกุล", value: "นายธรรศ บุนนาค" },
+  { label: "ชื่อเล่น", value: "มิก" },
+  { label: "วัน/เดือน/ปีเกิด", value: "17 พฤศจิกายน 2552" },
+  { label: "ศาสนา", value: "พุทธ" },
+  {
+    label: "ระดับชั้น",
+    value: "ม.4/1 แผนการเรียน วิทยาศาสตร์-คณิตศาสตร์ โรงเรียนจิตรดา",
+  },
+  { label: "อีเมล", value: "06334@cds.ac.th" },
 ];
 
 function Portrait() {
@@ -65,7 +74,7 @@ function Portrait() {
         ) : (
           <NextImage
             src="/profile.jpg"
-            alt="Thatt — Designer & Creative"
+            alt="Thatt — นักเรียน ม.4/1 วิทย์-คณิต"
             fill
             className="object-cover object-top"
             sizes="(max-width: 900px) 100vw, 50vw"
@@ -130,8 +139,11 @@ function Portrait() {
               )}
             </AnimatePresence>
           </div>
-          <span className="block mt-2 text-accent font-serif italic font-normal text-[1.2rem] tracking-[0.05em]">
-            Designer &amp; Creative
+          <span
+            className="block mt-2 text-accent font-normal text-[1.2rem] tracking-[0.05em]"
+            style={{ fontFamily: "'CMU-Italic'" }}
+          >
+            นักเรียน ม.4/1 วิทย์-คณิต
           </span>
         </div>
       </div>
@@ -151,47 +163,50 @@ function Bio() {
       className="pt-8"
     >
       <p
-        className="mb-8 font-serif italic text-fg"
-        style={{
-          fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
-          lineHeight: 1.35,
-          letterSpacing: "-0.01em",
-        }}
+        className="mb-10 text-[1rem] leading-[1.9] text-fg/65"
+        style={{ fontFamily: "'CMU-Regular'" }}
       >
-        I&apos;m a multidisciplinary designer who believes that{" "}
-        <span className="text-coral">great design is felt</span> before
-        it&apos;s understood.
-      </p>
-      <p className="mb-12 text-[0.82rem] leading-[1.85] font-body text-fg/50">
-        With 8 years of crafting visual identities, digital products, and
-        editorial design, I bring a perspective shaped by art, culture, and
-        technology. Every project begins with a deep understanding of the
-        problem and ends with a solution that moves people — visually and
-        emotionally. I&apos;ve had the privilege of working with
-        forward-thinking brands, ambitious startups, and cultural institutions
-        across the globe.
+        ข้าพเจ้าเป็นผู้ที่มีความสนใจในด้านเทคโนโลยีและการเขียนโปรแกรมควบคู่ไปกับความชื่นชอบในงานออกแบบและศิลปะ
+        แม้จะเรียนอยู่ในแผนวิทยาศาสตร์-คณิตศาสตร์ แต่ข้าพเจ้าเชื่อว่าความคิดสร้างสรรค์และตรรกะไม่ได้แยกจากกัน
+        หากแต่เสริมส่งซึ่งกันและกัน การเรียนรู้สิ่งใหม่คือสิ่งที่ขับเคลื่อนข้าพเจ้าเสมอ
+        ไม่ว่าจะเป็นภาษาโปรแกรมมิ่งใหม่ แนวคิดทางวิทยาศาสตร์ หรือทักษะการออกแบบ
+        ข้าพเจ้าพยายามนำทุกสิ่งที่เรียนมาถ่ายทอดออกมาเป็นผลงานที่มีความหมาย
       </p>
 
-      <div className="grid grid-cols-2 gap-5 max-[600px]:grid-cols-1">
-        {skills.map((skill) => (
-          <Link
-            key={skill}
-            href={`/work/${skillToSlug[skill]}`}
-            className="no-underline"
+      <dl
+        className="mb-12 grid gap-y-3"
+        style={{ fontFamily: "'CMU-Regular'" }}
+      >
+        {personalInfo.map(({ label, value }) => (
+          <div
+            key={label}
+            className="grid gap-x-4 text-[1rem] leading-[1.85]"
+            style={{ gridTemplateColumns: "auto 1fr" }}
           >
-            <motion.div
-              className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.7rem] uppercase tracking-widest font-body"
-              style={{ border: "1px solid rgba(240,236,228,0.1)" }}
-              whileHover={{
-                borderColor: "#e8ff47",
-                backgroundColor: "#e8ff47",
-                color: "#0a0a0a",
-                transition: { duration: 0.4, ease },
-              }}
-            >
-              {skill}
-            </motion.div>
-          </Link>
+            <dt className="text-fg/40 whitespace-nowrap">{label}:</dt>
+            <dd className="text-fg/80 m-0">{value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="grid grid-cols-2 gap-5 max-[600px]:grid-cols-1">
+        {subjects.map((subject) => (
+          <motion.div
+            key={subject}
+            className="skill-pill py-4 px-5 rounded-[10px] text-center text-[0.9rem] uppercase tracking-widest"
+            style={{
+              border: "1px solid rgba(240,236,228,0.1)",
+              fontFamily: "'CMU-Regular'",
+            }}
+            whileHover={{
+              borderColor: "#e8ff47",
+              backgroundColor: "#e8ff47",
+              color: "#0a0a0a",
+              transition: { duration: 0.4, ease },
+            }}
+          >
+            {subject}
+          </motion.div>
         ))}
       </div>
     </motion.div>

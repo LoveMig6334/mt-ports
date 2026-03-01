@@ -5,12 +5,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useState } from "react";
 
 const categories = [
-  "Performance",
-  "Creativity",
-  "Visual Design",
-  "Usability",
-  "Content Quality",
-  "Overall",
+  "ผลงาน",
+  "ความคิดสร้างสรรค์",
+  "การออกแบบภาพ",
+  "ความใช้งานง่าย",
+  "คุณภาพเนื้อหา",
+  "ภาพรวม",
 ];
 
 /* ─── Star Rating ─── */
@@ -99,11 +99,17 @@ export default function SurveyCard() {
               }}
             />
 
-            <h3 className="font-display font-bold text-[1.4rem] mb-1 text-center">
-              Rate This Portfolio
+            <h3
+              className="font-bold text-[1.4rem] mb-1 text-center"
+              style={{ fontFamily: "'CMU-Bold'" }}
+            >
+              แบบประเมิน Portfolio
             </h3>
-            <p className="text-[0.68rem] text-fg/40 text-center mb-8 tracking-[0.05em]">
-              Your feedback helps me grow and improve.
+            <p
+              className="text-[0.9rem] text-fg/40 text-center mb-8 tracking-[0.05em]"
+              style={{ fontFamily: "'CMU-Regular'" }}
+            >
+              ความคิดเห็นของคุณมีคุณค่าและช่วยให้พัฒนายิ่งขึ้น
             </p>
 
             {categories.map((cat, i) => {
@@ -120,7 +126,10 @@ export default function SurveyCard() {
                   }}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-[0.74rem] uppercase tracking-[0.08em] text-fg/70">
+                    <span
+                      className="text-[0.85rem] uppercase tracking-[0.08em] text-fg/70"
+                      style={{ fontFamily: "'CMU-Regular'" }}
+                    >
                       {cat}
                     </span>
                     {!isRated && (
@@ -143,24 +152,29 @@ export default function SurveyCard() {
                 background: "rgba(0,0,0,0.3)",
                 border: "1px solid rgba(240,236,228,0.1)",
               }}
-              placeholder="Any additional thoughts? (optional)"
+              placeholder="ความคิดเห็นเพิ่มเติม (ไม่บังคับ)"
             />
 
             {/* Validation hint */}
             {!allRated && (
               <p
-                className="mt-3 text-[0.68rem] text-center"
-                style={{ color: "#ff6b4a" }}
+                className="mt-3 text-[0.9rem] text-center"
+                style={{ color: "#ff6b4a", fontFamily: "'CMU-Regular'" }}
               >
-                Please rate all categories before submitting.
+                กรุณาให้คะแนนทุกหมวดก่อนส่ง
               </p>
             )}
 
             <motion.button
-              className={`mt-4 w-full p-4 border-none rounded-full font-body text-[0.72rem] font-bold uppercase tracking-[0.15em] transition-opacity duration-300 ${
+              className={`mt-4 w-full p-4 border-none rounded-full font-bold transition-opacity duration-300 ${
                 allRated ? "cursor-pointer" : "cursor-not-allowed opacity-50"
               }`}
-              style={{ background: "#e8ff47", color: "#0a0a0a" }}
+              style={{
+                background: "#e8ff47",
+                color: "#0a0a0a",
+                fontFamily: "'CMU-Bold'",
+                fontSize: "0.9rem",
+              }}
               onClick={handleSubmit}
               disabled={!allRated}
               whileHover={
@@ -174,7 +188,7 @@ export default function SurveyCard() {
                   : undefined
               }
             >
-              Submit Feedback
+              ส่งความคิดเห็น
             </motion.button>
           </motion.div>
         )}
@@ -223,11 +237,17 @@ export default function SurveyCard() {
               <span style={{ fontSize: "2.2rem", color: "#2ecc71" }}>✓</span>
             </motion.div>
 
-            <h3 className="font-display font-bold text-[1.5rem] mb-2">
-              Thank you for your feedback!
+            <h3
+              className="font-bold text-[1.5rem] mb-2"
+              style={{ fontFamily: "'CMU-Bold'" }}
+            >
+              ขอบคุณสำหรับความคิดเห็น!
             </h3>
-            <p className="text-[0.78rem] text-fg/50 leading-relaxed">
-              Your thoughts mean a lot and help me keep improving.
+            <p
+              className="text-[0.9rem] text-fg/50 leading-relaxed"
+              style={{ fontFamily: "'CMU-Regular'" }}
+            >
+              ความคิดเห็นของคุณมีคุณค่าและช่วยให้พัฒนาอยู่เสมอ
             </p>
           </motion.div>
         )}

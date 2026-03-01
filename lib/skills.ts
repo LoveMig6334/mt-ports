@@ -6,53 +6,58 @@ export interface Ability {
 
 export const abilities: Ability[] = [
   {
-    name: "UI/UX Design",
-    pct: 95,
+    name: "ภาษาไทย",
+    pct: 89,
     gradient: "linear-gradient(90deg, #e8ff47, #c6e840)",
   },
   {
-    name: "Brand Identity",
-    pct: 92,
+    name: "ภาษาอังกฤษ",
+    pct: 81,
     gradient: "linear-gradient(90deg, #ff6b4a, #ff966b)",
   },
   {
-    name: "Typography",
-    pct: 88,
+    name: "คณิตศาสตร์",
+    pct: 86,
     gradient: "linear-gradient(90deg, #b48aff, #d3b3ff)",
   },
   {
-    name: "Motion Design",
-    pct: 78,
+    name: "ฟิสิกส์",
+    pct: 96,
     gradient: "linear-gradient(90deg, #47f0ff, #80f5ff)",
   },
   {
-    name: "Illustration",
-    pct: 82,
+    name: "เคมี",
+    pct: 85,
     gradient: "linear-gradient(90deg, #ffb347, #ffd280)",
   },
   {
-    name: "Art Direction",
-    pct: 90,
+    name: "ชีววิทยา",
+    pct: 74,
     gradient: "linear-gradient(90deg, #ff7eb3, #ffb3d1)",
+  },
+  {
+    name: "คอมพิวเตอร์",
+    pct: 99,
+    gradient: "linear-gradient(90deg, #e8ff47, #47f0ff)",
   },
 ];
 
 export const radarLabels = [
-  "UI/UX",
-  "Branding",
-  "Typography",
-  "Motion",
-  "Illustration",
-  "Art Direction",
+  "การสื่อสาร",
+  "การวิเคราะห์แก้ปัญหา",
+  "การหาข้อมูล",
+  "การทำงานจริง",
+  "การบริหารเวลา",
+  "การนำเสนองาน",
 ];
 
-export const radarVals = [0.95, 0.92, 0.88, 0.78, 0.82, 0.9];
+export const radarVals = [0.89, 0.91, 0.84, 0.95, 0.8, 0.85];
 
 export const radarColors = [
-  "#e8ff47", // UI/UX — accent
-  "#ff6b4a", // Branding — coral
-  "#b48aff", // Typography — violet
-  "#47f0ff", // Motion — cyan
-  "#ffb347", // Illustration — amber
-  "#ff7eb3", // Art Direction — pink
+  "#e8ff47", // การสื่อสาร — accent
+  "#ff6b4a", // การวิเคราะห์แก้ปัญหา — coral
+  "#b48aff", // การหาข้อมูล — violet
+  "#47f0ff", // การทำงานจริง — cyan
+  "#ffb347", // การบริหารเวลา — amber
+  "#ff7eb3", // การนำเสนองาน — pink
 ];

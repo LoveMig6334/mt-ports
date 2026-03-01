@@ -44,16 +44,19 @@ export default function Contact() {
             lineHeight: 0.95,
           }}
         >
-          Have a project
+          <span style={{ fontFamily: "'CMU-Bold'" }}>ติดต่อสอบถามข้อมูล</span>
           <br />
           <span className="font-serif italic font-normal text-violet">
-            in mind?
+            portfolio
           </span>
         </h2>
 
-        <p className="mx-auto mb-12 max-w-110 text-[0.82rem] leading-[1.7] font-body text-fg/45">
-          I&apos;m always open to discussing new projects, creative ideas, or
-          opportunities to be part of your visions.
+        <p
+          className="mx-auto mb-12 max-w-110 text-[0.9rem] leading-[1.7] text-fg/45"
+          style={{ fontFamily: "'CMU-Regular'" }}
+        >
+          ยินดีรับฟังทุกคำถามและความคิดเห็น
+          หากต้องการข้อมูลเพิ่มเติมเกี่ยวกับแฟ้มสะสมผลงานนี้
         </p>
 
         <a

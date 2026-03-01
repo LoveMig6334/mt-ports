@@ -396,13 +396,13 @@ export default function IntroSection() {
       </motion.h1>
 
       <motion.div
-        className="font-body text-[0.72rem] uppercase tracking-[0.22em] text-center mb-8 z-2"
-        style={{ color: "rgba(240,236,228,0.4)" }}
+        className="text-[0.72rem] uppercase tracking-[0.22em] text-center mb-8 z-2"
+        style={{ color: "rgba(240,236,228,0.4)", fontFamily: "'CMU-Regular'" }}
         initial={{ opacity: 0, y: 35 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease, delay: 0.65 }}
       >
-        Graphic &amp; UI Designer
+        Chitralada School M4 student | นักเรียน ม.4 โรงเรียนจิตรลดา
       </motion.div>
 
       {/* Wave divider */}
@@ -436,22 +436,28 @@ export default function IntroSection() {
       </motion.div>
 
       {/* Description */}
-      <motion.p
-        className="max-w-155 text-center text-[0.88rem] leading-relaxed mb-11 z-2 font-body"
-        style={{ color: "rgba(240,236,228,0.5)", lineHeight: "1.9" }}
+      <motion.div
+        className="max-w-155 text-center text-[rem] leading-relaxed mb-11 z-2 font-body"
+        style={{
+          color: "rgba(240,236,228,0.5)",
+          lineHeight: "1.9",
+          fontFamily: "'CMU-Regular'",
+        }}
         initial={{ opacity: 0, y: 35 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease, delay: 0.85 }}
       >
-        This portfolio is a curated journey through{" "}
-        <strong className="text-fg font-normal">
-          visual identities, immersive interfaces, and bold design systems
-        </strong>{" "}
-        I&apos;ve brought to life. Each project here is a story — of
-        collaboration, experimentation, and the relentless pursuit of design
-        that doesn&apos;t just look beautiful, but{" "}
-        <strong className="text-fg font-normal">feels alive</strong>.
-      </motion.p>
+        <p className="mb-4">
+          แฟ้มสะสมผลงานเล่มนี้
+          ข้าพเจ้าจัดทำขึ้นเพื่อเป็นตัวแทนนำเสนอข้อมูลเกี่ยวกับประวัติส่วนตัวและผลงานดีเด่นของแต่ละรายวิชาและแบบประเมินผลงาน
+          ซึ่งข้าพเจ้าได้ตั้งใจทำอย่างเต็มที่
+        </p>
+        <p>
+          โดยมีผู้ปกครองและคุณครูให้คำแนะนำช่วยเหลือ
+          ตรวจสอบและให้กำลังใจจนกระทั่งผลงานของข้าพเจ้าประสบความสำเร็จ
+          ในโอกาสนี้ต้องขอขอบพระคุณผู้ที่ให้คำแนะนำและการช่วยเหลือ...
+        </p>
+      </motion.div>
 
       {/* CTA Buttons */}
       <motion.div
@@ -462,49 +468,32 @@ export default function IntroSection() {
       >
         <a
           href="#work"
-          className="inline-flex items-center gap-2.5 rounded-full font-body text-[0.72rem] uppercase no-underline cursor-pointer border-none bg-accent text-bg tracking-[0.14em] hover:-translate-y-0.75"
+          className="inline-flex items-center gap-2.5 rounded-full text-[0.72rem] uppercase no-underline cursor-pointer border-none bg-accent text-bg tracking-[0.14em] hover:-translate-y-0.75"
           style={{
             padding: "1rem 2.2rem",
             transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
             letterSpacing: "0.14em",
+            fontFamily: "'CMU-Regular'",
           }}
           onClick={(e) => handleNav(e, "#work")}
         >
-          View Work ↓
+          รับชมผลงาน ↓
         </a>
         <a
           href="#about"
-          className="inline-flex items-center gap-2.5 rounded-full font-body text-[0.72rem] uppercase no-underline cursor-pointer text-fg tracking-[0.14em] hover:-translate-y-0.75"
+          className="inline-flex items-center gap-2.5 rounded-full text-[0.72rem] uppercase no-underline cursor-pointer text-fg tracking-[0.14em] hover:-translate-y-0.75"
           style={{
             padding: "1rem 2.2rem",
             border: "1.5px solid rgba(240,236,228,0.2)",
             background: "transparent",
             transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
             letterSpacing: "0.14em",
+            fontFamily: "'CMU-Regular'",
           }}
           onClick={(e) => handleNav(e, "#about")}
         >
-          About Me
+          ประวัติส่วนตัว
         </a>
-      </motion.div>
-
-      {/* Scroll hint */}
-      <motion.div
-        className="absolute bottom-10 flex flex-col items-center gap-2.5 text-[0.56rem] uppercase tracking-[0.22em] z-2"
-        style={{ color: "rgba(240,236,228,0.22)" }}
-        initial={{ opacity: 0, y: 35 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease, delay: 1.3 }}
-      >
-        <motion.div
-          className="w-px h-12.5"
-          style={{
-            background: "linear-gradient(to bottom, #e8ff47, transparent)",
-          }}
-          animate={{ opacity: [0.3, 1, 0.3], scaleY: [1, 1.2, 1] }}
-          transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
-        />
-        Explore
       </motion.div>
     </section>
   );

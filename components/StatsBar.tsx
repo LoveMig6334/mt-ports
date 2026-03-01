@@ -9,22 +9,25 @@ interface Stat {
   value: number;
   suffix: string;
   label: string;
+  decimals?: number;
 }
 
 const stats: Stat[] = [
-  { value: 120, suffix: "+", label: "Projects Delivered" },
-  { value: 8, suffix: "", label: "Years Experience" },
-  { value: 40, suffix: "+", label: "Happy Clients" },
-  { value: 15, suffix: "", label: "Awards Won" },
+  { value: 3.92, suffix: "", label: "GPAX", decimals: 2 },
+  { value: 7, suffix: "", label: "Projects Done" },
+  { value: 15, suffix: "+", label: "Awards" },
+  { value: 2, suffix: "", label: "Years Experience" },
 ];
 
 function AnimatedNumber({
   value,
   suffix,
+  decimals,
   isInView,
 }: {
   value: number;
   suffix: string;
+  decimals?: number;
   isInView: boolean;
 }) {
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -41,7 +44,11 @@ function AnimatedNumber({
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       if (spanRef.current) {
-        spanRef.current.textContent = Math.floor(eased * value) + suffix;
+        const current = eased * value;
+        spanRef.current.textContent =
+          decimals && decimals > 0
+            ? current.toFixed(decimals) + suffix
+            : Math.floor(current) + suffix;
       }
 
       if (progress < 1) {
@@ -56,9 +63,14 @@ function AnimatedNumber({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isInView, value, suffix]);
+  }, [isInView, value, suffix, decimals]);
 
-  return <span ref={spanRef}>0{suffix}</span>;
+  const initial =
+    decimals && decimals > 0
+      ? (0).toFixed(decimals) + suffix
+      : "0" + suffix;
+
+  return <span ref={spanRef}>{initial}</span>;
 }
 
 export default function StatsBar() {
@@ -94,6 +106,7 @@ export default function StatsBar() {
             <AnimatedNumber
               value={stat.value}
               suffix={stat.suffix}
+              decimals={stat.decimals}
               isInView={isInView}
             />
           </div>

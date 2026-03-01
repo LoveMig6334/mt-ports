@@ -10,16 +10,34 @@ const specialSkills = [
   {
     icon: (
       <svg viewBox="0 0 36 36" fill="none">
-        <path
-          d="M18 2L22 14L34 15L25 23L27 35L18 29L9 35L11 23L2 15L14 14Z"
+        <polygon
+          points="18,3 32,11 32,25 18,33 4,25 4,11"
           stroke="var(--accent)"
           strokeWidth="1.2"
           fill="rgba(232,255,71,0.06)"
         />
+        <line
+          x1="18"
+          y1="13"
+          x2="18"
+          y2="23"
+          stroke="var(--accent)"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+        <line
+          x1="13"
+          y1="18"
+          x2="23"
+          y2="18"
+          stroke="var(--accent)"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
       </svg>
     ),
-    title: "Design Systems",
-    sub: "Scalable Design",
+    title: "Python",
+    sub: "Programming",
   },
   {
     icon: (
@@ -29,106 +47,425 @@ const specialSkills = [
           y="4"
           width="28"
           height="28"
-          rx="4"
-          stroke="var(--coral)"
+          rx="3"
+          stroke="var(--accent)"
           strokeWidth="1.2"
-          fill="rgba(255,107,74,0.06)"
+          fill="rgba(232,255,71,0.06)"
         />
-        <path
-          d="M12 18L16 22L24 14"
-          stroke="var(--coral)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    title: "Prototyping",
-    sub: "Figma & Framer",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 36 36" fill="none">
-        <path
-          d="M13 13L23 23M23 13L13 23"
-          stroke="var(--violet)"
+        <line
+          x1="10"
+          y1="15"
+          x2="26"
+          y2="15"
+          stroke="var(--accent)"
           strokeWidth="1.5"
           strokeLinecap="round"
         />
-        <rect
-          x="4"
-          y="4"
-          width="28"
-          height="28"
-          rx="6"
-          stroke="var(--violet)"
-          strokeWidth="1.2"
-          fill="rgba(180,138,255,0.06)"
+        <line
+          x1="16"
+          y1="15"
+          x2="16"
+          y2="26"
+          stroke="var(--accent)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
       </svg>
     ),
-    title: "Creative Code",
-    sub: "CSS & JS Art",
+    title: "TypeScript",
+    sub: "Programming",
   },
   {
     icon: (
       <svg viewBox="0 0 36 36" fill="none">
         <path
           d="M5 30L18 6L31 30Z"
-          stroke="var(--cyan)"
+          stroke="var(--coral)"
           strokeWidth="1.2"
-          fill="rgba(71,240,255,0.06)"
+          fill="rgba(255,107,74,0.06)"
         />
-        <circle cx="18" cy="22" r="3" fill="var(--cyan)" opacity="0.4" />
+        <line
+          x1="13"
+          y1="24"
+          x2="23"
+          y2="24"
+          stroke="var(--coral)"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
       </svg>
     ),
-    title: "3D Design",
-    sub: "Blender & Spline",
+    title: "Next.js",
+    sub: "React Framework",
   },
   {
     icon: (
       <svg viewBox="0 0 36 36" fill="none">
+        <rect
+          x="5"
+          y="5"
+          width="26"
+          height="26"
+          rx="4"
+          stroke="var(--violet)"
+          strokeWidth="1.2"
+          fill="rgba(180,138,255,0.06)"
+        />
+        <rect
+          x="9"
+          y="9"
+          width="8"
+          height="8"
+          rx="2"
+          stroke="var(--violet)"
+          strokeWidth="1"
+          fill="rgba(180,138,255,0.1)"
+        />
+        <rect
+          x="9"
+          y="21"
+          width="8"
+          height="6"
+          rx="2"
+          stroke="var(--violet)"
+          strokeWidth="1"
+          fill="none"
+        />
         <circle
-          cx="18"
-          cy="18"
-          r="14"
+          cx="23"
+          cy="13"
+          r="5"
+          stroke="var(--violet)"
+          strokeWidth="1"
+          fill="rgba(180,138,255,0.1)"
+        />
+      </svg>
+    ),
+    title: "Figma",
+    sub: "UI/UX Tool",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 36 36" fill="none">
+        <path
+          d="M10 6L4 18L10 30"
+          stroke="var(--cyan)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <line
+          x1="20"
+          y1="14"
+          x2="20"
+          y2="22"
+          stroke="var(--cyan)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <line
+          x1="16"
+          y1="18"
+          x2="24"
+          y2="18"
+          stroke="var(--cyan)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <line
+          x1="28"
+          y1="14"
+          x2="28"
+          y2="22"
+          stroke="var(--cyan)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <line
+          x1="24"
+          y1="18"
+          x2="32"
+          y2="18"
+          stroke="var(--cyan)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+    title: "C++",
+    sub: "Programming",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 36 36" fill="none">
+        <path
+          d="M22 6C14 6 8 12 8 20C8 28 14 32 22 32C18 32 14 28 14 20C14 12 18 8 22 6Z"
+          stroke="var(--violet)"
+          strokeWidth="1.2"
+          fill="rgba(180,138,255,0.06)"
+        />
+        <circle cx="24" cy="12" r="2" fill="var(--violet)" opacity="0.5" />
+        <circle cx="26" cy="17" r="1.5" fill="var(--violet)" opacity="0.3" />
+      </svg>
+    ),
+    title: "Lua",
+    sub: "Scripting",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 36 36" fill="none">
+        <rect
+          x="4"
+          y="4"
+          width="28"
+          height="20"
+          rx="3"
           stroke="var(--accent)"
           strokeWidth="1.2"
           fill="rgba(232,255,71,0.06)"
         />
-        <circle cx="18" cy="14" r="5" fill="var(--accent)" opacity="0.2" />
-        <circle cx="14" cy="21" r="4" fill="var(--coral)" opacity="0.2" />
-        <circle cx="22" cy="21" r="4" fill="var(--cyan)" opacity="0.2" />
+        <rect
+          x="4"
+          y="28"
+          width="28"
+          height="4"
+          rx="1"
+          stroke="var(--accent)"
+          strokeWidth="1"
+          fill="rgba(232,255,71,0.04)"
+        />
+        <line
+          x1="18"
+          y1="24"
+          x2="18"
+          y2="28"
+          stroke="var(--accent)"
+          strokeWidth="1"
+        />
+        <circle
+          cx="18"
+          cy="14"
+          r="4"
+          stroke="var(--accent)"
+          strokeWidth="1"
+          fill="rgba(232,255,71,0.08)"
+        />
       </svg>
     ),
-    title: "Color Theory",
-    sub: "Advanced Palette",
+    title: "UI/UX Design",
+    sub: "User Experience",
   },
   {
     icon: (
       <svg viewBox="0 0 36 36" fill="none">
-        <circle
-          cx="18"
-          cy="18"
-          r="14"
+        <line
+          x1="6"
+          y1="8"
+          x2="30"
+          y2="8"
           stroke="var(--coral)"
-          strokeWidth="1.2"
-          fill="none"
-          strokeDasharray="3 2.5"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
-        <circle
-          cx="18"
-          cy="18"
-          r="6"
-          fill="rgba(255,107,74,0.12)"
+        <line
+          x1="18"
+          y1="8"
+          x2="18"
+          y2="28"
           stroke="var(--coral)"
-          strokeWidth="0.8"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
-        <circle cx="18" cy="18" r="2" fill="var(--coral)" />
+        <line
+          x1="10"
+          y1="28"
+          x2="26"
+          y2="28"
+          stroke="var(--coral)"
+          strokeWidth="1"
+          strokeLinecap="round"
+          opacity="0.5"
+        />
       </svg>
     ),
-    title: "UX Research",
-    sub: "Data-Driven UX",
+    title: "Typography",
+    sub: "Visual Comm.",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 36 36" fill="none">
+        <path
+          d="M6 18C6 10 12 6 18 6"
+          stroke="var(--violet)"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <path
+          d="M12 26C12 32 22 34 28 28"
+          stroke="var(--violet)"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <circle
+          cx="18"
+          cy="18"
+          r="5"
+          stroke="var(--violet)"
+          strokeWidth="1.2"
+          fill="rgba(180,138,255,0.08)"
+        />
+        <path
+          d="M21 13L25 9L21 12"
+          stroke="var(--violet)"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+    title: "Motion Design",
+    sub: "Animation",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 36 36" fill="none">
+        <path
+          d="M13 8L6 18L13 28"
+          stroke="var(--cyan)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <path
+          d="M23 8L30 18L23 28"
+          stroke="var(--cyan)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <line
+          x1="15"
+          y1="18"
+          x2="21"
+          y2="18"
+          stroke="var(--cyan)"
+          strokeWidth="1"
+          strokeLinecap="round"
+          opacity="0.5"
+        />
+      </svg>
+    ),
+    title: "Coding",
+    sub: "Development",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 36 36" fill="none">
+        <rect
+          x="14"
+          y="4"
+          width="8"
+          height="8"
+          rx="2"
+          stroke="var(--accent)"
+          strokeWidth="1.2"
+          fill="rgba(232,255,71,0.08)"
+        />
+        <rect
+          x="4"
+          y="24"
+          width="8"
+          height="8"
+          rx="2"
+          stroke="var(--accent)"
+          strokeWidth="1.2"
+          fill="rgba(232,255,71,0.06)"
+        />
+        <rect
+          x="24"
+          y="24"
+          width="8"
+          height="8"
+          rx="2"
+          stroke="var(--accent)"
+          strokeWidth="1.2"
+          fill="rgba(232,255,71,0.06)"
+        />
+        <line
+          x1="18"
+          y1="12"
+          x2="8"
+          y2="24"
+          stroke="var(--accent)"
+          strokeWidth="1"
+          strokeLinecap="round"
+        />
+        <line
+          x1="18"
+          y1="12"
+          x2="28"
+          y2="24"
+          stroke="var(--accent)"
+          strokeWidth="1"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+    title: "Systems Design",
+    sub: "Architecture",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 36 36" fill="none">
+        <rect
+          x="5"
+          y="20"
+          width="6"
+          height="12"
+          rx="1"
+          stroke="var(--coral)"
+          strokeWidth="1.2"
+          fill="rgba(255,107,74,0.1)"
+        />
+        <rect
+          x="14"
+          y="14"
+          width="6"
+          height="18"
+          rx="1"
+          stroke="var(--coral)"
+          strokeWidth="1.2"
+          fill="rgba(255,107,74,0.08)"
+        />
+        <rect
+          x="23"
+          y="8"
+          width="6"
+          height="24"
+          rx="1"
+          stroke="var(--coral)"
+          strokeWidth="1.2"
+          fill="rgba(255,107,74,0.06)"
+        />
+        <line
+          x1="3"
+          y1="32"
+          x2="32"
+          y2="32"
+          stroke="var(--coral)"
+          strokeWidth="1"
+          strokeLinecap="round"
+          opacity="0.4"
+        />
+      </svg>
+    ),
+    title: "Data Analytics",
+    sub: "Analysis",
   },
 ];
 
@@ -303,7 +640,7 @@ const RadarChart = memo(function RadarChart({ animate }: { animate: boolean }) {
               dominantBaseline="central"
               fill={hexRgba(radarColors[i], 0.85)}
               fontSize="11"
-              fontFamily="'Space Mono', monospace"
+              fontFamily="'CMU-Regular', sans-serif"
             >
               {lbl}
             </text>
@@ -371,7 +708,10 @@ export default function SkillsBlock() {
           {abilities.map((ab) => (
             <div key={ab.name} className="mb-5">
               <div className="flex justify-between items-center mb-1.5">
-                <span className="text-[0.72rem] uppercase tracking-[0.08em] text-fg/75">
+                <span
+                  className="text-[0.72rem] uppercase tracking-[0.08em] text-fg/75"
+                  style={{ fontFamily: "'CMU-Regular'" }}
+                >
                   {ab.name}
                 </span>
                 <span className="font-display font-bold text-[0.85rem] text-accent">

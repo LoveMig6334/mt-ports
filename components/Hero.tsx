@@ -5,12 +5,26 @@ import { motion } from "framer-motion";
 
 const heroLines = [
   <>
-    Creating{" "}
-    <em className="font-serif italic font-normal text-(--coral)">visual</em>
+    <span style={{ fontFamily: "'CMU-Bold'", letterSpacing: "-0.02em" }}>
+      แฟ้มสะสม
+    </span>{" "}
+    <span
+      className="text-accent"
+      style={{ fontFamily: "'CMU-Bold'", letterSpacing: "-0.02em" }}
+    >
+      ผลงาน
+    </span>{" "}
+    <span
+      className="font-body text-fg/30 align-middle"
+      style={{ fontSize: "0.3em", letterSpacing: "0.08em" }}
+    >
+      online
+    </span>
   </>,
-  <>experiences that</>,
+  <>that</>,
   <>
-    feel <span className="text-accent">alive.</span>
+    speak for{" "}
+    <em className="font-serif italic font-normal text-(--coral)">itself.</em>
   </>,
 ];
 
@@ -27,7 +41,7 @@ export default function Hero() {
           lineHeight: 0.85,
         }}
       >
-        DESIGN
+        PORTFOLIO
       </div>
 
       {/* Tag */}
@@ -35,9 +49,10 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease, delay: 0.3 }}
-        className="text-[0.7rem] uppercase tracking-[0.25em] text-accent mb-8 font-body"
+        className="text-[0.9rem] uppercase tracking-[0.25em] text-accent mb-8"
+        style={{ fontFamily: "'CMU-Regular'" }}
       >
-        Graphic &amp; UI Designer — Available for Freelance
+        นักเรียนชั้น ม.4/1 วิทย์-คณิต — โรงเรียนจิตรลดา
       </motion.div>
 
       {/* Main headline */}
@@ -68,9 +83,12 @@ export default function Hero() {
         transition={{ duration: 1, ease, delay: 1 }}
         className="flex justify-between items-end mt-12 max-[900px]:flex-col max-[900px]:items-start max-[900px]:gap-8"
       >
-        <p className="max-w-85 text-[0.8rem] leading-[1.7] font-body text-fg/55">
-          I craft bold identities, immersive interfaces, and visual systems that
-          speak louder than words. Based in Brooklyn, working globally.
+        <p
+          className="max-w-85 text-[0.85rem] leading-[1.7] text-fg/55"
+          style={{ fontFamily: "'CMU-Regular'" }}
+        >
+          แฟ้มสะสมผลงานนี้รวบรวมผลงานและประสบการณ์การเรียนรู้ตลอดปีการศึกษา ม.4
+          โรงเรียนจิตรลดา
         </p>
         <div className="flex flex-col items-center gap-3 text-[0.6rem] uppercase tracking-[0.2em] text-fg/35">
           <motion.div
