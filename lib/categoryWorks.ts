@@ -21,7 +21,16 @@ export const categories: Category[] = [
     slug: "thai",
     folder: "Thai",
     description: "Language, literature, and cultural studies",
-    works: [],
+    works: [
+      {
+        id: "love-poem",
+        title: "กลอนความรัก",
+        description:
+          "A traditional Thai poetry assignment exploring themes of love and longing through classical verse forms, demonstrating mastery of กลอนสุภาพ meter and lyrical expression in the Thai literary tradition.",
+        thumbnail: "/category/Thai/love-poem/1.png",
+        images: ["/category/Thai/love-poem/1.png"],
+      },
+    ],
   },
   {
     name: "ภาษาอังกฤษ",
@@ -35,14 +44,40 @@ export const categories: Category[] = [
     slug: "mathematics",
     folder: "Mathematics",
     description: "Problem solving through numbers and logic",
-    works: [],
+    works: [
+      {
+        id: "math-work",
+        title: "ชิ้นงานคณิตศาสตร์",
+        description:
+          "A mathematics assignment showcasing problem-solving skills and analytical thinking through structured exercises in core mathematical concepts.",
+        thumbnail: "/category/Mathematics/math-work/1.png",
+        images: ["/category/Mathematics/math-work/1.png"],
+      },
+      {
+        id: "math-work-extra",
+        title: "ชิ้นงานคณิตศาสตร์ เพิ่มเติม",
+        description:
+          "An extended mathematics assignment exploring additional topics beyond the core curriculum, demonstrating initiative and deeper engagement with advanced problem-solving techniques.",
+        thumbnail: "/category/Mathematics/math-work-extra/1.png",
+        images: ["/category/Mathematics/math-work-extra/1.png"],
+      },
+    ],
   },
   {
     name: "ฟิสิกส์",
     slug: "physics",
     folder: "Physics",
     description: "Understanding the laws of the physical world",
-    works: [],
+    works: [
+      {
+        id: "free-fall",
+        title: "การทดลองการตกแบบอิสระ",
+        description:
+          "An experimental study of free-fall motion, measuring the acceleration due to gravity by analyzing an object in free fall — demonstrating core principles of kinematics and Newton's laws of motion.",
+        thumbnail: "/category/Physics/free-fall/1.jpg",
+        images: ["/category/Physics/free-fall/1.jpg"],
+      },
+    ],
   },
   {
     name: "เคมี",
