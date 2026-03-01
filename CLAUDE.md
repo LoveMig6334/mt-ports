@@ -17,7 +17,7 @@ No test framework is configured.
 
 Portfolio site using **Next.js 16 App Router** with two routes:
 - `app/page.tsx` — Home page composing all sections
-- `app/work/[slug]/page.tsx` — Dynamic category pages (Brand Identity, UI/UX Design, Typography, Art Direction, Motion Design, Editorial)
+- `app/work/[slug]/page.tsx` — Dynamic category pages (Thai, English, Mathematics, Physics, Chemistry, Biology, Computer, Social Studies)
 
 **Rendering model:** `app/layout.tsx`, `app/page.tsx`, and `app/work/[slug]/page.tsx` are Server Components. All interactive components in `components/` are Client Components (`"use client"`). Below-the-fold sections are lazy-loaded via `next/dynamic` in `page.tsx` for code-splitting. Category pages use `generateStaticParams()` for static pre-rendering.
 

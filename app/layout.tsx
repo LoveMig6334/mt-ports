@@ -27,17 +27,17 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: "THATT — Designer & Art Director",
-    template: "%s — THATT",
+    default: "THATT BUNNAG — แฟ้มสะสมผลงาน",
+    template: "%s — THATT BUNNAG",
   },
   description:
-    "Portfolio of THATT — branding, UI/UX design, motion, typography, and art direction.",
+    "แฟ้มสะสมผลงานออนไลน์ของธรรศ บุนนาค (THATT BUNNAG) นักเรียนชั้น ม.4/1 แผนวิทยาศาสตร์-คณิตศาสตร์ โรงเรียนจิตรลดา",
   openGraph: {
-    title: "THATT — Designer & Art Director",
+    title: "THATT BUNNAG — แฟ้มสะสมผลงาน",
     description:
-      "Portfolio of THATT — branding, UI/UX design, motion, typography, and art direction.",
-    siteName: "THATT",
-    locale: "en_US",
+      "แฟ้มสะสมผลงานออนไลน์ของธรรศ บุนนาค (THATT BUNNAG) นักเรียนชั้น ม.4/1 แผนวิทยาศาสตร์-คณิตศาสตร์ โรงเรียนจิตรลดา",
+    siteName: "THATT BUNNAG",
+    locale: "th_TH",
     type: "website",
   },
 };

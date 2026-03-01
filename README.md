@@ -1,6 +1,6 @@
-# The Graphic & UI Designer Portfolio
+# THATT — แฟ้มสะสมผลงาน
 
-A bold, animation-rich portfolio website for a freelance graphic and UI designer. Built with Next.js, Framer Motion, and Tailwind CSS.
+An animation-rich student academic portfolio for Thatt (ธรรศ บุนนาค), ม.4/1 Science-Math at Chitralada School. Built with Next.js, Framer Motion, and Tailwind CSS.
 
 ## Tech Stack
 
@@ -92,10 +92,10 @@ public/
 ## Features
 
 - Dark theme with chartreuse accent color system
-- Staggered hero text reveal animations
+- Staggered hero text reveal animations (bilingual Thai/English)
 - Infinite scrolling marquee strips
 - Work gallery with hover overlays and fullscreen lightbox
-- Category-based work pages with dedicated navigation and lightbox
+- Subject-based work pages (Thai, English, Math, Physics, Chemistry, Biology, Computer, Social Studies)
 - Lightbox with keyboard navigation (Escape, Arrow keys) and wrap-around
 - Skills radar chart and ability percentage display
 - Certification carousel with lightbox viewing
