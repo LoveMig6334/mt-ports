@@ -91,7 +91,7 @@ function Portrait() {
             letterSpacing: "-0.03em",
           }}
         >
-          <div className="grid" style={{ overflow: "hidden" }}>
+          <div className="grid pb-[0.25em]" style={{ overflow: "hidden" }}>
             {/* Invisible placeholders to prevent width collapse and maintain consistent dimensions */}
             <span className="invisible whitespace-nowrap col-start-1 row-start-1">
               THATT
