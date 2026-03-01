@@ -21,6 +21,7 @@ export const projects: Project[] = [
       "/projects/ayc/2.png",
       "/projects/ayc/3.png",
     ],
+    aspectRatio: "16/9",
   },
   {
     id: "cd-voting",
@@ -40,6 +41,7 @@ export const projects: Project[] = [
       "/projects/cd-voting/8.png",
       "/projects/cd-voting/9.png",
     ],
+    aspectRatio: "16/10",
   },
   {
     id: "cedt-camp",
@@ -54,6 +56,7 @@ export const projects: Project[] = [
       "/projects/cedt-camp/3.jpg",
       "/projects/cedt-camp/4.jpg",
     ],
+    aspectRatio: "16/10",
   },
   {
     id: "comcamp",
@@ -73,6 +76,7 @@ export const projects: Project[] = [
       "/projects/comcamp/8.jpg",
       "/projects/comcamp/9.jpg",
     ],
+    aspectRatio: "16/9",
   },
   {
     id: "comcamp-2",
@@ -90,6 +94,7 @@ export const projects: Project[] = [
       "/projects/comcamp-2/6.jpg",
       "/projects/comcamp-2/7.jpg",
     ],
+    aspectRatio: "16/9",
   },
   {
     id: "jssf",
@@ -108,6 +113,7 @@ export const projects: Project[] = [
       "/projects/jssf/7.jpg",
       "/projects/jssf/8.jpg",
     ],
+    aspectRatio: "16/10",
   },
   {
     id: "sic",
@@ -124,6 +130,7 @@ export const projects: Project[] = [
       "/projects/sic/5.jpg",
       "/projects/sic/6.jpg",
     ],
+    aspectRatio: "16/10",
   },
   {
     id: "trash-to-coin",
@@ -143,5 +150,6 @@ export const projects: Project[] = [
       "/projects/trash-to-coin/8.jpg",
       "/projects/trash-to-coin/9.jpg",
     ],
+    aspectRatio: "16/10",
   },
 ];
