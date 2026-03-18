@@ -19,7 +19,10 @@ export default function CategoryNavbar({ categoryName }: CategoryNavbarProps) {
       </Link>
 
       <div className="flex items-center gap-10 max-[900px]:gap-6">
-        <span className="text-[0.72rem] uppercase tracking-[0.15em] text-fg/50 max-[600px]:hidden" style={{ fontFamily: "'CMU-Regular'" }}>
+        <span
+          className="text-[0.72rem] uppercase tracking-[0.15em] text-fg/50 max-[600px]:hidden"
+          style={{ fontFamily: "'CMU-Regular'" }}
+        >
           {categoryName}
         </span>
         <Link href="/#about">

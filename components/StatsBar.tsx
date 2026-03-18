@@ -66,9 +66,7 @@ function AnimatedNumber({
   }, [isInView, value, suffix, decimals]);
 
   const initial =
-    decimals && decimals > 0
-      ? (0).toFixed(decimals) + suffix
-      : "0" + suffix;
+    decimals && decimals > 0 ? (0).toFixed(decimals) + suffix : "0" + suffix;
 
   return <span ref={spanRef}>{initial}</span>;
 }
