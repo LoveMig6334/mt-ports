@@ -109,4 +109,10 @@ export const certifications: Certification[] = [
     description: "Certificate description",
     image: "/certificate/AI_DF_5.jpg",
   },
+  {
+    id: "cyber-1",
+    title: "Cybersecurity 1",
+    description: "Certificate description",
+    image: "/certificate/Cyber1.jpg",
+  },
 ];
